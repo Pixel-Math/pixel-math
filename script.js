@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".content-container");
+  const container = document.querySelector(".capitulos-container");
 
   Object.entries(capitulos).forEach(([capitulo, info]) => {
     // Criar elementos principais
