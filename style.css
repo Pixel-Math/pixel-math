@@ -135,44 +135,91 @@ header.visible {
 }
 
 .capitulo {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-neutral-15);
-  padding: 20px;
-  border-radius: 20px;
-  gap: 10px;
-  transition: transform 0.3s ease;
+  padding: 25px;
+  border-radius: 15px;
+  gap: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.capitulo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.capitulo:hover::before {
+  opacity: 1;
+}
+
+.capitulo h4 {
+  color: var(--color-neutral-40);
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.capitulo p {
+  font-size: 0.9rem;
+  color: var(--color-neutral-30);
+  line-height: 1.5;
 }
 
 .capitulo:hover {
-  transform: translateY(-5px);
+  transform: translateY(-7px);
   cursor: pointer;
+  background-color: var(--color-neutral-20);
 }
 
 .progress-bar {
-  background-color: var(--color-neutral-30);
-  height: 3px;
+  background-color: var(--color-neutral-20);
+  height: 5px;
   width: 100%;
   border-radius: 15px;
+  margin-top: auto;
 }
 
 .current-progress {
   --progress: 45%;
-  background-color: var(--color-secondary);
+  background: linear-gradient(90deg, var(--color-secondary), #ff9248);
   height: inherit;
   width: var(--progress);
   border-radius: inherit;
+  position: relative;
+  transition: width 0.6s ease-in-out;
+}
+
+.current-progress::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .capitulos-container {
   display: grid;
-  grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
-  grid-auto-flow: column;
-  justify-content: center;
-  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   max-width: 1200px;
   margin: 0 auto;
-  height: 20em;
-  gap: 8rem;
+  gap: 2rem;
 }
 
 .button {
@@ -312,9 +359,19 @@ footer {
   #Chamada h1 {
     font-size: 2rem;
   }
+
+  .capitulos-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 0 15px;
+  }
+  
+  .capitulo {
+    padding: 20px;
+  }
 }
 
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 480px) {
   #footer_content {
     grid-template-columns: repeat(1, 1fr);
     padding: 3rem 2rem;
@@ -336,5 +393,10 @@ footer {
   .etapa-card li,
   .text-content p {
     font-size: 1rem;
+  }
+
+  .capitulos-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
