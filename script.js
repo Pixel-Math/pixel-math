@@ -31,7 +31,6 @@ const capitulos = {
   },
 };
 
-// Função para adicionar animação de slide-in
 document.addEventListener("DOMContentLoaded", function () {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { threshold: 0.1 }
   );
 
-  document.querySelectorAll(".text-slide-in").forEach((el) => {
+  document.querySelectorAll(".slide-in, .fade-in").forEach((el) => {
     observer.observe(el);
   });
 
