@@ -1,17 +1,20 @@
 const capitulos = {
   "Capítulo 1": {
     titulo: "Noções sobre conjuntos no espaço euclidiano",
-    descricao: "Fundamentos de conjuntos no espaço euclidiano e suas propriedades topológicas.",
+    descricao:
+      "Fundamentos de conjuntos no espaço euclidiano e suas propriedades topológicas.",
     progresso: 0.5,
   },
   "Capítulo 2": {
     titulo: "Funções de várias variáveis",
-    descricao: "Estudo de funções com múltiplas variáveis e suas propriedades analíticas.",
+    descricao:
+      "Estudo de funções com múltiplas variáveis e suas propriedades analíticas.",
     progresso: 0.3,
   },
   "Capítulo 3": {
     titulo: "Limite e Continuidade",
-    descricao: "Análise do comportamento de funções próximo a pontos específicos e sua variação contínua.",
+    descricao:
+      "Análise do comportamento de funções próximo a pontos específicos e sua variação contínua.",
     progresso: 0.7,
   },
   "Capítulo 4": {
@@ -41,7 +44,8 @@ const capitulos = {
   },
   "Capítulo 9": {
     titulo: "Máximos e Mínimos",
-    descricao: "Técnicas para identificar pontos extremos de funções multivariáveis.",
+    descricao:
+      "Técnicas para identificar pontos extremos de funções multivariáveis.",
     progresso: 0.6,
   },
 };

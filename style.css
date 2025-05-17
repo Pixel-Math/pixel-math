@@ -150,13 +150,17 @@ header.visible {
 }
 
 .capitulo::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-secondary)
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -192,7 +196,7 @@ header.visible {
 }
 
 .current-progress {
-  --progress: 45%;
+  --progress: 0%;
   background: linear-gradient(90deg, var(--color-secondary), #ff9248);
   height: inherit;
   width: var(--progress);
@@ -202,7 +206,7 @@ header.visible {
 }
 
 .current-progress::after {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -308,6 +312,7 @@ footer {
 .fade-in.visible {
   animation: fade-in 0.8s ease forwards;
 }
+
 @keyframes fade-in {
   from {
     scale: 0.8;
@@ -323,41 +328,11 @@ footer {
   .section-title {
     font-size: 2rem;
   }
-
-  #Chamada h1 {
-    font-size: 2.5rem;
-  }
-
-  #Chamada p {
-    font-size: 1.2rem;
-  }
-
-  .project-image {
-    margin-bottom: 40px;
-  }
-
-  .text-content {
-    text-align: center;
-  }
 }
 
 @media screen and (max-width: 768px) {
-  #footer_content {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
   .section {
     padding: 60px 15px;
-  }
-
-  .etapa-card,
-  .resultado-card {
-    padding: 20px;
-  }
-
-  #Chamada h1 {
-    font-size: 2rem;
   }
 
   .capitulos-container {
@@ -365,9 +340,13 @@ footer {
     gap: 1.5rem;
     padding: 0 15px;
   }
-  
+
   .capitulo {
     padding: 20px;
+  }
+
+  .navbar-text {
+    font-size: 1.5rem;
   }
 }
 
@@ -379,20 +358,6 @@ footer {
 
   .section-title {
     font-size: 1.7rem;
-  }
-
-  #Chamada h1 {
-    font-size: 1.8rem;
-  }
-
-  .etapa-card h3,
-  .resultado-card h3 {
-    font-size: 1.2rem;
-  }
-
-  .etapa-card li,
-  .text-content p {
-    font-size: 1rem;
   }
 
   .capitulos-container {
