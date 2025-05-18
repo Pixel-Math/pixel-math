@@ -365,3 +365,73 @@ footer {
     gap: 1rem;
   }
 }
+
+/* Estilos para a seção de download */
+.download-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.download-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-neutral-15);
+  padding: 30px;
+  border-radius: 15px;
+  gap: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.download-card:hover {
+  transform: translateY(-5px);
+  background-color: var(--color-neutral-20);
+}
+
+.download-icon {
+  font-size: 3rem;
+  color: var(--color-secondary);
+  padding: 15px;
+}
+
+.download-info {
+  flex-grow: 1;
+}
+
+.download-info h3 {
+  color: var(--color-neutral-40);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.download-info p {
+  color: var(--color-neutral-30);
+  font-size: 1rem;
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .download-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .download-icon {
+    font-size: 2.5rem;
+    padding: 10px;
+  }
+  
+  .download-info h3 {
+    font-size: 1.2rem;
+  }
+}
