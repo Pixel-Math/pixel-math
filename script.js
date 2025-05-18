@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".capitulos-container");
 
   Object.entries(capitulos).forEach(([capitulo, info]) => {
-    // Criar elementos principais
     const capDiv = document.createElement("div");
     capDiv.classList.add("capitulo");
 
@@ -111,51 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     progressBar.appendChild(current);
 
-    // Montar capítulo
+    // Monta capítulo
     capDiv.appendChild(header);
     capDiv.appendChild(h4);
     capDiv.appendChild(descP);
     capDiv.appendChild(progressBar);
 
-    // Adicionar ao container
+    // Adiciona ao container
     container.appendChild(capDiv);
   });
-});
-
-$(function () {
-  const feature = $(".feature");
-  const initialBackgroundSize = 250; // Valor inicial do background-size em porcentagem
-  const blurFactor = 100; // Fator de ajuste para o blur
-  const opacityFactor = 1.3; // Fator de ajuste para a opacidade
-
-  $(window).on("scroll", function () {
-    const fromTop = $(window).scrollTop();
-    const newSize = initialBackgroundSize - fromTop / 3;
-
-    if (newSize > 100) {
-      // Garante que o tamanho não fique menor que 100%
-      feature.css({
-        "background-size": `${newSize}%`,
-        filter: `blur(${fromTop / blurFactor}px)`,
-        opacity: 1 - (fromTop / $(document).height()) * opacityFactor,
-      });
-    }
-  });
-});
-
-$(function () {
-  var isChrome =
-    /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-  var isSafari =
-    /Safari/.test(navigator.userAgent) &&
-    /Apple Computer/.test(navigator.vendor);
-
-  if (isChrome || isSafari) {
-  } else {
-    $(".feature").append('<div class="opaque"></div>');
-    $(window).on("scroll", function () {
-      var opacity = 0 + $(window).scrollTop() / 5000;
-      $(".opaque").css("opacity", opacity);
-    });
-  }
 });
