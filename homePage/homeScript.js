@@ -118,5 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Adiciona ao container
     container.appendChild(capDiv);
+
+    // Redireciona ao clicar
+    capDiv.addEventListener("click", () => {
+      window.location.href = "../chapterPage/chapterIndex.html";
+    });
   });
 });
