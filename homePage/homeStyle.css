@@ -30,7 +30,7 @@ body {
   background: linear-gradient(
     to bottom,
     var(--color-neutral-0),
-    var(--color-neutral-40)
+    var(--color-neutral-10)
   );
 }
 
