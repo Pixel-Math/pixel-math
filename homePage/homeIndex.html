@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cálculo Digital 2: Do papel ao pixel</title>
+    <link rel="stylesheet" href="../generalUI/style.css" />
     <link rel="stylesheet" href="./homeStyle.css" />
     <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -15,10 +16,10 @@
   <body>
     <header>
       <nav class="navbar">
-          <span class="navbar-text">Cálculo Digital</span>
+          <h1 class="navbar-text">Cálculo Digital</h1>
           <div class="nav-menu">
             <a href="#Home" class="nav-link">Home</a>
-            <a href="#Capitulos" class="nav-link">Capítulos</a>
+            <a href="#Chapter" class="nav-link">Capítulos</a>
             <a href="#Downloads" class="nav-link">Downloads</a>
           </div>
       </nav>
@@ -26,20 +27,19 @@
 
     <section id="Home" class="section">
       <div class="home-content fade-in">
-          <h1 class="title">Cálculo Digital 2: Do papel ao pixel</h1>
-          <p class="subtitle">
+          <h1>Cálculo Digital 2: Do papel ao pixel</h1>
+          <h2 class="subtitle">
             Transformando um livro de Cálculo 2 em formato LaTeX para um eBook
             digital navegável
-          </p>
-          <a href="#Capitulos" class="button">Ler mais</a>
+          </h2>
+          <button href="#Chapter">Ler mais</button>
       </div>
     </section>
 
 
-    <section id="Capitulos" class="section">
+    <section id="Chapter" class="section">
       <h2 class="section-title slide-in">Capítulos <i class="bi bi-book"></i></h2>
-      <div class="capitulos-container slide-in"></div>
-
+      <div class="chapters-container slide-in"></div>
       <div class="lines">
         <div class="line"></div>
         <div class="line"></div>
@@ -52,7 +52,6 @@
         <div class="line"></div>
         <div class="line"></div>
       </div>
-      
     </section>
 
     <section id="Downloads" class="section">
@@ -70,9 +69,9 @@
               <span><i class="bi bi-eye"></i> Alta fidelidade</span>
             </div>
           </div>
-          <a href="../files/Calculo II - Notas de Aula.pdf" download class="button download-button">
+          <button href="../files/Calculo II - Notas de Aula.pdf" download class="download-button">
             <i class="bi bi-download"></i> Baixar PDF
-          </a>
+          </button>
         </div>
         
         <div class="download-card fade-in">
@@ -87,13 +86,12 @@
               <span><i class="bi bi-phone"></i> Responsivo</span>
             </div>
           </div>
-          <a href="../files/Calculo_Digital_ Documentacao.pdf" download class="button download-button">
+          <button href="../files/calculo2.pdf" download class="download-button">
             <i class="bi bi-download"></i> Baixar EPUB
-          </a>
+          </button>
         </div>
       </div>
     </section>
-
 
     <footer>
         <div class="footer-container">
@@ -102,7 +100,7 @@
                 <h3>Menu</h3>
             </li>
             <li><a href="#Home" class="footer-link">Home</a></li>
-            <li><a href="#Capitulos" class="footer-link">Capítulos</a></li>
+            <li><a href="#Chapter" class="footer-link">Capítulos</a></li>
             <li><a href="#Downloads" class="footer-link">Downloads</a></li>
             </ul>
 
@@ -112,7 +110,7 @@
             </li>
             <li><a href="https://dlmf.nist.gov/LaTeXML/" class="footer-link">LaTeXML</a></li>
             <li><a href="https://calibre-ebook.com/" class="footer-link">Calibre</a></li>
-            <li><a href="../files/Calculo_Digital_Documentacao.pdf" download class="footer-link">Documentação</a></li>
+            <li><a href="../files/calculo_digital_doc.pdf" download class="footer-link">Documentação</a></li>
             </ul>
         </div>
 

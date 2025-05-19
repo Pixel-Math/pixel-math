@@ -1,4 +1,4 @@
-const capitulos = {
+const chapters = {
   "Capítulo 1": {
     titulo: "Noções sobre conjuntos no espaço euclidiano",
     descricao:
@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".capitulos-container");
+  const container = document.querySelector(".chapters-container");
 
-  Object.entries(capitulos).forEach(([capitulo, info]) => {
+  Object.entries(chapters).forEach(([chapter, info]) => {
     const capDiv = document.createElement("div");
-    capDiv.classList.add("capitulo");
+    capDiv.classList.add("chapter");
 
     const header = document.createElement("div");
     header.style.display = "flex";
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     header.style.color = "#ff7518";
 
     const titleP = document.createElement("p");
-    titleP.textContent = capitulo;
+    titleP.textContent = chapter;
     const icon = document.createElement("i");
     icon.classList.add("bi", "bi-chevron-right");
 
@@ -110,16 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     progressBar.appendChild(current);
 
-    // Monta capítulo
     capDiv.appendChild(header);
     capDiv.appendChild(h4);
     capDiv.appendChild(descP);
     capDiv.appendChild(progressBar);
 
-    // Adiciona ao container
     container.appendChild(capDiv);
 
-    // Redireciona ao clicar
     capDiv.addEventListener("click", () => {
       window.location.href = "../chapterPage/chapterIndex.html";
     });
