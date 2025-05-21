@@ -78,6 +78,7 @@ header.visible {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  width: fit-content;
 }
 
 .nav-link:hover {
@@ -115,7 +116,8 @@ header.visible {
   font-size: 2.5rem;
 }
 
-button {
+button,
+.button {
   display: inline-block;
   background-color: var(--color-secondary);
   color: #fff;
@@ -127,11 +129,12 @@ button {
   font-size: 1.1rem;
   font-weight: bold;
   transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
 }
 
-button:hover {
+button,
+.button:hover {
   background-color: #ff8c3a;
-  color: #fff;
   transform: scale(1.05);
   filter: brightness(1.1);
 }
@@ -226,7 +229,6 @@ footer {
 
 .fade-in {
   opacity: 0;
-  transform: scale(0.8);
 }
 
 .fade-in.visible {
