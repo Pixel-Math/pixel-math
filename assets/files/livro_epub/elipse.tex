@@ -1,0 +1,35 @@
+\[E=\left\{(x,y)\in\R^2;~ \frac{{(x-h)^2}}{{a^2}} + \frac{{(y-k)^2}}{{b^2}} \leq 1\right\},\]
+é um conjunto\textit{delimitado} pela elipse de centro em \((h, k)\) e  comprimento dos eixos da elipse paralelos aos eixos \(x\) e \(y\) são \(a\) e \(b\), respectivamente. 
+Tal conjunto não é um conjunto aberto, pois se tomamos um ponto sobre a elipse, nenhuma bola centrada nele fica totalmente contida em $E$, como mostra a Figura
+\begin{figure}[H]
+    \centering
+\begin{tikzpicture}[scale=0.75]
+  % Define o centro e os semi-eixos
+  \def\centerX{2}
+  \def\centerY{1}
+  \def\a{3}
+  \def\b{2}
+
+  % Desenha a elipse
+  \draw[dashed,green, fill=green!10] (\centerX, \centerY) ellipse (\a cm and \b cm);
+
+  % Marcas os eixos x e y
+  \draw[->] (-2,0) -- (7,0) node[right] {$x$};
+  \draw[->] (0,-2) -- (0,4) node[above] {$y$};
+
+  \draw[blue!140] (\centerX,\centerY) -- (\centerX+\a,\centerY) node[midway, above] {$a$};
+
+  \draw[blue!140] (\centerX,\centerY) -- (\centerX,\centerY+\b) node[midway, right] {$b$};
+
+
+  % Marca o centro da elipse
+  \filldraw[red!140] (\centerX, \centerY) circle (2pt) node[below left] {$(h, k)$};
+\end{tikzpicture}
+    \caption{Conjunto delimitado por uma elipse}
+    \label{fig:2-elipse}
+  \end{figure}
+
+
+
+
+%%%

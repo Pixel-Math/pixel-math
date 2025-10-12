@@ -1,0 +1,504 @@
+
+%\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage[twoside, paperwidth=160mm, paperheight=230mm, left=19.577mm, right=18.553mm, top=24.021mm, bottom=24.021mm, headsep=12mm]{geometry}
+
+\usepackage{indentfirst}
+
+
+\usepackage{xcolor}
+
+
+\definecolor{definitioncolor}{RGB}{83, 211, 196} % 53d3c4ff
+\definecolor{examplescolor}{RGB}{166, 216, 131} % a6d883ff
+\definecolor{resultscolor}{RGB}{255, 217, 120} % ffd978ff
+%\definecolor{???}{RGB}{192, 143, 234} % c08feaff violeta
+\definecolor{remarkcolor}{RGB}{255, 121, 118} % ff7976ff
+\definecolor{chapterscolor}{RGB}{249, 119, 44}
+
+\colorlet{blue}{definitioncolor}
+\colorlet{red}{remarkcolor}
+\colorlet{green}{examplescolor}
+\colorlet{orange}{chapterscolor}
+\colorlet{yellow}{resultscolor}
+
+% caixas coloridas coloridos
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{breakable} % para que as caixas coloridas quebream
+\tcbuselibrary{theorems}
+
+% definição
+\newtcbtheorem
+  [number within=chapter]% init options
+  {definition}% name
+  {Definição}% title
+  {enhanced jigsaw, 
+    colback=definitioncolor!10,
+    colframe=definitioncolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,coltitle=definitioncolor!150,
+    separator sign={},
+    label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,
+    after title={.\par\vspace{5pt}},
+    frame hidden,
+    borderline west={1.5pt}{0pt}{definitioncolor},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,
+    breakable
+  }% options
+  {def}% prefix
+
+
+
+% exemplos
+\newtcbtheorem
+  [number within=chapter]% init options
+  {example}% name
+  {Exemplo}% title
+  {enhanced jigsaw, %
+    %colback=examplescolor!10,
+    colback=white,
+    colframe=examplescolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=examplescolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{examplescolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {exem}% prefix
+
+  \newtcbtheorem
+  [use counter from=example]% init options
+  {examples}% name
+  {Exemplos}% title
+  {enhanced jigsaw, %
+    %colback=examplescolor!10,
+    colback=white,
+    colframe=examplescolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=examplescolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{examplescolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {exems}% prefix
+
+%exercícios
+\newtcbtheorem
+  [number within=chapter]% init options
+  {exercise}% name
+  {Exercício}% title
+  {enhanced jigsaw, %
+    %colback=examplescolor!10,
+    colback=white,
+    colframe=examplescolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=examplescolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{examplescolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {exer}% prefix
+
+
+
+% resultados
+\newtcbtheorem
+  [use counter from=definition]% init options
+  {theorem}% name
+  {Teorema}% title
+  {enhanced jigsaw, %
+    colback=resultscolor!10,
+    colframe=resultscolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=resultscolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{resultscolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {thm}% prefix
+
+  \newtcbtheorem
+  [use counter from=definition]% init options
+  {corollary}% name
+  {Corolário}% title
+  {enhanced jigsaw, %
+    colback=resultscolor!10,
+    colframe=resultscolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=resultscolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{resultscolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {cor}% prefix
+
+\newtcbtheorem
+  [use counter from=definition]% init options
+  {lemma}% name
+  {Lema}% title
+  {enhanced jigsaw, %
+    colback=resultscolor!10,
+    colframe=resultscolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=resultscolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{resultscolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {lemma}% prefix
+
+\newtcbtheorem
+  [use counter from=definition]% init options
+  {proposition}% name
+  {Proposition}% title
+  {enhanced jigsaw, %
+    colback=resultscolor!10,
+    colframe=resultscolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=resultscolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{resultscolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {prop}% prefix
+
+  \newtcbtheorem
+  [use counter from=definition]% init options
+  {properties}% name
+  {Propriedades}% title
+  {enhanced jigsaw, %
+    colback=resultscolor!10,
+    colframe=resultscolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=resultscolor!150,
+    separator sign={},label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{resultscolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,after skip=10pt,breakable
+  }% options
+  {propri}% prefix
+
+
+\newtcbtheorem
+  [use counter from=definition]% init options
+  {remark}% name
+  {Observação}% title
+  {enhanced jigsaw, %
+    colback=remarkcolor!10,
+    colframe=remarkcolor!150,
+    boxrule=0pt,
+    fonttitle=\normalfont\bfseries,
+    coltitle=remarkcolor!150,
+    separator sign={},
+    label separator={},
+    description font=\normalfont\bfseries,
+    description delimiters={\bfseries(}{\bfseries)},
+    attach title to upper,after title={.\par\vspace{5pt}},
+    frame hidden,borderline west={1.5pt}{0pt}{remarkcolor!150},
+    sharp corners,top=2pt,bottom=2pt,left=5pt,right=5pt,
+    before skip=10pt,
+    after skip=10pt,
+    breakable
+  }% options
+  {obs}% prefix
+
+
+
+
+\usepackage{amsthm}
+
+
+\renewenvironment{proof}
+{%
+%  \par\noindent\normalfont\bfseries%
+  \tcolorbox[%
+    enhanced jigsaw,%
+    colback=white,%
+    colframe=resultscolor!150,%
+    boxrule=0pt,%
+    title=Prova,
+    fonttitle=\bfseries,%
+    coltitle=resultscolor!150,%
+    separator sign={},%
+    label separator={},%
+    description font=\bfseries,%
+    description delimiters={\bfseries(}{\bfseries)},%
+    attach title to upper,%
+    after title={.\par\vspace{5pt}},%
+    frame hidden,%
+    borderline west={1.5pt}{0pt}{resultscolor!150},%
+    sharp corners,%
+    top=2pt,%
+    bottom=2pt,%
+    left=5pt,%
+    right=5pt,%
+    before skip=10pt,%
+    after skip=10pt,%
+    breakable%
+  ]%
+}
+{\textcolor{resultscolor!150}{\qed}\endtcolorbox}
+
+
+\makeatletter
+\def\@makechapterhead#1{
+\thispagestyle{empty}
+    \begin{tcolorbox}[
+        enhanced jigsaw,
+        colback=chapterscolor!10,
+        colframe=chapterscolor,
+        boxrule=0pt,
+        frame hidden,
+        borderline east={1.5pt}{0pt}{chapterscolor},
+        borderline south={1.5pt}{0pt}{chapterscolor},
+        sharp corners,
+        top=2pt,
+        bottom=2pt,
+        left=5pt,
+        right=5pt,
+        before skip=10pt,
+        after skip=10pt,
+        breakable
+    ]{
+\begin{flushright}
+\par\bigskip
+
+
+\textcolor{chapterscolor}{\Huge\bfseries Cálculo II~\textbullet~Notas de Aula}\bigskip
+
+
+
+\textcolor{chapterscolor}{\Large\bfseries  FGV - EPGE 2023}\bigskip
+
+\textcolor{chapterscolor}{\Large\bfseries Professora: Yunelsy N Alvarez}\bigskip
+%\textcolor{chapterscolor}{\LARGE #1}\par\bigskip
+\end{flushright}
+}
+\end{tcolorbox}
+\vspace{.1cm}
+\begin{flushright}
+\textcolor{chapterscolor}{\huge\bfseries  Semana~\thechapter}\bigskip
+
+\textcolor{chapterscolor}{\LARGE\bfseries  #1} %\vspace{1cm}
+%\textcolor{chapterscolor}{\resizebox{\linewidth}{!}{\bfseries  #1}} 
+
+%\vspace{1cm}
+\end{flushright}
+\vspace{.25cm}
+}
+\makeatother
+
+\newcommand{\resumo}[2]{%
+    \begin{tcolorbox}[
+        enhanced jigsaw,
+        colback=chapterscolor!10,
+        colframe=chapterscolor,
+        boxrule=0pt,
+        frame hidden,
+        borderline east={1.5pt}{0pt}{chapterscolor},
+        borderline north={1.5pt}{0pt}{chapterscolor},
+        sharp corners,
+        top=2pt,
+        bottom=2pt,
+        left=5pt,
+        right=5pt,
+        before skip=20pt,
+        after skip=10pt,
+        breakable
+    ]
+{\smallskip 
+\raggedleft \large \bfseries \textcolor{chapterscolor}{Objetivos da aula}\par\smallskip}
+    
+{#2}\par\smallskip
+    \end{tcolorbox}%
+
+
+\newpage 
+}
+
+
+%*******************************************************************************************
+%**************************************  CABEÇALHOS  ***************************************
+%*******************************************************************************************
+
+\usepackage{amsmath}
+% Establecer el estilo de encabezado
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% Redefine \leftmark
+\renewcommand{\chaptermark}[1]{\markboth{Semana~\thechapter.~#1}{}} % Modify the chapter mark
+\fancyhf{} % Limpiar todos los encabezados y pies de página predefinidos
+\renewcommand{\headrule}{}
+% Personalizar el encabezado
+\fancyhead[LE]{
+    \begin{tcolorbox}[
+        enhanced jigsaw,
+        colback=chapterscolor!0,
+        colframe=chapterscolor,
+        boxrule=0pt,
+        frame hidden,
+        borderline west={1.5pt}{0pt}{chapterscolor},
+        borderline south={1.5pt}{0pt}{chapterscolor},
+        sharp corners,
+        top=2pt,
+        bottom=2pt,
+        left=5pt,
+        right=5pt,
+        before skip=0pt,
+        after skip=0pt,
+%        breakable
+    ]{
+\bfseries \footnotesize \textcolor{chapterscolor}{C\'alculo II $|$ FGV - EPGE $|$ 2023 $|$ Profa: Y. N. Alvarez}
+}
+\end{tcolorbox}
+}
+
+\fancyhead[LO]{
+    \begin{tcolorbox}[
+        enhanced jigsaw,
+        colback=chapterscolor!0,
+        colframe=chapterscolor,
+        boxrule=0pt,
+        frame hidden,
+        borderline east={1.5pt}{0pt}{chapterscolor},
+        borderline south={1.5pt}{0pt}{chapterscolor},
+        sharp corners,
+        top=2pt,
+        bottom=2pt,
+        left=5pt,
+        right=5pt,
+        before skip=0pt,
+        after skip=0pt,
+%        breakable
+    ]{
+\hfill \footnotesize \bfseries \textcolor{chapterscolor}{\leftmark}
+}
+\end{tcolorbox}
+}
+
+\fancyfoot[RE]{
+    \begin{tcolorbox}[
+        enhanced jigsaw,
+        colback=chapterscolor!0,
+        colframe=chapterscolor,
+        boxrule=0pt,
+        frame hidden,
+        borderline west={1.5pt}{0pt}{chapterscolor},
+        borderline north={1.5pt}{0pt}{chapterscolor},
+        sharp corners,
+        top=2pt,
+        bottom=2pt,
+        left=5pt,
+        right=5pt,
+        before skip=0pt,
+        after skip=0pt,
+%        breakable
+    ]{
+\bfseries \footnotesize \textcolor{chapterscolor}{\thepage}
+}
+\end{tcolorbox}
+}
+
+\fancyfoot[LO]{
+    \begin{tcolorbox}[
+        enhanced jigsaw,
+        colback=chapterscolor!0,
+        colframe=chapterscolor,
+        boxrule=0pt,
+        frame hidden,
+        borderline east={1.5pt}{0pt}{chapterscolor},
+        borderline north={1.5pt}{0pt}{chapterscolor},
+        sharp corners,
+        top=2pt,
+        bottom=2pt,
+        left=5pt,
+        right=5pt,
+        before skip=0pt,
+        after skip=0pt,
+%        breakable
+    ]{
+\hfill \footnotesize \bfseries \textcolor{chapterscolor}{\thepage}
+}
+\end{tcolorbox}
+}
+
+
+%redefinir a cor da linha do footnote
+\usepackage[bottom]{footmisc}
+\renewcommand{\footnoterule}{\vspace*{-3pt}\noindent\textcolor{chapterscolor}{\rule{2in}{.5pt}\vspace*{3pt}}}
+%redefinir a cor do número do footnote
+\makeatletter
+\renewcommand\@makefntext[1]{%
+  \noindent\makebox[1.8em][r]{\textsuperscript{\textcolor{chapterscolor}{\@thefnmark}}}%
+  \footnotesize #1%
+}
+\makeatother
+
+
+
+
+% interlinhado 
+\usepackage{setspace}
+\setstretch{1.25}
+
+\newcommand{\dica}{\par \myrule{green}
+\textcolor{green!150}{\textbf{Dica:}} 
+\par}
+
+\newcommand{\solution}{\par \myrule{green}
+\textcolor{green!150}{\textbf{Solução:}} 
+\par}
+
+
+
+
+\usepackage{enumitem}
+%\setlist[itemize]{label=\color{chapterscolor!140}\textbullet}
+
+
+
+\usepackage{caption}
+\captionsetup{font=small}
+

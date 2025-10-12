@@ -1,0 +1,339 @@
+\setcounter{chapter}{3}
+
+\chapter{Derivadas parciais}
+
+\resumo{titulo}{
+\begin{itemize}[label=\color{chapterscolor}\textbullet]
+    \item Entender o significado e a interpretação geométrica das derivadas parciais de funções de várias variáveis em relação a cada uma das variáveis independentes.
+
+\item Os alunos devem ser capazes de calcular as derivadas parciais de funções de várias variáveis utilizando regras de diferenciação, como regra do produto, regra da cadeia e derivadas de funções elementares.
+\end{itemize}
+}
+
+
+Vamos começar por lembrar a famosa lei da demanda. Basicamente essa lei nos diz que a quantidade demandada ($D$) de um bem diminui varia inversamente à medida que seu preço $p$ aumenta. Na linguagem matemática: a derivada da função de demanda em relação ao preço é negativa, ou seja, $D'(p)<0$. 
+
+No entanto, em geral, a demanda por um produto não depende apenas do preço. 
+Como vimos antes, a demanda por um bem ou serviço pode ser influenciada por diversos outros fatores, como a renda dos consumidores (\(R\)), os preços de bens substitutos (\(P_s\)) ou complementares (\(P_c\)) (entre outros). Considerando todos esses fatores, a função de demanda se torna mais complexa, refletindo a interdependência entre várias variáveis: \(D(p, R, P_s, P_c)\). 
+
+Surge, então, uma pergunta crucial: como medir a sensibilidade da demanda a variações no preço? Em outras palavras, como podemos entender a taxa de variação da demanda quando o preço de um bem ou serviço muda? 
+
+Neste momento podemos pensar que se consideramos $R$, $P_s$ e $P_c$ como sendo as constantes $r$, $p_s$ e $p_c$\footnote{Tais constantes devem ser escolhidas de modo que o ponto $(p,r,p_s,p_c)$ esteja dentro do domínio da função $D$.}, respectivamente, temos agora uma função que depende apenas do preço, e podemos derivar com respeito ao preço $p$. 
+
+No entanto, ao considerar que essa função incorpora os outros fatores, percebermos que podemos e desejamos entender como a função muda em relação a cada um deles independentemente, entendemos que não podemos mais empregar a mesma notação familiar da Cálculo I, como \(D'\), uma vez que nesse contexto não ficaria claro em relação a qual dos fatores essa variação específica está relacionada. 
+
+Surge então o conceito de derivada parcial. 
+\begin{definition}{Derivada parcial}{def:der_parcial}
+A \textit{derivada parcial}\index{derivada!parcial} de uma função \( f:D\subset\R^n\to\R \) em relação à variável \( x_i~(1\leq i \leq n) \) no ponto $\Point{x}=(x_1,x_2,\dots,x_n)\in D$ é denotada por \( \frac{\partial f}{\partial x_i} (\Point{x})\) e é definida como:
+\[ \frac{\partial f}{\partial x_i} (\Point{x}) = \lim_{{h \to 0}} \frac{f(x_1,\dots,x_i + h,\dots x_n) - f(x_1,\dots,x_i,\dots x_n)}{h},\]
+sempre que tal limite exista e for finito. 
+\end{definition}
+
+De forma intuitiva, o conceito de derivada parcial é uma extensão do conceito de derivada que considera uma função de várias variáveis. Enquanto a derivada de uma função de uma variável mede a taxa de variação instantânea ao longo de uma direção específica, a derivada parcial mede a taxa de variação instantânea de uma função em relação a uma variável específica, mantendo as outras variáveis constantes. 
+
+Para exemplificar o conceito consideremos o caso de uma função de duas variáveis: $f:D\subset\R^2\to\R$. Se fixamos $y=k\in\R$, e consideramos os pontos $(x,k)\in D$, obtemos a curva
+$$C=\{(x,k,f(x,k));~(x,k)\in D\}\subset \Gr(f),$$
+que não é mais do que a interseção da superfície $\Gr(f)$ com o plano de equação $y=k$, ou seja, tal curva é uma curva plana paralela ao plano $xz$. Mais ainda, considerando a função $f_k(x)=f(x,k)$, vemos que $f_k'(x)=\frac{\partial f}{\partial x}(x,k)$. Concluímos, portanto, que  $\frac{\partial f}{\partial x}(h,k)$ é a inclinação da reta tangente à curva $C$ (vista como curva no plano de equação $y=k$) no ponto $(h,k)$. 
+
+
+
+Analogamente, $\frac{\partial f}{\partial y}(h,k)$ é a inclinação da reta tangente à curva plana 
+$$C=\{(h,y,f(h,y));~(h,y)\in D\}\subset \Gr(f),$$
+(vista como curva no plano de equação $x=h$) no ponto $(h,k)$. 
+
+\begin{example}{}{}
+Consideremos a função $f(x,y)=\sqrt{1-x^2-y^2}$. Calculemos 
+$$\frac{\partial f}{\partial x}\left(\frac{1}{2},-\frac{1}{2}\right)\quad \mbox{e}\quad \frac{\partial f}{\partial y}\left(\frac{1}{2},-\frac{1}{2}\right).$$ 
+Primeiro, calculamos as funções 
+$$\frac{\partial f}{\partial x}\left(x,y\right)\quad \mbox{e}\quad \frac{\partial f}{\partial y}\left(x,y\right).$$ 
+Temos:
+\begin{align*}
+    \dfrac{\partial f}{\partial x}(x,y)&=\lim_{t\rightarrow 0}\dfrac{f(x+t,y)-f(x,y)}{t}.
+%    &=\lim_{t\rightarrow 0}\dfrac{\sqrt{1-(x+h)^2-y^2}-\sqrt{1-x^2-y^2}}{t}.
+\end{align*}
+Como esse limite está indeterminado, podemos fazer transformações do argumento para tentarmos ``desfazer'' a indeterminação que, obviamente, depende de cada função. Para esta função faremos o seguinte desenvolvimento algébrico:
+\begin{align*}
+    &\frac{\partial f}{\partial x}(x,y)\\[.5em]
+    =&\dfrac{\sqrt{1-(x+t)^2-y^2}-\sqrt{1-x^2-y^2}}{t}\\[.5em]
+    =&\dfrac{\sqrt{1-(x+t)^2-y^2}-\sqrt{1-x^2-y^2}}{t}\cdot \dfrac{\sqrt{1-(x+t)^2-y^2}+\sqrt{1-x^2-y^2}}{\sqrt{1-(x+t)^2-y^2}+\sqrt{1-x^2-y^2}}\\
+    =&\dfrac{-(2x+t)}{\sqrt{1-(x+t)^2-y^2}+\sqrt{1-x^2-y^2}}.
+\end{align*}
+Passando ao limite quando $t$ tende a zero obtemos
+$$\dfrac{\partial f}{\partial x}(x,y)=-\dfrac{x}{\sqrt{1-x^2-y^2}}.$$
+Analogamente,
+$$\dfrac{\partial f}{\partial y}(x,y)=-\dfrac{y}{\sqrt{1-x^2-y^2}}.$$
+
+Agora avaliamos essas duas funções no ponto desejado: 
+$$\frac{\partial f}{\partial x}\left(\frac{1}{2},-\frac{1}{2}\right)=-\dfrac{\frac{1}{2}}{\sqrt{1-\left(\frac{1}{2}\right)^2-\left(-\frac{1}{2}\right)^2}}=-\dfrac{\sqrt{2}}{2}$$
+e
+$$\frac{\partial f}{\partial y}\left(\frac{1}{2},-\frac{1}{2}\right)=-\dfrac{-\frac{1}{2}}{\sqrt{1-\left(\frac{1}{2}\right)^2-\left(-\frac{1}{2}\right)^2}}=\dfrac{\sqrt{2}}{2}.$$
+
+Na figura a seguir representamos o gráfico de $f$ (semiesfera superior), as curvas de intersecção entre o gráfico e os planos de equação $y=-\frac{1}{2}$ e $x=\frac{1}{2}$, respectivamente, ou seja, as curvas
+$$\{x,-1/2,\sqrt{3/4-x^2});~-\sqrt{3}/2\leq x\leq  \sqrt{3}/2\}$$
+e
+$$\{1/2,y,\sqrt{3/4-y^2});~-\sqrt{3}/2\leq y\leq  \sqrt{3}/2\},$$
+e também as retas tangentes cuja inclinação nos planos $xz$ e $yz$ são, respectivamente, 
+$$\frac{\partial f}{\partial x}\left(\frac{1}{2},-\frac{1}{2}\right)$$
+e
+$$\frac{\partial f}{\partial y}\left(\frac{1}{2},-\frac{1}{2}\right).$$
+\begin{figure}[H]
+    \centering
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+
+
+
+\begin{tikzpicture}[tdplot_main_coords,scale=1.5]
+%parte de trás do círculo vermelho
+\draw[red!140,very thick] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({-\t},{-0.5},{sqrt(3/4-\t^2)});
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (1.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,1.5,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+	%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({\t},0,{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+
+  
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,1.75) node [above] {$z$};	
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({\t},{-0.5},{sqrt(3/4-\t^2)});
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2+\t},{-1/2},{sqrt(2)/2-\t*sqrt(2)/2});
+
+%\draw[yellow!140,very thick,opacity=0.5] plot[domain=-sqrt(3)/2:sqrt(3)/2,smooth,variable=\t] ({0.5},{\t},{sqrt(3/4-(\t)^2)});
+
+%\draw[yellow!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2},{-1/2-\t},{sqrt(2)/2-\t*sqrt(2)/2});
+
+\filldraw[red!150] (0.5,-0.5,{sqrt(1-2*(0.5)^2)}) circle (1pt) node[left]{\footnotesize$\left(\frac{1}{2},-\frac{1}{2}\right)$};
+
+%\node[above right] at (-1,0.5,0.75) {$x_3 = x_1^2 + x_2^2$};
+  
+	\end{tikzpicture}
+\hfill
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, 
+\begin{tikzpicture}[tdplot_main_coords,scale=1.5]
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (1.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,1.5,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+	%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({\t},0,{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+
+  
+  
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,1.75) node [above] {$z$};	
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+
+%\draw[orange,very thick,opacity=0.5] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({\t},{-0.5},{sqrt(3/4-\t^2)});
+
+%\draw[orange,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2+\t},{-1/2},{sqrt(2)/2-\t*sqrt(2)/2});
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=-sqrt(3)/2:sqrt(3)/2,smooth,variable=\t] ({0.5},{\t},{sqrt(3/4-(\t)^2)});
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2},{-1/2-\t},{sqrt(2)/2-\t*sqrt(2)/2});
+
+\filldraw[red!150] (0.5,-0.5,{sqrt(1-2*(0.5)^2)}) circle (1pt) node[left]{\footnotesize$\left(\frac{1}{2},-\frac{1}{2}\right)$};
+
+%\node[above right] at (-1,0.5,0.75) {$x_3 = x_1^2 + x_2^2$};
+  
+	\end{tikzpicture}
+    \caption{}
+%    \label{fig:enter-label}
+\end{figure}
+
+\end{example}
+
+
+É evidente que calcular o limite a cada vez que desejamos obter uma derivada parcial não é prático. Ao diferenciar em relação a uma variável, mantendo as outras constantes, fica claro que podemos empregar as mesmas regras e técnicas de diferenciação utilizadas para calcular derivadas de funções de uma variável.
+
+\begin{proposition}{Regras de Diferenciação}{prop:regras_der}
+Sejam $f$ e $g$ funções \red{diferenciáveis} em $D\subset\R^n$ e $c\in\R$. Temos:
+\begin{itemize}[label=\color{resultscolor!150}\textbullet]
+\item\textbf{Regra da Soma}:
+   \[
+   \frac{\partial (f+g)}{\partial x_i}(\Point{x}) = \frac{\partial f}{\partial x_i}(\Point{x}) + \frac{\partial g}{\partial x_i}(\Point{x}).
+   \]
+
+
+ 
+
+\item \textbf{Regra do Produto}:
+   \[
+   \frac{\partial (f\cdot g)}{\partial x_i}(\Point{x}) = f (\Point{x})\cdot \frac{\partial g}{\partial x_i}(\Point{x})+ g (\Point{x})\cdot\frac{\partial f}{\partial x_i} (\Point{x}) .
+   \]
+
+\item \textbf{Regra da Constante}:
+\[
+   \frac{\partial (c\cdot f)}{\partial x_i}(\Point{x}) = c \cdot\frac{\partial f}{\partial x_i} (\Point{x}) .
+   \]
+
+\item \textbf{Regra da cadeia I}: Se $f(\Point{x})=g(u_1(\Point{x}),u_2(\Point{x}),\dots,u_n(\Point{x}))$, onde para cada $1\leq i \leq n$ existe $\frac{\partial u_i}{\partial x_i}(\Point{x})$, então
+$$\frac{\partial f}{x_i}(\Point{x})=\sum_{j=1}^n \frac{\partial g}{\partial u_j}(u_1(\Point{x}),u_2(\Point{x}),\dots,u_n(\Point{x}))\cdot \frac{\partial u_j}{\partial x_i}.  $$
+
+   \end{itemize}
+\end{proposition}
+
+\begin{example}{}{}
+Calculemos as derivadas parciais do exemplo anterior usando as regras de derivação mencionadas.     
+\end{example}
+
+
+
+
+\begin{theorem}{Teorema da Função Implícita}{}
+Seja \(g: \mathbb{R}^n \to \mathbb{R}\) uma função definida em uma vizinhança \(D\) de um ponto \(\Point{a}=(a_1, a_2, \ldots, a_n) \in \mathbb{R}^n\), e suponha que \(g\) seja continuamente diferenciável em \(D\). Se \(g(\Point{a}) = 0\) \(\frac{\partial g}{\partial x_n}(\Point{a})\neq 0\), então existe uma vizinhança \(\hat{D} \subset D\) de \(\Point{a}\) e uma única função \(f: \mathbb{R}^{n-1} \to \mathbb{R}\) que é \textbf{continuamente diferenciável} em \(\hat{D}\), tal que para cada \(\hat{\Point{x}}=(x_1, x_2, \ldots, x_{n-1}) \in \hat{D}\), temos \(g(\hat{\Point{x}}, f(\hat{\Point{x}})) = 0\).
+\end{theorem}
+
+
+
+A \textit{grosso modo}, sob certas condições, podemos encontrar uma função implícita que descreve uma das variáveis de \(f\) em relação às outras \(n-1\) variáveis, mesmo que a equação não possa ser resolvida explicitamente. Isso é particularmente útil quando tratamos de sistemas de equações complicados onde não é possível isolar facilmente uma das variáveis. O teorema nos fornece um meio de entender como as variáveis estão inter-relacionadas em tais situações.
+
+
+\begin{example}{}{}
+Consideremos a esfera de equação $x^2+y^2+z^2=1$. Queremos aplicar o teorema anterior. 
+Seja $g(x,y,z)=x^2+y^2+z^2-1$. Então $g(0,0,1)=0$ pois $(0,0,1)$ é o polo norte da esfera. Além disso, $\frac{\partial g}{\partial z}(0,0,1)=2\neq 0$. Logo, existe uma vizinhança de  $\hat{D}$ de $(0,0)$ em $\R^2$ e uma função $f:\hat{D} \to \R$ tal que $z=f(x,y)$. 
+Neste exemplo \textit{já sabemos} que  $f(x,y)=\sqrt{1-x^2-y^2}$ e $\hat{D}$ é o círculo bidimensional centrado na origem e de raio 1. 
+\end{example}
+
+O exemplo da esfera é bastante concreto, o que nos permite identificar claramente a função \(f\) e o domínio \(\hat{D}\). Entretanto, em situações gerais, essa clareza pode não estar presente, muitas vezes devido a equações complexas que podem ser difíceis de resolver, mesmo em nível local. No entanto, na prática, muitas vezes não precisamos conhecer a expressão exata de \(f\), mas sim entender o comportamento da variável $x_n=f(\hat{\Point{x}})$ em relação às mudanças das outras. É exatamente nesse contexto que ganha importância o teorema da função implícita. 
+
+\begin{corollary}{}{}
+    Sob as hipóteses do teorema, temos, para $1\leq i\leq n-1$,  
+    $$\frac{\partial x_n}{\partial x_i}=-\dfrac{\frac{\partial g}{\partial x_i}}{\frac{\partial g}{\partial x_n}}.$$
+\end{corollary}
+\begin{proof}
+    Basta aplicar a regra da cadeia à equação 
+    \[g(\hat{\Point{x}}, f(\hat{\Point{x}})) = g(x_1,\dots,x_{n-1},f(x_1,\dots,x_{n-1}))=0.\] 
+\end{proof}
+
+
+
+
+
+\section{Derivada direcional}
+
+Sabemos que a derivada parcial de uma função $f:\R^n\to\R$ é o seguinte limite se existir:
+\begin{equation}\label{der_parcial}
+    \frac{\partial f}{\partial x_i} (\Point{x}) = \lim_{{h \to 0}} \frac{f(x_1,\dots,x_i + h,\dots x_n) - f(x_1,\dots,x_i,\dots x_n)}{h},
+\end{equation} 
+Vamos olhar a variação na coordenada $x_i$ desde um outro ponto de vista: 
+\begin{align*}
+(x_1,\dots,x_i + h,\dots, x_n)&=(x_1,\dots,x_i ,\dots, x_n)+(0,\dots,\underbrace{h}_{\textup{posição~}i},\dots,0)\\
+&=(x_1,\dots,x_i ,\dots x_n)+h(0,\dots,\underbrace{1}_{\textup{posição~}i},\dots,0)\\
+&=\Point{x}+h\cdot \Vec{e_i},
+\end{align*}
+onde $\Point{x}=(x_1,\dots, x_n)$ e $\Vec{e_i}$ é o $i$-ésimo vetor canônico de $\R^n$. %Sendo $h\in\R$ muito pequeno --- pois estamos calculando um limite quando $h\rightarrow 0$, 
+Vemos, então, que nos estamos acercando a $\Point{x}$ ao longo de um pequeno seguimento cujo vetor diretor é $\Vec{e_i}$. 
+Então podemos reescrever \eqref{der_parcial} como
+\begin{equation}\label{der_parcial}
+\frac{\partial f}{\partial x_i} (\Point{x}) = \lim_{{h \to 0}} \frac{f(\Point{x}+h\cdot \Vec{e_i}) - f(\Point{x})}{h}.
+\end{equation} 
+Ou seja, estamos querendo saber a variação da função  ao longo de um pequeno seguimento paralelo aos  eixos coordenados. 
+
+Então, faz sentido pensar no seguinte limite 
+\begin{equation}\label{der_parcial}
+%\frac{\partial f}{\partial x_i} (\Point{x}) = 
+\lim_{{h \to 0}} \frac{f(\Point{x}+h\cdot \Vec{v}) - f(\Point{x})}{h},
+\end{equation} 
+onde $\Vec{v}$ é um vetor qualquer de $\R^n$.
+
+\begin{definition}{Derivada direcional}{def:der_direcional}
+A \textit{derivada direcional}\index{derivada!parcial} de uma função \( f:D\subset\R^n\to\R \) na direção de um vetor $\Vec{v}\in\R^n$  no ponto $\Point{x}=(x_1,x_2,\dots,x_n)\in D$ é denotada por \( \frac{\partial f}{\partial \Vec{v}} (\Point{x})\) e é definida como:
+\[ \frac{\partial f}{\partial \Vec{v}} (\Point{x}) = \lim_{{h \to 0}} \frac{f(\Point{x}+h\cdot \Vec{v}) - f(\Point{x})}{h},\]
+sempre que tal limite exista e for finito. 
+\end{definition}
+
+\begin{example}{}{}
+    $$\frac{\partial f}{\partial x_i}(\Point{x})=\frac{\partial f}{\partial \Vec{e_i}}(\Point{x}).$$
+\end{example}
+
+\begin{theorem}{Fórmula da derivada direcional}{}
+    Se \( f:D\subset\R^n\to\R \) é diferenciável em $\Point{x}$, então 
+    $\frac{\partial f}{\partial \Vec{v}} (\Point{x})$ existe para qualquer $\Vec{v}\in\R^n$ e 
+    $$\frac{\partial f}{\partial \Vec{v}} (\Point{x})=\sum_{i=1}^nv_i\frac{\partial f}{\partial x_i}(\Point{x}),$$
+    onde $v_1,\dots,v_n$ são as coordenadas do vetor $\vec{v}$. 
+\end{theorem}
+
+Observe que se definimos o seguinte vetor:
+$$\left(\frac{\partial f}{\partial x_1}(\Point{x}), \dots, \frac{\partial f}{\partial x_n}(\Point{x})  \right),$$
+então temos que 
+$$\frac{\partial f}{\partial \Vec{v}} (\Point{x})=\escalar{(v_1,\dots,v_n)}{\left(\frac{\partial f}{\partial x_1}(\Point{x}), \dots, \frac{\partial f}{\partial x_n}(\Point{x})  \right)}.$$
+Tal vetor é de grande importância e o definimos a seguir. 
+
+\begin{definition}{Vetor gradiente}{}
+Seja  \( f:D\subset\R^n\to\R \) uma função diferenciável em $\Point{x}$. Chamamos de \textit{vetor gradiente} de $f$ em $x$ o vetor definido por
+    $$\grad f(\Point{x})=\left(\frac{\partial f}{\partial x_1}(\Point{x}), \dots, \frac{\partial f}{\partial x_n}(\Point{x})  \right).$$
+\end{definition}
+Temos, então,
+$$\frac{\partial f}{\partial \Vec{v}} (\Point{x})=\escalar{\grad f(\Point{x})}{\vec{v}}.$$
+
+Observe agora que pela fórmula do produto escalar
+$$%\frac{\partial f}{\partial \Vec{v}} (\Point{x})=
+\escalar{\grad f(\Point{x})}{\vec{v}}=\|\Vec{v}\| \| \grad f(\Point{x})\| \cos \theta, $$
+onde $\theta$ é o ângulo entre os vetores $\vec{v}$
+ e $\grad f(\Point{x})$. Sabemos que o valor máximo da função $\cos$ é $1$, atingido quando $\theta=0$, logo, $\frac{\partial f}{\partial \Vec{v}}(\Point{x})$ é máxima quando $\vec{v}$ tem a mesma direção e sentido que $\grad f(\Point{x})$. Concluímos, portanto, que a direção de maior crescimento de uma função a partir de um ponto $\Point{x}$ é $\grad f(\Point{x})$. 
+ 

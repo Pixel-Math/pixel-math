@@ -1,0 +1,31 @@
+
+Começamos lembrando que o gráfico de uma função $f:D\subset \R^2\to \R$ é o conjunto 
+$$\Gr(f)=\{(x,y,z)\in\R^3;~z=f(x,y),~(x,y)\in D\}.$$
+Reescrevendo a equação $z=f(x,y)$ como $z-f(x,y)=0$, observamos que $\Gr(f)$ é uma superfície de nível da função $g(x,y,z)=z-f(x,y)$. Logo,  podemos usar a equação \eqref{eq:plano_tangente_nivel} em este \textbf{caso particular}. Temos
+\begin{align*}
+    \dfrac{\partial g}{\partial x}(x,y,z)=-\dfrac{\partial f}{\partial x}(x,y),\quad 
+    \dfrac{\partial g}{\partial y}(x,y,z)=-\dfrac{\partial f}{\partial y}(x,y)\quad \mbox{e} \quad 
+    \dfrac{\partial g}{\partial z}(x,y,z)=1,
+\end{align*}
+Logo, o vetor normal ao plano tangente a $\Gr(f)$ em $(x_0,y_0,f(x_0,y_0))$ é 
+\begin{equation}\label{vetor_N_grafico}
+\Vec{N}=\grad g (x_0,y_0,z_0) = \left(-\dfrac{\partial f}{\partial y}(x_0,y_0),-\dfrac{\partial f}{\partial x}(x_0,y_0),1\right).
+\end{equation}
+Portanto, a equação do plano tangente a $\Gr(f)$ em $(x_0,y_0,f(x_0,y_0))$ é
+\begin{equation}\label{eq:plano_tang_graficos}
+-\dfrac{\partial f}{\partial y}(x_0,y_0)\cdot x -\dfrac{\partial f}{\partial x}(x_0,y_0) \cdot y + z = -\dfrac{\partial f}{\partial y}(x_0,y_0)\cdot x_0 -\dfrac{\partial f}{\partial x}(x_0,y_0) \cdot y_0 + f(x_0,y_0).
+\end{equation}
+
+A reta normal é dada pela parametrização: 
+%As coordenadas dos pontos da reta normal são dadas por:
+\begin{comment}
+$$
+\begin{cases}
+    x(t)=x_0 - t \cdot \dfrac{\partial f}{\partial x}(x_0,y_0)\\[.5em]
+    y(t)=y_0 - t\cdot \dfrac{\partial f}{\partial y}(x_0,y_0)\\[.5em]
+    z(t)=f(x_0,y_0) + t. 
+\end{cases}
+$$
+\end{comment}
+$$n(t)=\left(x_0 - t \cdot \dfrac{\partial f}{\partial x}(x_0,y_0),y_0 - t\cdot \dfrac{\partial f}{\partial y}(x_0,y_0), f(x_0,y_0) + t\right),~t\in\R. 
+$$

@@ -1,0 +1,321 @@
+\setcounter{chapter}{7}
+\chapter{Derivadas de segunda ordem e aproximação quadrática}
+
+Comecemos lembrando que se uma função $f$ de $n$ variáveis é uma função diferenciável em um subconjunto $D\subset\R^n$, então suas derivadas parciais, $\dfrac{\partial f}{\partial x_i}$, $1\leq i \leq n$, são funções definidas sobre $D$ ou um subconjunto dele. Faz sentido, portanto, nos perguntarmos se tais funções são também funções diferenciáveis, isto é, se existe 
+$$\dfrac{\partial}{\partial x_j}\left(\dfrac{\partial f}{\partial x_i}\right)(x,y).$$
+No caso afirmativo, dizemos que $f$ tem derivadas de segunda ordem e usamos a \textbf{notação}
+$$\dfrac{\partial ^2 f}{\partial x_j x_i}(x,y)=\dfrac{\partial}{\partial x_j}\left(\dfrac{\partial f}{\partial x_i}\right)(x,y).$$
+\begin{example}{}{}
+Considere a função  $f(x,y)=x^3y^5+2x^4y$. Primeiro observemos que tal função é uma soma de funções polinômicas. Por tanto, suas derivadas parciais também são funções polinômicas e, portanto, diferenciáveis. Logo, existem as derivadas de segunda ordem. 
+Para calcular as derivadas parciais até a segunda ordem de \(f\) começamos calculando as primeiras derivadas parciais em relação a \(x\) e \(y\), e então as segundas derivadas parciais. Vamos passar por cada uma delas:
+
+\newpage
+\textbf{Derivadas parciais de primeira ordem}
+   \[\dfrac{\partial f}{\partial x} (x,y)= \dfrac{\partial}{\partial x} (x^3y^5 + 2x^4y) = 3x^2y^5 + 8x^3y.\]
+e
+   \[\dfrac{\partial f}{\partial y} (x,y) = \dfrac{\partial}{\partial y} (x^3y^5 + 2x^4y) = 5x^3y^4 + 2x^4.\]
+
+\textbf{Derivadas parciais de segunda ordem:}
+   \[\dfrac{\partial^2 f}{\partial x^2}(x,y) = 
+   \dfrac{\partial}{\partial x}\left(\dfrac{\partial f}{\partial x} (x,y) \right)  = \dfrac{\partial}{\partial x} (3x^2y^5 + 8x^3y) = 6xy^5 + 24x^2y,\]
+   \[\dfrac{\partial^2 f}{\partial y \partial x} (x,y) = \dfrac{\partial}{\partial y} (3x^2y^5 + 8x^3y) = 15x^2y^4 + 8x^3\]   
+   \[\dfrac{\partial^2 f}{\partial x \partial y} (x,y) = \dfrac{\partial}{\partial x} (5x^3y^4 + 2x^4) = 15x^2y^4 + 8x^3.\]
+e
+   \[\dfrac{\partial^2 f}{\partial y^2}(x,y) = 
+   \dfrac{\partial}{\partial y}\left(\dfrac{\partial f}{\partial y} (x,y) \right)
+   = \dfrac{\partial}{\partial y} (5x^3y^4 + 2x^4) = 20x^3y^3.\]
+
+
+    
+\end{example}
+   
+
+
+\begin{example}{}{}
+vamos calcular as derivadas de primeira ordem e, em seguida, calcular as derivadas de segunda ordem da função \(f(x, y, z) = \sen(xy) + e^{xz} \).
+
+\textbf{Derivadas parciais de Primeira Ordem:}
+   \[\dfrac{\partial f}{\partial x} (x,y,z)= y\cos(xy) + ze^{xz},\]
+   \[ \dfrac{\partial f}{\partial y} (x,y,z) = x\cos(xy) \]
+e
+   \[ \dfrac{\partial f}{\partial z}(x,y,z) = x e^{xz} .\]
+
+\textbf{Derivadas parciais de Segunda Ordem:}\medskip
+\begin{enumerate}
+    \item 
+Derivadas parciais da função $\dfrac{\partial f}{\partial x}$:
+\[\dfrac{\partial^2 f}{\partial x^2}(x,y,z) = \dfrac{\partial}{\partial x}(y\cos(xy) + ze^{xz}) = -y^2\sen(xy) + z^2e^{xz},\]
+\[\dfrac{\partial^2 f}{\partial y \partial x} (x,y,z)= \dfrac{\partial}{\partial y}(y\cos(xy) + ze^{xz}) = \cos (xy)-xy\sen(xy), \]
+\[\dfrac{\partial^2 f}{\partial z \partial x}(x,y,z) = \dfrac{\partial}{\partial z}(y\cos(xy) + ze^{xz}) = (1+xz)e^{xz}.\]
+
+
+\item Derivadas parciais da função $\dfrac{\partial f}{\partial y}$:
+\[\dfrac{\partial^2 f}{\partial x \partial y} (x,y,z)= \dfrac{\partial}{\partial x}\left(x\cos(xy) \right) = \cos(xy) - {xy\sen(xy)},\]
+\[\dfrac{\partial^2 f}{\partial y^2} (x,y,z)= \dfrac{\partial}{\partial y}\left(x\cos(xy) \right) = -x^2\sen(xy), \]
+\[\dfrac{\partial^2 f}{\partial z \partial y} (x,y,z)= \dfrac{\partial}{\partial z}\left(x\cos(xy) \right) = 0.\] 
+\medskip
+
+\item Derivadas parciais da função $\dfrac{\partial f}{\partial z}$:
+\[\dfrac{\partial^2 f}{\partial x \partial z}(x,y,z) = \dfrac{\partial}{\partial x}\left(xe^{xz} \right) = (1+xz)e^{xz},\]
+\[\dfrac{\partial^2 f}{\partial y \partial z}(x,y,z) = \dfrac{\partial}{\partial y}\left(xe^{xz} \right) = 0,\] 
+\[\dfrac{\partial^2 f}{\partial z^2} (x,y,z)= \dfrac{\partial}{\partial z}\left(xe^{xz} \right) = x^2e^{xz} \]
+\end{enumerate}
+
+%Estas são as derivadas de segunda ordem da função \(f(x, y, z)\) em relação a cada uma das três variáveis.
+\end{example}
+
+
+
+
+
+\begin{comment}
+\section{Introdução às formas quadráticas}
+
+A modo de motivação comecemos com a equação que representa uma cônica de forma geral:
+$$ax^2+2bxy+cy^2+dx+ey+f=0.$$
+Desta forma, tal cônica é uma curva de nível da função
+$$f(x,y)=\underbrace{ax^2+2bxy+cy^2}_{\text{parte quadrática}}+\underbrace{dx+ey}_{\text{parte linear}}+f$$
+Observe também que podemos reescrever $f$ na forma matricial como segue 
+\begin{align*}
+f(x,y) & = 
+\overbrace{\begin{pmatrix}
+x&y    
+\end{pmatrix}
+\begin{pmatrix}
+a & b\\ b&c
+\end{pmatrix}
+\begin{pmatrix}
+    x\\
+    y
+\end{pmatrix}}^{\text{parte quadrática}}
++ 
+\overbrace{\begin{pmatrix}
+    d&e
+\end{pmatrix}
+\begin{pmatrix}
+    x\\y
+\end{pmatrix}}^{\text{parte linear}}
++f\\[.5em]
+& =
+\escalar{\begin{pmatrix}
+    a & b\\
+    b&c
+\end{pmatrix}(d,e)}{(d,e)}
++\escalar{(d,e)}{(x,y)}+f
+\end{align*}
+Observe que a matriz
+$$A=\begin{pmatrix}
+    a&b\\
+    b&c
+\end{pmatrix}$$
+é uma matriz simétrica. De um modo geral, formas quadráticas são funções matemáticas que envolvem variáveis elevadas ao quadrado. 
+
+
+Mais precisamente, uma forma quadrática em \(n\) variáveis é uma função da forma:
+\[Q(x_1, x_2, \ldots, x_n) = a_1x_1^2 + a_2x_2^2 + \ldots + a_nx_n^2 + 2b_1x_1x_2 + 2b_2x_1x_3 + \ldots + 2b_{n-1}x_{n-1}x_n,\]
+onde \(a_1, a_2, \ldots, a_n\), \(b_1, b_2, \ldots, b_{n-1}\) são coeficientes reais, e \(x_1, x_2, \ldots, x_n\) são as variáveis. No caso mais geral, as formas quadráticas também podem ser representadas por matrizes simétricas. Se representarmos o vetor de variáveis como \(\Point{x} = (x_1, x_2, \ldots, x_n)^T\) (onde \(T\) denota a transposição), a forma quadrática pode ser escrita de forma mais concisa como:
+\[Q(\Point{x}) = \Point{x}^T A \Point{x}, \]
+onde \(A\) é a matriz quadrática associada.
+\end{comment}
+
+Observem como nesses dois exemplos temos uma recorrência curiosa com respeito às \textit{derivadas mistas}, que são aquelas segundas derivadas $\dfrac{\partial ^2 f}{\partial x_i\partial x_j}$ em que $i\neq j$. No caso dos exemplos que são funções definidas sobre domínios de $\R^2$ seriam: $\dfrac{\partial ^2 f}{\partial x\partial y}$ e $\dfrac{\partial ^2 f}{\partial y\partial x}$. No caso de funções definidas em $\R^3$ também temos as derivadas mistas: $\dfrac{\partial ^2 f}{\partial x\partial z}$, $\dfrac{\partial ^2 f}{\partial z\partial x}$, etc.
+
+Voltando à curiosidade, observe como nos exemplos anteriores as {derivadas mistas} são iguais. Podemos nos perguntar se esse fato é uma coincidência ou uma regra. O seguinte teorema fundamental responde essa pergunta. 
+\begin{theorem}{Teorema de Clairaut}{}
+Se as derivadas mistas são contínuas elas são iguais.  
+\end{theorem}
+
+Observe como no caso dos exemplos temos que as funções segundas derivadas são todas contínuas. E, de fato, essa hipóteses de continuidade das segundas derivadas mistas é fundamental. %Vejamos um exemplo do que acontece quando essa hipótese não é satisfeita.
+Resolva o seguinte exercício para entender o que acontece quando essa hipótese não é satisfeita.
+\begin{exercise}{Contraexemplo do Teorema de Clairaut}{}
+Mostre que a função
+$$
+f(x, y) = \begin{cases}
+    x y \dfrac{x^2-y^2}{x^2+y^2} \text{ se }(x, y) \neq (0,0)\\[.5em]
+   0, \text{ se } (x,y)=(0,0). 
+\end{cases}
+$$
+não satisfaz o Teorema de Clairaut. 
+\end{exercise}
+\begin{comment}
+\begin{example}{}{}
+Consideremos a função
+$$
+f(x, y) = \begin{cases}
+    x y \dfrac{x^2-y^2}{x^2+y^2} \text{ se }(x, y) \neq (0,0)\\[.5em]
+   0, \text{ se } (x,y)=(0,0). 
+\end{cases}
+$$
+Queremos mostrar que tal função não satisfaz o teorema de Clairaut na origem. 
+Se $(x,y)\neq (0,0)$ segue que 
+$$
+\dfrac{\partial f}{\partial x}(x,y) = y \cdot \left(\dfrac{x^2-y^2}{x^2+y^2}+\dfrac{4 x^2 y^2}{\left(x^2+y^2\right)^2}\right)
+$$
+Para obter o valor de $\dfrac{\partial f}{\partial x}(0,0)$, usamos a definição geral:
+\begin{align*}
+\dfrac{\partial f}{\partial x}(0,0) 
+& =\lim_{t \rightarrow 0} \dfrac{f(0+t,0)-f(0,0)}{t}\\[.5em]
+& = \lim_{t \rightarrow 0}\, \dfrac{1}{t}\left( t \cdot 0 \cdot \dfrac{ t^2-0^2}{t^2+0^2}-0\right) =0.
+\end{align*}
+Concluimos que $\dfrac{\partial f}{\partial x}$ está definida e é contínua em $(0,0)$ pois
+$$
+\lim_{(x,y)\rightarrow (0,0)}\dfrac{\partial f}{\partial x}(x, y) 
+%= \lim_{(x,y)\rightarrow (0,0)} y \cdot \left(\dfrac{x^2-y^2}{x^2+y^2}+\dfrac{4 x^2 y^2}{\left(x^2+y^2\right)^2}\right)
+=0 = \dfrac{\partial f}{\partial x}(0,0),
+$$
+
+
+Por outro lado, se $(x,y)\neq(0,0)$, então
+$$\dfrac{\partial ^2 f}{\partial y \partial x}(x,y)= \dfrac{x^2 - y^2 - 4x^3y^4 + 4x^4y^2}{(x^2 + y^2)^2}.$$
+Além disso, 
+\begin{align*}
+\dfrac{\partial^2 f}{\partial y \partial x}(0,0) 
+&= 
+\lim_{t \rightarrow 0} \dfrac{\dfrac{\partial f}{\partial x}(0,t)-\dfrac{\partial f}{\partial x}(0,0)}{t}\\[.5em]
+&=
+\lim_{t \rightarrow 0}
+\dfrac{x^2 - y^2 - 4x^3y^4 + 4x^4y^2}{(x^2 + y^2)^2}
+= -1.
+\end{align*}
+Da mesma forma,
+$$
+\dfrac{\partial f}{\partial y} = x\left(\dfrac{x^2-y^2}{x^2+y^2}-\dfrac{4 x^2 y^2}{\left(x^2+y^2\right)^2}\right)
+$$
+para $(x, y) \neq (0,0)$. Também,
+$$
+\dfrac{\partial f}{\partial y}(x, 0) = x \quad \text{ e } \quad \dfrac{\partial^2 f}{\partial x \partial y}(0,0) = 1.
+$$
+Portanto, para esta função,
+$$
+\dfrac{\partial^2 f}{\partial y \partial x}(0,0) = -1 \neq \dfrac{\partial^2 f}{\partial x \partial y}(0,0) = 1.
+$$    
+\end{example}
+\end{comment}
+
+
+Observe agora que para cada uma das $n$ derivadas parciais de primeira ordem, temos $n$ derivadas parciais de segunda ordem associadas. Isso gera uma matriz $n\times n$ chamada de Hessiano, melhor definido a seguir.
+\begin{definition}{}{}
+Dada uma função \(f:D \subset \R^n\to \R\) cujas derivadas de segunda ordem existem em um ponto $\Point{x}_0=(x_1^0,x_2^0,\dots,x_n^0)$, o hessiano de $f$ em $\Point{x}_0$ é representado como uma matriz %\(\Hess f(\Point{x}_0)\) 
+de \(n \times n\), onde o valor na \(i\)-ésima linha e \(j\)-ésima coluna é a derivada parcial de segunda ordem \(\dfrac{\partial^2 f}{\partial x_i \partial x_j}(\Point{x}_0)\): 
+\[\Hess f (\Point{x}_0) = \begin{bmatrix}
+\dfrac{\partial^2 f}{\partial x_1^2} & \dfrac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \dfrac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\dfrac{\partial^2 f}{\partial x_2 \partial x_1} & \dfrac{\partial^2 f}{\partial x_2^2} & \cdots & \dfrac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\dfrac{\partial^2 f}{\partial x_n \partial x_1} & \dfrac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \dfrac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}\]
+\end{definition}
+Observe que, caso as derivadas mistas sejam todas contínuas, a matriz hessiana é simétrica pois nesse caso o Teorema de Clairaut garante que 
+\[a_{ij}=\dfrac{\partial^2 f}{\partial x_i \partial x_j}=\dfrac{\partial^2 f}{\partial x_j \partial x_i}=a_{ji}.\]
+
+
+\begin{example}{}{}
+O Hessiano da função do Exemplo 1 em qualquer ponto do seu domínio é a matriz 
+\[\Hess f(x,y)=
+\begin{pmatrix}
+   6xy^5 + 24x^2y &  15x^2y^4 + 8x^3\\
+    15x^2y^4 + 8x^3 & 20x^3y^3
+\end{pmatrix}.
+\]
+Se avaliarmos essa matriz na origem obtemos a matriz nula, e no ponto $(1,1)$ temos 
+\[\Hess f(1,1)=
+\begin{pmatrix}
+   30 &  23 \\
+23 & 20
+\end{pmatrix}.
+\]
+\end{example}
+
+\begin{example}{}{}
+No caso da função do Exemplo 2 temos
+\[
+\Hess f(x,y,z)=
+\begin{pmatrix}
+y^2\sen(xy) + z^2e^{xz} & \cos (xy)-xy\sen(xy) & (1+xz)e^{xz} \\
+\cos (xy)-xy\sen(xy)    & -x^2\sen(xy)         &  0           \\
+(1+xz)e^{xz}            &  0                   &  x^2e^{xz}
+\end{pmatrix}.
+\]
+Se avaliamos na origem temos
+\[
+\Hess f(0,0,0)=
+\begin{pmatrix}
+0 & 1 & 1 \\
+1 & 0 & 0 \\
+1 & 0 & 0
+\end{pmatrix}.
+\]
+
+\end{example}
+
+
+\section{Aproximação quadrática}
+%O hessiano é uma ferramenta poderosa na otimização e na análise de pontos críticos de funções multivariadas, pois pode ajudar a determinar se um ponto é um mínimo, máximo ou ponto de sela da função.
+Estudamos que em toda vizinhança de um ponto podemos aproximar os valores de uma função diferenciável por uma função linear, chamada de aproximação linear. Vejamos agora que também existe uma outra função, quadrática, que melhora a aproximação linear. 
+\begin{theorem}{Teorema de Taylor para funções de $n$ variáveis (ordem 2)}{}
+    Seja $f:D\subset\R^n\to\R$ uma função duas vezes diferenciável em uma vizinhança aberta de um ponto $\Point{x}_0=(x_1^0,x_2^0,\dots,x_n^0)$. Então para pontos $\Point{x}=(x_1,x_2,\dots,x_n)$ suficientemente próximos de $\Point{x}_0$ temos que
+    $$\!\!f(\Point{x})=f(\Point{x}_0) + \sum_{i=0}^n \dfrac{\partial f}{\partial x_i} (\Point{x}_0) (x_i-x_i^0) + \sum_{i,j=1}^n \dfrac{\partial ^2 f}{\partial x_i \partial x_j}(\Point{x}_0)(x_i-x_i^0)(x_j-x_j^0) + R(\Point{x}),$$
+    onde 
+    $$\lim_{\Point x \rightarrow \Point{x}_0} \dfrac{R(\Point{x})}{\|\Point{x}-\Point{x}_0\|^2}=0. $$
+\end{theorem}
+Segue diretamente desse teorema que 
+$f(\Point{x})\approx Q(\Point{x}-\Point{x}_0)$, onde $Q$ é a função quadrática
+$$Q(\Point{x}) = f(\Point{x}_0) + \sum_{i=0}^n \dfrac{\partial f}{\partial x_i} (\Point{x}_0) \,(x_i) + \frac{1}{2}\sum_{i,j=1}^n \dfrac{\partial ^2 f}{\partial x_i \partial x_j}(\Point{x}_0)\,x_ix_j.$$
+\begin{example}{}{}
+Considere a função \(f(x, y) = \ln \left(x+y^2\right)\) nas proximidades do ponto \((x_0, y_0) = (1,1)\):
+
+\[
+\begin{aligned}
+& f(1,1) = \ln 2 \\
+& f_x(x, y) = \dfrac{1}{x+y^2}, \quad f_x(1,1) = \dfrac{1}{2} \\
+& f_y(x, y) = \dfrac{2 y}{x+y^2}, \quad f_y(1,1) = 1 .
+\end{aligned}
+\]
+
+Assim, a aproximação linear é dada por:
+\[
+\begin{aligned}
+f(x, y) & \approx \ln 2 + \dfrac{1}{2}\cdot(x-1) + 1 \cdot (y-1) \\
+& = \dfrac{x}{2} + y + \left(\ln 2 - \dfrac{3}{2}\right) \\
+\end{aligned}
+\]
+
+As derivadas de segunda ordem são:
+\[
+\begin{aligned}
+f_{xx}(x, y) & = -\dfrac{1}{\left(x+y^2\right)^2}, \quad f_{xx}(1,1) = -\dfrac{1}{4} \\
+f_{yy}(x, y) & = 2 \cdot \dfrac{x-y^2}{\left(x+y^2\right)^2}, \quad f_{yy}(1,1) = 0 \\
+f_{xy}(x, y) & = -\dfrac{2 y}{\left(x+y^2\right)^2}, \quad f_{xy}(1,1) = -\dfrac{1}{2} .
+\end{aligned}
+\]
+
+A aproximação quadrática é:
+\[
+\begin{aligned}
+f(x, y) & \approx \ln 2 + \dfrac{1}{2}(x-1) + (y-1) + \dfrac{1}{2}\left[-\dfrac{1}{4}(x-1)^2 + 2  \left(-\dfrac{1}{2}\right) (x-1)(y-1)  \right] \\[.5em]
+& = \ln 2 + \dfrac{(x-1)}{2} + (y-1) - \dfrac{(x-1)^2}{8} - \dfrac{(x-1)(y-1)}{2} .
+\end{aligned}
+\]
+
+
+\end{example}
+
+As expansões de Taylor geralmente fornecem boas aproximações de uma função dada \(f(x, y)\) nas proximidades do ponto de expansão \((x_0, y_0)\), mas ficam menos precisas à medida que nos afastamos de \((x_0, y_0)\).    
+
+
+Observemos agora os termos quadráticos em $Q$:
+$$\Tilde{Q}(\Point{x})=\sum_{i,j=1}^n \dfrac{\partial ^2 f}{\partial x_i \partial x_j}(\Point{x}_0)x_ix_j.$$
+Lembrando da definição de Hessiano e usando a notação
+$$\Point{x}=\begin{pmatrix}
+    x_1\\ x_2\\ \vdots \\ x_n
+\end{pmatrix},$$
+é possível observar que $\Tilde{Q}$ pode ser escrita em notação matricial na forma 
+$$\Tilde{Q}(\Point{x})=\Point{x}^T \Hess f(\Point{x}_0) \Point{x},$$
+ou, ainda,
+$$\Tilde{Q}(\Point{x})=\escalar{\Hess f(\Point{x}_0) \Point{x}}{\Point{x}}$$
+Como $\Hess f(\Point{x}_0)$ é simétrico, então $\Tilde{Q}$ é uma forma quadrática. 
+
+Essa forma quadrática será muito importante para classificar a natureza dos possíveis máximos e mínimos de uma função de classe $C^2$, dependendo de se $\Tilde{Q}$ for definida positiva ou definida negativa. 
+
+\begin{remark}{}{}
+De Álgebra Linear sabemos que $\Tilde{Q}$ é \textit{definida positiva} se todos os autovalores são positivos e é \textit{semi-definida positiva} se eles são não negativos. Analogamente, $\Tilde{Q}$ é \textit{definida negativa} se todos os autovalores são negativos e é \textit{semi-definida negativa} se eles são não positivos.
+\end{remark}

@@ -1,0 +1,381 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{chapter}{2}
+
+\chapter{Limite e continuidade}
+
+\resumo{titulo}{
+\begin{itemize}[label=\color{chapterscolor}\textbullet]
+    \item Entender a noção de limite de uma função de várias variáveis quando nos aproximamos de um ponto específico no domínio.
+    
+    \item Compreender a definição formal de limite em termos de $\varepsilon$-$\delta$.
+    
+    \item Explorar as propriedades dos limites, incluindo as regras de soma, produto, constante e quociente.
+    
+    \item Compreender o conceito de limite ao longo de caminhos e como eles são relevantes na definição de limites de funções de várias variáveis.
+    
+    \item Entender a definição de continuidade de uma função $f(x, y)$ em um ponto $(a, b)$, envolvendo a existência do limite no ponto.
+    
+    \item \textbf{Tipos de Descontinuidades:} Identificar diferentes tipos de descontinuidades, como descontinuidades removíveis e não removíveis.
+    
+%    \item \textbf{Teorema do Valor Intermediário:} Compreender o teorema do valor intermediário e sua aplicação em funções contínuas de várias variáveis.
+    
+%    \item \textbf{Continuidade em Conjuntos:} Explorar a continuidade em diferentes conjuntos, como conjuntos abertos, fechados e fronteiras.
+    
+ 
+\end{itemize}
+}
+
+
+
+\begin{comment}
+    
+
+Considere um economista imerso na modelagem da oferta e da demanda de um produto em um mercado complexo e em constante mudança. Nesse cenário, um conjunto de variáveis interdependentes, como o preço do produto, a renda dos consumidores, os custos de produção e outros fatores contextuais, podem afetar a quantidade demandada. À medida que nos aproximamos de uma situação específica, surge a necessidade de compreender como pequenas variações em cada um desses fatores podem alterar a quantidade de demanda - efetivamente a função em questão.
+
+Vejamos o exemplo da relação entre o preço do produto e a demanda. Se considerarmos a função que descreve essa relação, estamos interessados em entender como uma leve elevação ou redução no preço pode influenciar a quantidade que os consumidores desejam adquirir. No entanto, essa relação é afetada por outros fatores, como a renda disponível e a existência de produtos substitutos ou complementares.
+
+Aqui, os limites de funções de várias variáveis desempenham um papel fundamental. Eles nos permitem examinar como a quantidade demandada muda em resposta a pequenas mudanças em cada uma das variáveis independentes. Isso significa observar como a demanda se adapta quando o preço sobe ou cai, quando a renda dos consumidores aumenta ou diminui, ou quando os preços de produtos substitutos ou complementares se alteram.
+
+Essa compreensão permite aos economistas prever as consequências de pequenas mudanças em diferentes fatores e tomar decisões informadas. Eles podem estimar como as políticas de preços, flutuações de renda ou mudanças em outros fatores influenciarão a demanda, permitindo que planejem estratégias de mercado mais eficazes.
+
+\end{comment}
+
+
+Suponha que queremos estudar a demanda por empréstimos bancários e, nesse cenário, a quantidade de empréstimos demandados ($Q$) depende da taxa de juros dos empréstimos (\( r \)) e da renda disponível (\( I \)) dos tomadores de empréstimos\footnote{Observe que em cenários reais $Q$ depende do tempo, mas por não ser uma variável contínua não a tomaremos em consideração no exemplo.}.
+
+Queremos analisar como pequenas variações em cada uma dessas variáveis influenciam a quantidade de empréstimos demandados. Por exemplo:
+\begin{enumerate}
+\item \textbf{Variação na Taxa de Juros (\( r \))}: Se a taxa de juros aumentar levemente, como isso afetará a quantidade de empréstimos demandados? Podemos calcular a quantidade de empréstimos demandados \( Q \) quando \( r \) se aproxima de um valor ligeiramente maior e comparar isso com o valor original de \( Q \). Isso nos daria uma ideia de como a demanda por empréstimos responde a variações na taxa de juros.
+
+\item \textbf{Variação na Renda Disponível (\( I \))}: Se a renda disponível das pessoas aumentar um pouco, como isso influenciará a demanda por empréstimos? Novamente, podemos calcular a quantidade de empréstimos demandados \( Q \) quando \( I \) se aproxima de um valor ligeiramente maior e comparar os resultados.
+
+%\item \textbf{Variação no Tempo (\( t \))}: Embora o tempo não seja uma variável contínua como \( r \) ou \( I \), podemos pensar em analisar como a demanda por empréstimos evolui ao longo do tempo. Podemos observar como \( Q \) muda quando \( t \) aumenta em uma unidade (neste curso focaremos em variáveis contínuas). 
+\end{enumerate}
+
+Vejamos a seguir um exemplo muito particular.
+
+\begin{example}{Demanda por empréstimos bancários}{exem:demanda_emprestimos}
+Suponha que a quantidade de empréstimos demandados é dada pela função
+\[ Q(r, I) = \frac{100}{r} \cdot I^{0.5}, \]
+onde:
+\begin{itemize}[label=\color{examplescolor}\textbullet]
+\item \( r \) é a taxa de juros dos empréstimos;
+\item \( I \) é a renda disponível dos tomadores de empréstimos. 
+\end{itemize}
+
+Vamos analisar como se comporta a função quando a taxa de juros se acerca de 5\% (ou 0.05) e a renda disponível dos tomadores de empréstimos se acerca a 3000 reais. Vejamos a seguinte matriz, que reflete os valores de \(Q(r, I)\) para alguns $(r,I)$ perto de (0.05,3000):
+\[
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+ & 2600 & 2800 & 3000 & 3200 & 3400 \\
+\hline
+0.03 & 18257.82 & 20000.00 & 21821.89 & 23734.98 & 25757.92 \\
+0.04 & 14142.14 & 15491.91 & 16970.56 & 18596.68 & 20389.09 \\
+0.05 & 11547.68 & 12649.11 & \textcolor{red!140}{13856.88} & 15172.59 & 16598.76 \\
+0.06 & 9718.58 & 10606.60 & 11547.68 & 12534.09 & 13559.46 \\
+0.07 & 8288.62 & 9064.03 & 9898.98 & 10777.14 & 11693.75 \\
+\hline
+\end{array}
+\]
+A tabela mostra como os valores são relativamente próximos do valor de $Q(0.05,3000)$. 
+\end{example}
+
+
+A análise desses \textit{limites} nos permitirá entender como pequenas variações em cada uma das variáveis afetam a demanda por empréstimos. Isso é especialmente relevante para os bancos e tomadores de decisão econômica, pois ajuda a prever como as mudanças nas taxas de juros, renda disponível e tempo podem influenciar a demanda por empréstimos, permitindo o planejamento adequado das políticas financeiras e econômicas.
+
+
+\begin{definition}{Limite de funções de várias variáveis}{def:limite}
+Dizemos que o \textit{limite de uma função}\index{limite!de uma função}\index{função!limite de uma} $f:D\subset\R^n\to \R$ quando $\Point{x}\in D$ se aproxima de $\Point{a}\in D$ é $L$, e escrevemos
+\[
+\lim\limits_{{\Point{x} \to \Point{a}}} f(\Point{x}) = L,
+\]
+se, para qualquer $\varepsilon>0$, existe um número $\delta>0$ tal que, para todo $\Point{x}\in B(\Point{a},\delta) \cap D$, temos que 
+$f(\Point{x})\in (L-\varepsilon,L+\varepsilon)\subset \R $.
+\end{definition}
+
+
+\begin{figure}[!htb]
+    \centering
+\begin{tikzpicture}[scale=1.5]
+
+\draw[dashed,green!150,fill=green!10] (0,0) circle [radius=1];
+%\draw[green!150] (30:1.5) node{\footnotesize $B(O,1)$};
+
+
+\draw[-latex] (-1.5,0) -- (1.5,0) node[right]{$x$};
+\draw[-latex] (0,-1.5) -- (0,1.5) node[above]{$y$};
+
+\draw[-latex] (2,0) -- (5,0) node[right]{$z=f(x,y)$};
+
+
+\draw[gray,dashed,-latex, bend left] (45:1.1) to (3.5,0.1);
+
+\draw (2.5,0) node{\footnotesize$|$}node[below]{$L-\varepsilon$};
+
+\draw (4.5,0) node{\footnotesize$|$}node[below]{$L+\varepsilon$};
+
+\draw (3.5,0) node{\footnotesize$|$}node[below]{$L$};
+
+\draw[red] (4,0) node{\footnotesize$|$} node[above]{$f(\Point{x})$};
+
+
+
+
+%\draw[dash pattern= on 2pt off 2pt,red!75] (90+45:.85) circle [radius=.10] ;
+%\filldraw[red!140] (90+45:.85) circle (.25pt);
+
+\draw[dash pattern= on 2pt off 2pt,blue!140] (45:.65) circle [radius=.25];
+\draw[blue!140,fill=blue!140] (45:.65) circle (.45pt) node[below]{\footnotesize $\Point{a}$};
+
+\draw[blue!140,fill=blue!140] (45:.85) node[red,below]{\footnotesize $\Point{x}$};
+
+\draw[blue!140] (105:.5) node[rectangle,fill=green!10,inner sep=0]{\footnotesize $B(a,\delta)$};
+
+
+%\draw[dash pattern= on 2pt off 2pt,orange] (-135:.20) circle [radius=.7] ;
+%\filldraw[orange] (-135:.20) circle (.45pt);
+
+
+
+%\draw[red!150] (0,0) circle [radius=1.5];
+%\draw[red!150] (45:1.5) node[above right]{\small $(x,y)$};
+%\filldraw[red!150] (45:1.5) circle (1.5pt);
+
+
+
+%\draw (0,0) circle (1.5pt) node{};
+\end{tikzpicture}
+\caption{}
+    \label{fig:limite}
+  \end{figure}
+
+\newpage
+
+Vamos mostrar um exemplo prático de como escolher \(\delta\) em função de \(\varepsilon\). 
+
+\begin{example}{}{}
+Vamos mostrar que 
+%Queremos calcular o limite de \(f(x, y) = x^2 + y^2\) quando \((x, y)\) se aproxima de \((1, 2)\). Ou seja, estamos interessados em 
+%\[\lim\limits_{{(x, y) \to (1, 2)}} f(x, y).\]
+%\textbf{Afirmação:}
+\[\lim\limits_{{(x, y) \to (1, 2)}} f(x, y)
+%=f(1, 2) = 1^2 + 2^2 
+= 5.\]
+Pela definição, precisamos encontrar um número $\delta>0$ que garanta que \(|x^2+y^2 - 5| < \varepsilon\) sempre que 
+$\dist((x,y),(1,2))<\delta$. 
+Primeiro, temos que
+\begin{align*}
+    |x^2+y^2 - 5|&=|x^2+y^2 - (\sqrt{5})^2|\\
+    &= |(\sqrt{x^2+y^2} - \sqrt{5})(\sqrt{x^2+y^2} + \sqrt{5})|\\
+    &= |\sqrt{x^2+y^2} - \sqrt{5}||\sqrt{x^2+y^2} + \sqrt{5}|. 
+\end{align*}
+Da desigualdade triangular segue que 
+$$\sqrt{5}=\dist((1,2),(0,0))\leq \dist((1,2),(x,y))+\dist((x,y),(0,0))<\delta + \sqrt{x^2+y^2},$$
+logo, 
+\begin{equation}\label{eq:mod_1}
+    \sqrt{5}-\sqrt{x^2+y^2}<\delta.
+\end{equation}
+Analogamente, 
+$$\sqrt{x^2+y^2}=\dist((x,y),(0,0))\leq \dist((x,y),(1,2))+\dist((1,2),(0,0))<\delta+\sqrt{5},$$
+donde
+\begin{equation}\label{eq:mod_2}
+\sqrt{x^2+y^2}-\sqrt{5}<\delta.
+\end{equation}
+De \eqref{eq:mod_1} e \eqref{eq:mod_2} concluímos que
+$$|\sqrt{x^2+y^2}-\sqrt{5}|<\delta.$$
+Assim, 
+\begin{align*}
+    |x^2+y^2 - 5|& < \delta|\sqrt{x^2+y^2} + \sqrt{5}|. \\
+    &=\delta(\sqrt{x^2+y^2} + \sqrt{5})\\
+    &<\delta((\delta+\sqrt{5})+\sqrt{5})\\
+    &=\delta(\delta+2\sqrt{5}).
+\end{align*}
+Escolhendo $\delta<\min\left\{2\sqrt{5},\frac{\varepsilon}{4\sqrt{5}}\right\}$, obtemos $|x^2+y^2 - 5|<\varepsilon$ 
+como desejado. 
+\end{example}
+%\todo[inline]{Preciso verificar as contas!!!}
+
+%Assim como em funções de uma variável o limite de funções de várias variáveis é único. 
+\begin{theorem}{Unicidade do limite}{thm:unicidade_limite}
+Se o limite de uma função de várias variáveis existe em um ponto, ele é único.   
+\end{theorem}
+
+\begin{proof}
+Suponhamos por contradição que não é verdade, ou seja, que o limite de uma certa função $f:D\subset\R^n\to\R$ em um ponto $\Point{a}\in D$ existe mas que ele não é único, isto é, existem dois números reais diferentes, $L_1$ e $L_2$, tal que para todo $\varepsilon>0$ temos que: 
+\begin{itemize}[label=\color{resultscolor!150}\textbullet]
+\item existe $\delta_1>0$ tal que se $\Point{x}\in B(\Point{a},\delta_1)$, então $|f(\Point{x})-L_1|<\varepsilon/2$, e
+\item existe $\delta_2>0$ tal que se $\Point{x}\in B(\Point{a},\delta_2)$, então $|f(\Point{x})-L_2|<\varepsilon/2$.
+\end{itemize}
+Sejam $\delta<\min\{\delta_1,\delta_2\}$ e $\Point{x}\in B(\Point{a},\delta)$, então
+$$|L_1-L_2|=|L_1-f(x)+f(x)-L_2|\leq |L_1-f(x)|+|f(x)-L_2| < \varepsilon/2 + \varepsilon/2=\varepsilon.$$
+Como $\varepsilon$ é qualquer número positivo, passamos ao limite quando $\varepsilon\rightarrow 0$ obtendo $|L_1-L_2|=0$, o que é uma contradição. Concluímos que o limite é, de fato, único. 
+\end{proof}
+
+Esse teorema é de extrema importância. Ele garante que, se o limite de uma função existe, então existe o limite da função para qualquer direção que se aproxime desse ponto. Mais ainda, temos o seguinte resultado fundamental.  
+\begin{corollary}{}{}
+    Se o limite de uma função de várias variáveis existe em um ponto, então existe o limite ao longo de qualquer caminho \textit{contínuo} que se aproxima desse ponto, e coincide com o limite da função no ponto.  
+\end{corollary}
+
+
+
+Vejamos um exemplo da sua aplicação. 
+
+\begin{example}{}{}
+Vamos mostrar que não existe 
+%Como poderiamos Mostre que não existe
+%$$\lim\limits_{(x,y)\rightarrow(0,0)}\dfrac{x^2-y^2}{x^2+y^2}.$$
+\begin{equation}\label{eq:exemplo_limite}
+\lim_{(x,y)\rightarrow(0,0)} \dfrac{xy\cos y}{3x^2+y^2}.
+\end{equation} 
+Pelo corolário anterior%\ref{thm:unicidade_limite}
+, basta achar dois caminhos para os quais o limite da função 
+$$f(x,y)=\dfrac{xy\cos y}{3x^2+y^2}$$ 
+ao longo deles seja diferente. Podemos escolher nos aproximarmos da origem primeiramente ao longo do eixo $x$, que é o caminho
+$\{(x,0)\in\R^2\}.$ 
+Neste caso temos, 
+$$ \lim_{(x,0)\rightarrow(0,0)} f(x,0)=\lim_{x\rightarrow 0} \dfrac{x\cdot 0 \cdot \cos 0}{3x^2+0^2}=0. $$
+
+Agora \textit{escolhemos} acercarmos ao longo do eixo $y$, que é o caminho 
+$\{(0,y)\in\R^2\}.$ 
+Temos
+$$ \lim_{(0,y)\rightarrow(0,0)} f(0,y)=\lim_{y\rightarrow 0} \dfrac{0\cdot y \cdot \cos y}{3\cdot 0^2+y^2}=0. $$
+
+Embora esses dois limites sejam iguais, isso não diz nada sobre a existência do limite da função em si, pois podem existir outros caminhos para os quais o limite da função restrito a eles sejam diferentes. De fato, se nos acercamos da origem ao longo da reta de equação $y=x$, por exemplo, que é  conjunto
+$\{(x,x)\in\R^2\},$ 
+temos
+$$\lim_{(x,x)\rightarrow(0,0)} f(x,x)=\lim_{x\rightarrow 0} \dfrac{x\cdot x \cdot \cos x}{3\cdot x^2+x^2}=\lim_{x\rightarrow 0} \dfrac{x^2 \cos x}{4x^2}= \frac{1}{4},$$
+que é diferente do limite da função ao longo dos eixos coordenados (ou seja, diferente de 0). Logo, não existe o limite \eqref{eq:exemplo_limite} como queríamos mostrar. 
+\end{example}
+
+
+
+Outras propriedades importantes, cuja prova deixamos como exercício, estão listadas a seguir.
+\begin{properties}{}{}
+Sejam $f$, $g$ e $h$ funções que estão definidas sobre um certo domínio $D\subset\R^n$. Temos:
+\begin{itemize}[label=\color{chapterscolor}\textbullet,itemsep=10pt]
+\item \textbf{Soma, Produto e Quociente:} Se     
+    $\lim\limits_{\Point{x}\to\Point{a}} f(\Point{x})= L_1$ e $\lim\limits_{\Point{x}\to\Point{a}} g(\Point{x})= L_2$, então:
+    \begin{itemize}[label=\color{chapterscolor}\textbf{--},itemsep=10pt]
+        \item $\lim\limits_{\Point{x}\to\Point{a}} [f(\Point{x}) + g(\Point{x})] = L_1 + L_2$
+        \item $\lim\limits_{\Point{x}\to\Point{a}} [f(\Point{x}) \cdot g(\Point{x})] = L_1 \cdot L_2$
+        \item $\lim\limits_{\Point{x}\to\Point{a}} \frac{f(\Point{x})}{g(\Point{x})} = \frac{L_1}{L_2}$ desde que $L_2 \neq 0$. 
+    \end{itemize}
+    
+\item \textbf{Limite de uma Composição:} Se $f(\Point{x})$ tem limite $L$ quando $\Point{x}$ se aproxima de $\Point{a}$, e $g$ tem limite $l$ quando $t$ se aproxima de $L$, então:
+\[\lim\limits_{\Point{x}\to\Point{a}} g(f(\Point{x})) = \lim\limits_{t\to l} g(t) = L. \]
+    
+%\item \textbf{Limite de uma Função Contínua:} Se $f(\Point{x})$ é contínua em $\Point{a}$, então o limite de $f(\Point{x})$ quando $\Point{x}$ se aproxima de $\Point{a}$ é igual a $f(\Point{a})$:
+%\[\lim\limits_{\Point{x}\to\Point{a}} f(\Point{x}) = f(\Point{a})\]
+    
+\item \textbf{Propriedade do Sanduíche:} Se $h(\Point{x}) \leq f(\Point{x}) \leq g(\Point{x})$ para todos os $\Point{x}\in B(\Point{a},\delta)$, exceto possivelmente em $\Point{a}$ em si, e se $\lim\limits_{\Point{x}\to\Point{a}} h(\Point{x}) = \lim\limits_{\Point{x}\to\Point{a}} g(\Point{x}) = L$, então $\lim\limits_{\Point{x}\to\Point{a}} f(\Point{x}) = L$.
+    
+%\item \textbf{Limite Finito de uma Função Contínua:} Se $f(\Point{x})$ é contínua em $\Point{a}$ e $\lim\limits_{\Point{x}\to\Point{a}} f(\Point{x}) = L$, então $f(\Point{a}) = L$.
+\end{itemize}
+
+\end{properties}
+
+
+\begin{comment}
+
+\section{Sequências}
+
+Sequências em \(\mathbb{R}^n\) são sequências de vetores que pertencem ao espaço \(\mathbb{R}^n\), onde \(n\) representa o número de componentes do vetor. Uma sequência em \(\mathbb{R}^n\) pode ser expressa como:
+
+\[
+\Point{a}_1 = (a_{11}, a_{12}, \ldots, a_{1n}),
+\]
+\[
+\Point{a}_2 = (a_{21}, a_{22}, \ldots, a_{2n}),
+\]
+\[
+\vdots
+\]
+\[
+\Point{a}_k = (a_{k1}, a_{k2}, \ldots, a_{kn}),
+\]
+\[
+\vdots
+\]
+onde \(\Point{a}_k\) é o \(k\)-ésimo vetor da sequência e \(a_{ki}\) é o \(i\)-ésimo componente do \(k\)-ésimo vetor.
+
+Escrevemos $(\Point{a}_k)_{k\in\mathbb{N}}$ para denotar a sequência, mas o conjunto cujos elementos são os pontos da sequência se escreve como
+$$\{\Point{a}_k,~k\in\R\}.$$
+Tal conjunto é um subconjunto de $\R^n$.
+
+
+
+A seguir mostramos o termo geral de algumas sequências em $\R^2$: 
+$$
+\Point{a}_k=\left(\frac{1}{k},0\right), ~ \Point{b}_k=\left(0,\frac{1}{k}\right)~\mbox{ e }~
+\Point{c}_k=\left(\frac{1}{k},\frac{1}{k}\right). 
+$$
+
+Assim como em sequências de números reais, as sequências em \(\mathbb{R}^n\) também podem ter limites. Uma sequência de vetores \(\{\Point{a}_k\}\) \textit{converge} para um ponto  \(\Point{a}\) em \(\mathbb{R}^n\) se, para qualquer \(\varepsilon > 0\), existe um \(k_0\in\mathbb{N}\) tal que, para todo \(k > k_0\), a distância entre \(\Point{a}_k\) e \(\Point{a}\) seja menor que \(\varepsilon\), ou seja:
+\[
+\|\Point{a}_k - \Point{a}\| < \varepsilon, ~\forall~k>k_0. 
+\]
+
+Isso significa que à medida que a sequência avança, seus elementos se aproximam cada vez mais do ponto limite \(\Point{a}\).
+
+A definição e propriedades das sequências em \(\mathbb{R}^n\) são generalizações naturais das definições correspondentes em \(\mathbb{R}\), mas agora tratando de pontos em um espaço de maior dimensão.
+
+\begin{exercise}{avançado}{}
+    Seja $(a_k)_{k\in\mathbb{N}}$ uma sequência em $\R^n$. Seja $A=\{a_k,~k\in\R\}$. 
+\begin{enumerate}[label=\color{examplescolor}\textbf{(\alph*)}]
+    \item Determine se $A$ é aberto, fechado ou nenhuma dessas opções.
+    \item Determine $A^\circ$, $\partial A$ e $\overline{A}$. 
+    \item Determine sob qué condições $A$ é limitado.
+    \item Explique sobre a compacidade de $A$. 
+\end{enumerate}    
+\end{exercise}
+
+
+\subsection{Limite de funções de várias variáveis usando sequências}
+
+Deixamos como exercício provar que 
+$$\lim\limits_{\Point{x}\rightarrow \Point{a}} f(\Point{x})=L$$
+equivale a dizer que para qualquer sequência \( \{\Point{x}_k\} \) de vetores diferentes de \( \Point{a} \) que converge para \( \Point{a} \), a sequência de números reais correspondente \( \{f(\Point{x}_k)\} \) converge para \( L \). Em outras palavras: 
+
+
+\begin{theorem}{}{}
+Dada uma função $f:D\subset\R^n\to\R$, temos que 
+$$\lim\limits_{\Point{x}\rightarrow \Point{a}} f(\Point{x})=L$$
+se, e somente se, para cada sequência \( \{\Point{x}_k\} \) tal que \( \lim\limits_{{k \to \infty}} \Point{x}_k = \Point{a} \), deve-se ter \( \lim\limits_{{k \to \infty}} f(\Point{x}_k) = L \).
+\end{theorem}
+
+Essa definição é uma extensão natural da definição de limite para funções de uma variável, mas agora aplicada a funções de várias variáveis e considerando a convergência de sequências de vetores.
+
+
+\begin{example}{}{}
+    Mostre, usando sequências, que não existe 
+    $$\lim\limits_{\Point{x}\rightarrow\Point{a}} \dfrac{xy^2}{x^2+y^4}.$$
+\end{example}
+\end{comment}
+
+
+
+\section{Continuidade}
+
+
+\begin{definition}{Função contínua}{}
+Dizemos que uma função \( f:D\subset\R^n\to\R \) é \textit{contínua no ponto}\index{função!contínua em um ponto}  \( \Point{a}\in D \) se existe o limite quando a função se aproxima de $\Point{a}$ e esse limite é igual a $f(\Point{a})$.
+\end{definition}
+
+Resumindo, $f$ é contínua em $\Point{a}$ se 
+$$\lim_{\Point{x}\rightarrow\Point{a}}f(\Point{x})=f(\Point{a}).$$
+Caso $f$ seja contínua em todo ponto de $D$ dizemos que $f$ é \textit{contínua em $D$}\index{função!contínua}. 
+
+
+
+\begin{remark}{}{}
+Observe que a definição anterior é basicamente uma reescrita do conceito de limite, pois que exista tal limite e que o mesmo seja igual a $f(\Point{a})$, é o mesmo que dizer que \textit{para cada \(\varepsilon > 0\), existe \(\delta > 0\) tal que para todo \(\Point{x} \in B(\Point{a},\delta)\cap D\) temos que %$|f(\Point{x})-f(\Point{a})| < \varepsilon$
+$f(\Point{x})\in (f(\Point{a})-\varepsilon, f(\Point{a})+\varepsilon)$.}
+Isso significa que se fizermos uma pequena perturbação no ponto, o valor da função diferirá muito pouco do valor do ponto em questão, como ilustrado no Exemplo %\ref{exem:demanda_emprestimos}
+inicial.
+
+\end{remark}
+
+
+
+
+

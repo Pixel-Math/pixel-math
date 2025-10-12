@@ -1,0 +1,761 @@
+\setcounter{chapter}{5}
+
+\chapter{Plano Tangente e reta normal a superfícies em $\R^3$}
+
+\resumo{titulo}{
+\begin{itemize}[label=\color{chapterscolor}\textbullet]
+    \item Identificar o vetor gradiente como um vetor normal à uma superfície de nível e  encontrar a equação do plano tangente em um ponto.
+    \item Saber determinar o vetor normal a um gráfico e a equação do plano tangente.
+    \item Compreender o que é uma superfície parametrizada e como ela difere de uma representação gráfica; identificar os vetores tangentes dados pela parametrização e o vetor normal; determinar a equação do plano tangente. 
+\end{itemize}
+}
+
+\section{Caso em que $S$ é uma superfícies de nível de uma função de \red{três} variáveis}
+
+
+Lembremos primeiramente que uma superfície de nível de uma função \(g:\mathbb{R}^3\rightarrow\mathbb{R}\) é o conjunto de pontos em \(\mathbb{R}^3\) cujas coordenadas satisfazem a equação \(g(x,y,z)=0\). Em outras palavras, podemos definir a superfície de nível \(S\) da função \(g\) como:
+\[S=\{(x,y,z)\in\mathbb{R}^3;~g(x,y,z)=0\}.\]
+
+Pela regra da cadeia, que foi estudada na Semana 5, sabemos que o vetor \(\grad g(x,y,z)\) é um vetor normal à superfície \(S\) no ponto \((x,y,z)\). Isso ocorre porque o vetor gradiente é perpendicular a todas as curvas que estão sobre a superfície \(S\).
+
+Além disso, de Geometria Analítica, aprendemos que a equação cartesiana de um plano é completamente determinada quando conhecemos um ponto pertencente ao plano e o seu vetor normal\footnote{Lembre que dado um ponto $p=(x_0,y_0,z_0)$ em um plano e o vetor normal ao plano $\Vec{N}=(a,b,c)$, a equação cartesiana do plano é consequência da equação $\escalar{p-p_0}{\Vec{N}}=0$, onde $p=(x,y,z)$ é um ponto arbitrário do plano.}. %No nosso caso, o ponto pertencente ao plano é \((x,y,z)\), e o vetor normal é precisamente o vetor gradiente \(\grad g(x,y,z)\) no ponto \((x,y,z)\). 
+Portanto, podemos usar essa informação para determinar a equação do plano tangente à superfície \(S\) num ponto fixado \((x_0,y_0,z_0)\):
+\begin{equation}\label{eq:plano_tangente_nivel}
+\begin{array}{rl}
+    & \dfrac{\partial g}{\partial x}(x_0,y_0,z_0)\cdot x + \dfrac{\partial g}{\partial y}(x_0,y_0,z_0)\cdot y + \dfrac{\partial g}{\partial z}(x_0,y_0,z_0) \cdot z\\[1em]
+    = & \dfrac{\partial g}{\partial x}(x_0,y_0,z_0)\cdot x_0 + \dfrac{\partial g}{\partial y}(x_0,y_0,z_0)\cdot y_0 + \dfrac{\partial g}{\partial z}(x_0,y_0,z_0) \cdot z_0.  
+\end{array}
+\end{equation}
+
+Por outro lado, lembremos que a parametrização de uma reta é determinada pelo seu vetor diretor e um ponto pelo qual ela passa. Assim, a equação paramétrica da reta normal a $S$ no ponto $(x_0,y_0,z_0)$ é dada 
+\begin{align*}
+n(t)&=(x_0,y_0,z_0)+t\cdot \grad g(x_0,y_0,z_0),~t\in\R\\
+&=\left(x_0+t\cdot \dfrac{\partial g}{\partial x}(x_0,y_0,z_0),y_0 + t\cdot \dfrac{\partial g}{\partial y}(x_0,y_0,z_0),z_0+t\cdot \dfrac{\partial g}{\partial z}(x_0,y_0,z_0) \right).
+\end{align*}
+e, portanto, para cada $t\in\R$, as coordenadas dos pontos sobre a reta estão dadas por: 
+$$
+\begin{cases}
+    x(t)=x_0+ t\cdot \dfrac{\partial g}{\partial x}(x_0,y_0,z_0)\\[.5em]
+    y(t)=y_0+ t\cdot \dfrac{\partial g}{\partial y}(x_0,y_0,z_0)\\[.5em]
+    z(t)=z_0+ t\cdot \dfrac{\partial g}{\partial z}(x_0,y_0,z_0).
+\end{cases}
+$$
+
+
+\begin{example}{Equação do plano tangente à esfera}{}
+    Vamos a encontrar a equação do plano tangente à esfera centrada na origem e de raio $r>0$. Sabemos que tal esfera é o conjunto
+    $$S=\{(x,y,z)\in\R^3;~x^2+y^2+z^2=r^2\}.$$
+Nossa função de interesse é, portanto, $g(x,y,z)=x^2+y^2+z^2-r^2$. Para determinar o vetor normal á esfera em um ponto qualquer devemos calcular o vetor gradiente. Temos:
+\begin{align*}
+    \dfrac{\partial g}{\partial x}(x,y,z)=2x,\quad
+    \dfrac{\partial g}{\partial y}(x,y,z)=2y \quad \mbox{e} \quad
+    \dfrac{\partial g}{\partial z}(x,y,z)=2z,
+\end{align*}
+logo $\grad g(x,y,z)=2(x,y,z)$\footnote{Lembremos que uma das características da esfera é que o vetor normal é o vetor posição.}. 
+Usando a equação \eqref{eq:plano_tangente_nivel} determinamos a equação do plano tangente a $S$ em um ponto qualquer $(x_0,y_0,z_0)$: 
+$$x_0 x+y_0 y + z_0 z =x_0^2+y_0^2+z_0^2=r^2.$$
+
+\begin{center}
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+\begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=2]
+%parte de trás do círculo vermelho
+\draw[red!140,very thick] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({-\t},{-0.5},{sqrt(3/4-\t^2)});
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (2.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,2,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+	%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({\t},0,{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+
+  
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,2) node [above] {$z$};
+
+
+    %parte interna da reta normal
+\draw[yellow] plot[domain=0:-1.25,smooth,variable=\t] ({1/2+1/2*\t},{-1/2-1/2*\t},{sqrt(2)/2+sqrt(2)/2*\t});
+
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({\t},{-0.5},{sqrt(3/4-\t^2)});
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2+\t},{-1/2},{sqrt(2)/2-\t*sqrt(2)/2});
+
+%\draw[red!20,fill=red!20,opacity=0.5](1.5,-1.5,0)--(1.5,1.5,0)--(-0.5,1.5,{sqrt(2)})--(-0.5,-1.5,{sqrt(2)})-- cycle;
+
+% interseção do plano tangente com o plano xy
+\draw[red!20,fill=red!20,opacity=0.5,very thick,opacity=0.5] plot[domain=-1.5:0.5,smooth,variable=\t] ({\t+2},{\t},{0})-- (2.5,0.5,0)-- 
+(0,1/2,{5/(2*sqrt(2))}) --(-2,-1.5,{5/(2*sqrt(2))})--cycle ;
+
+
+%\draw[yellow!140,very thick,opacity=0.5] plot[domain=-sqrt(3)/2:sqrt(3)/2,smooth,variable=\t] ({0.5},{\t},{sqrt(3/4-(\t)^2)});
+
+%\draw[yellow!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2},{-1/2-\t},{sqrt(2)/2-\t*sqrt(2)/2});
+
+
+
+%\node[above right] at (-1,0.5,0.75) {$x_3 = x_1^2 + x_2^2$};
+
+%parte externa da reta normal
+\draw[yellow] plot[domain=0:2,smooth,variable=\t] ({1/2+1/2*\t},{-1/2-1/2*\t},{sqrt(2)/2+sqrt(2)/2*\t});
+
+%vetor normal
+\draw[thick, green!150,-latex,shift={(1/2,-1/2,{sqrt(2)/2})}] (0,0,0)--(1/2,-1/2,{sqrt(2)/2}) node[below left]{\footnotesize$2(x_0,y_0,z_0)$};
+
+\filldraw[red!150] (0.5,-0.5,{sqrt(1-2*(0.5)^2)}) circle (1pt) 
+%node[left]{\footnotesize$\left(\frac{1}{2},-\frac{1}{2}\right)$}; % o ponto real 
+node[left]{\footnotesize$\left(x_0,y_0,z_0\right)$};
+
+\end{tikzpicture}\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tdplotsetmaincoords{70}{190} % Adjust the view angles (azimuth, 
+\begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=2]
+%parte de trás do círculo vermelho
+\draw[red!140,very thick] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({-\t},{-0.5},{sqrt(3/4-\t^2)});
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (2,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,2,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+	%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({\t},0,{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+
+
+
+
+
+		\draw[-latex] (0,0,0) -- (0,0,2) node [above] {$z$};	
+
+  %parte interna da reta normal
+\draw[yellow] plot[domain=0:-1.25,smooth,variable=\t] ({1/2+1/2*\t},{-1/2-1/2*\t},{sqrt(2)/2+sqrt(2)/2*\t});
+
+  \foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({\t},{-0.5},{sqrt(3/4-\t^2)});
+
+
+\draw[red!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2+\t},{-1/2},{sqrt(2)/2-\t*sqrt(2)/2});
+
+% interseção do plano tangente com o plano xy
+\draw[red!20,fill=red!20,opacity=0.5,very thick,opacity=0.5] plot[domain=-1.5:0.5,smooth,variable=\t] ({\t+2},{\t},{0})-- (2.5,0.5,0)-- 
+(0,1/2,{5/(2*sqrt(2))}) --(-2,-1.5,{5/(2*sqrt(2))})--cycle ;
+
+
+
+
+%\draw[red!20,fill=red!20,opacity=0.5](1.5,-1.5,0)--(1.5,1.5,0)--(-0.5,1.5,{sqrt(2)})--(-0.5,-1.5,{sqrt(2)})-- cycle;
+
+%\draw[yellow!140,very thick,opacity=0.5] plot[domain=-sqrt(3)/2:sqrt(3)/2,smooth,variable=\t] ({0.5},{\t},{sqrt(3/4-(\t)^2)});
+
+%\draw[yellow!140,very thick,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] ({1/2},{-1/2-\t},{sqrt(2)/2-\t*sqrt(2)/2});
+
+
+
+%\node[above right] at (-1,0.5,0.75) {$x_3 = x_1^2 + x_2^2$};
+
+
+%parte externa da reta normal
+\draw[yellow] plot[domain=0:2,smooth,variable=\t] ({1/2+1/2*\t},{-1/2-1/2*\t},{sqrt(2)/2+sqrt(2)/2*\t});
+
+%vetor normal
+\draw[thick, green!150,-latex,shift={(1/2,-1/2,{sqrt(2)/2})}] (0,0,0)--(1/2,-1/2,{sqrt(2)/2}) node[below left]{\footnotesize$2(x_0,y_0,z_0)$};
+
+\filldraw[red!150] (0.5,-0.5,{sqrt(1-2*(0.5)^2)}) circle (1pt) 
+%node[left]{\footnotesize$\left(\frac{1}{2},-\frac{1}{2}\right)$}; % o ponto real 
+node[left]{\footnotesize$\left(x_0,y_0,z_0\right)$};
+
+
+
+	\end{tikzpicture}\end{comment}
+\end{center}
+\end{example}
+
+
+\section{Caso em que $S$ é o gráfico de uma função diferenciável de \red{duas} variáveis}
+
+Começamos lembrando que o gráfico de uma função $f:D\subset \R^2\to \R$ é o conjunto 
+$$\Gr(f)=\{(x,y,z)\in\R^3;~z=f(x,y),~(x,y)\in D\}.$$
+Reescrevendo a equação $z=f(x,y)$ como $z-f(x,y)=0$, observamos que $\Gr(f)$ é uma superfície de nível da função $g(x,y,z)=z-f(x,y)$. Logo,  podemos usar a equação \eqref{eq:plano_tangente_nivel} em este \textbf{caso particular}. Temos
+\begin{align*}
+    \dfrac{\partial g}{\partial x}(x,y,z)=-\dfrac{\partial f}{\partial x}(x,y),\quad 
+    \dfrac{\partial g}{\partial y}(x,y,z)=-\dfrac{\partial f}{\partial y}(x,y)\quad \mbox{e} \quad 
+    \dfrac{\partial g}{\partial z}(x,y,z)=1,
+\end{align*}
+Logo, o vetor normal ao plano tangente a $\Gr(f)$ em $(x_0,y_0,f(x_0,y_0))$ é 
+\begin{equation}\label{vetor_N_grafico}
+\Vec{N}=\grad g (x_0,y_0,z_0) = \left(-\dfrac{\partial f}{\partial y}(x_0,y_0),-\dfrac{\partial f}{\partial x}(x_0,y_0),1\right).
+\end{equation}
+Portanto, a equação do plano tangente a $\Gr(f)$ em $(x_0,y_0,f(x_0,y_0))$ é
+\begin{equation}\label{eq:plano_tang_graficos}
+-\dfrac{\partial f}{\partial y}(x_0,y_0)\cdot x -\dfrac{\partial f}{\partial x}(x_0,y_0) \cdot y + z = -\dfrac{\partial f}{\partial y}(x_0,y_0)\cdot x_0 -\dfrac{\partial f}{\partial x}(x_0,y_0) \cdot y_0 + f(x_0,y_0).
+\end{equation}
+
+A reta normal é dada pela parametrização: 
+%As coordenadas dos pontos da reta normal são dadas por:
+\begin{comment}
+$$
+\begin{cases}
+    x(t)=x_0 - t \cdot \dfrac{\partial f}{\partial x}(x_0,y_0)\\[.5em]
+    y(t)=y_0 - t\cdot \dfrac{\partial f}{\partial y}(x_0,y_0)\\[.5em]
+    z(t)=f(x_0,y_0) + t. 
+\end{cases}
+$$
+\end{comment}
+$$n(t)=\left(x_0 - t \cdot \dfrac{\partial f}{\partial x}(x_0,y_0),y_0 - t\cdot \dfrac{\partial f}{\partial y}(x_0,y_0), f(x_0,y_0) + t\right),~t\in\R. 
+$$
+\begin{example}{Equação do plano tangente ao paraboloide}{}
+Já sabemos que o paraboloide
+$$\left\{(x,y,z);~z=x^2+y^2\right\}$$
+é o gráfico da função $f(x,y)=x^2+y^2$. Para buscar o vetor normal ao paraboloide no ponto $(x_0,y_0,z_0)$ precisamos determinar as derivadas parciais da função $f$. Temos
+$$\dfrac{\partial f}{\partial x}(x,y)=2x \quad \mbox{e} \quad \dfrac{\partial f}{\partial y}(x,y)=2y ,$$
+logo $\Vec{N}= (-2x_0,-2y_0,1)$
+e, portanto, da equação \eqref{eq:plano_tang_graficos} obtemos a equação do plano tangente no ponto $(x_0,y_0,z_0)$:
+$$ -2x_0x-2y_0y+z=-2x_0^2-2y_0^2+x_0^2 +y_0^2=-x_0^2-y_0^2.$$
+
+A reta normal é dada por
+$$n(t)=\left(x_0-t \cdot \dfrac{\partial f}{\partial x}(x_0,y_0),y_0- t\cdot\dfrac{\partial f}{\partial y}(x_0,y_0), x_0^2+y_0^2+t\right),~t\in\R. $$
+
+\begin{center}
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+    \begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=3.0]
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (1.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,1.5,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({0},{\t},{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+%vetor normal
+\draw[thick, green!150,-latex,shift={(1/2,-1/2,1/2)}] (0,0,0)--({-1/3},{-(-1/3)},1/3) node[above,rotate=45]{\footnotesize$(-2x_0,-2y_0,1)$};
+  
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(\altura)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,1.75) node [above] {$z$};	
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(\altura)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+\draw[red!20,fill=red!20,opacity=0.5] (-1/2,-1,0) -- (1,1/2,0) -- (3,1/2,2) -- (3/2,-1,2) -- cycle;
+
+\filldraw[red!150] (0.5,-0.5,{2*(0.5)^2}) circle (1pt) node[left]{\footnotesize$\left(x_0,y_0,x_0^2+y_0^2\right)$};
+
+%parte externa da reta normal
+%\draw[yellow] plot[domain=0:2,smooth,variable=\t] ({1/2+1/2*\t},{-1/2-1/2*\t},{sqrt(2)/2+sqrt(2)/2*\t});
+
+
+
+%\node[above right] at (-1,0.5,0.75) {$x_3 = x_1^2 + x_2^2$};
+  
+	\end{tikzpicture}\end{comment}
+\end{center}
+\end{example}
+
+
+
+\section{Superfícies parametrizada}
+
+A modo de motivação comecemos por entender uma outra forma de determinar a equação do plano tangente a um gráfico em um ponto qualquer $(x_0,y_0,f(x_0,y_0))$. Novamente, podemos escrever o $\Gr(f)$ como
+$$\Gr(f)=\{(x,y,f(x,y))\in\R^3;~(x,y)\in D\}.$$
+Estudamos também que para $\varepsilon$ suficientemente pequeno, as curvas
+$$\alpha(x)=(x,y_0,f(x,y_0)),~x\in(-\varepsilon,\varepsilon)$$
+e
+$$\beta(y)=(x_0,y,f(x_0,y)),~y\in(-\varepsilon,\varepsilon)$$
+são curvas que estão sobre o gráfico da função. 
+Além disso, os vetores 
+$$\alpha'(x_0)=\left(1,0,\dfrac{\partial f}{\partial x}(x_0,y_0)\right) \quad \mbox{e} \quad \beta'(y_0)=\left(0,1,\dfrac{\partial f}{\partial y}(x_0,y_0)\right)$$ 
+são, respectivamente, seus vetores tangentes. Tais vetores são vetores linearmente independentes e, portanto, determinam um plano no ponto $(x_0,y_0,f(x_0,y_0)$ que é tangente a $\Gr(f)$. A equação \textbf{vetorial} desse plano é 
+\begin{align*}
+(x,y,z)&= (x_0,y_0,f(x_0,y_0)) + \lambda \alpha'(x_0)+\mu \beta'(y_0),~\lambda,\mu\in\R.
+%\\
+%& = (x_0,y_0,f(x_0,y_0)) + \lambda \left(1,0,\dfrac{\partial f}{\partial x}(x_0,y_0)\right) + \mu \left(0,1,\dfrac{\partial f}{\partial y}(x_0,y_0)\right)\\
+%&= \left(x_0+\lambda,y_0+\mu,f(x_0,y_0) + \lambda \dfrac{\partial f}{\partial x}(x_0,y_0) + \mu\dfrac{\partial f}{\partial y}(x_0,y_0) \right).
+\end{align*}
+Substituindo a expressão de $\alpha'(x_0)$ e $\beta'(y_0)$ obtemos
+\begin{equation}\label{eq:vet_plano_tang}
+    (x,y,z)=\left(x_0+\lambda,y_0+\mu,f(x_0,y_0) + \lambda \dfrac{\partial f}{\partial x}(x_0,y_0) + \mu\dfrac{\partial f}{\partial y}(x_0,y_0) \right),~\lambda,\mu\in\R.
+\end{equation}
+Observe que $\vec{N}=\alpha'(x_0) \times \beta'(y_0)$ é um vetor não nulo pois $\alpha'(x_0)$ e $\beta'(y_0)$ são linearmente independentes, logo $\vec{N}$ é um vetor normal ao plano tangente. O leitor pode verificar que $\vec{N}$ é exatamente o vetor dado por \eqref{vetor_N_grafico}. 
+
+Os gráficos são o tipo mais simples do que chamamos de  \textit{superfícies parame\-tri\-zadas}, que é uma superfície cujas coordenadas são funções de dois parâmetros. 
+
+\begin{definition}{Superfícies parametrizada}{}
+Uma \textit{superfície parametrizada}\index{superfície!parametrizada} é uma superfície $S$ em $\R^3$ cujas coordenadas dependem de dois parâmetros, ou seja, 
+$$S=\{(x(u,v),y(u,v),z(u,v)),~(u,v)\in D\subset \R^2\}.$$ 
+A aplicação 
+\[
+\varphi(u, v) = (x(u, v), y(u, v), z(u, v)),~(u,v)\in D 
+\]
+é chamada de parametrização da superfície. 
+\end{definition}
+
+Observe que \(\varphi(u, v)\) descreve um ponto na superfície paramétrica, onde \(x(u, v)\), \(y(u, v)\) e \(z(u, v)\) são funções contínuas que relacionam os parâmetros \(u\) e \(v\) às coordenadas \(x\), \(y\) e \(z\) no espaço tridimensional. Essas funções determinam como os pontos na superfície variam à medida que os parâmetros \(u\) e \(v\) são alterados.
+
+Vejamos exemplos de  superfícies parametrizadas.
+
+\begin{example}{Gráficos}{}
+Como mencionado no início da seção, o gráfico de uma função $f:\R^2\to\R$ é uma superfície parametrizada cuja parametrização é dada por 
+$$\varphi(x,y)=(x,y,f(x,y))\in\R^3;~(x,y)\in D.$$
+\end{example}
+
+\begin{example}{O plano}{}
+Sabemos que a \textit{equação vetorial} de um plano que tem vetores diretores $\vec{u}=(u_1,u_2,u_3)$ e $\vec{v}=(v_1,v_2,v_3)$ e passa pelo ponto $p_0=(x_0,y_0,z_0)$ é dada por
+$$(x,y,z)=(x_0,y_0,z_0) + \lambda \vec{u} + \mu \vec{v},~\lambda,\mu\in\R. $$
+Segue daí que 
+$$
+\begin{cases}
+    x(\lambda,\mu)=x_0+\lambda u_1 + \mu v_1, 
+    \\
+    y(\lambda,\mu)= y_0+\lambda u_2 + \mu v_2,
+    \\
+    z(\lambda,\mu)=z_0+\lambda u_3 + \mu v_3).
+    \end{cases}$$
+e, portanto, uma parametrização para o plano é dada 
+$$\varphi(\lambda,\mu)=(x_0+\lambda u_1 + \mu v_1,y_0+\lambda u_2 + \mu v_2,z_0+\lambda u_3 + \mu v_3).$$
+
+Em particular, o segundo membro de \eqref{eq:vet_plano_tang} é uma parametrização do plano tangente ao gráfico de uma função diferenciável $f:D\subset\R^2\to\R$ num ponto $(x_0,y_0,f(x_0,y_0))$. 
+\end{example}
+
+\begin{example}{O cilindro e as coordenadas cilíndricas}{}
+A ideia central para parametrizar um cilindro vertical de raio \(R\) é perceber que cada ponto do cilindro está sobre um círculo de raio $R$, ou seja, em cada corte horizontal da superfície, temos um círculo com raio \(R\), independentemente da altura no cilindro. 
+
+%%%%%%%%%%%%%%
+
+\begin{center}
+    
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+\begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=2]
+%parte de trás do círculo vermelho
+
+%\draw[red!140] plot[domain=-pi/2:-6*pi/4,smooth,variable=\t] ({sqrt(1-(sqrt(2)/2)^2) * cos(\t r)},{sqrt(1-(sqrt(2)/2)^2) * sin(\t r)},{sqrt(2)/2}); 
+
+\draw[red!140] plot[domain=-0.85*pi/2:-3*pi/2,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{sqrt(2)/2}); 
+
+  \pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (2.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,2,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+	%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({\t},0,{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+		\foreach \altura in {0,0.0125,0.025,...,1.5}{
+			\pgfmathparse{1}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+  
+  
+  
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,2) node [above] {$z$};
+
+
+\draw[green,very thick] 
+({0},{0},{sqrt(2)/2})--({sqrt(2)/2},{-sqrt(2)/2},{sqrt(2)/2})node[above, midway,rotate=10]{\footnotesize$R$};
+
+%\draw[dashed,green](0,0,0)--(1/2,-1/2,0);
+
+\tdplotdrawarc[red,thick]{(0,0,0)}{0.25}{0}{310}{anchor=south west,inner sep=1}{$\theta$};
+
+
+%\draw[green!140] plot[domain=pi/3.25:pi/2,smooth,variable=\t] ({1/4*cos(\t r)},{-1/4*cos(\t r)},{1/4*sin(\t r)})node[anchor=south east,inner sep=0]{\footnotesize $\phi~~~$};
+
+
+%\tdplotdrawarc[green,thick]{(0,0,1/2)}{0.35}{0}{45}{anchor=south west,inner sep=1}{$\theta$};
+
+
+
+		\foreach \altura in {0,0.0125,0.025,...,1.5}{
+			\pgfmathparse{1}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+
+
+
+
+
+
+    
+\draw[dashed,gray!50] ({sqrt(2)/2},{-sqrt(2)/2},{sqrt(2)/2}) -- ({sqrt(2)/2},{-sqrt(2)/2},{0});
+\draw[dashed,gray!50] ({sqrt(2)/2},0,0)--({sqrt(2)/2},{-sqrt(2)/2},0)--(0,{-sqrt(2)/2},0);
+\draw[dashed,green] (0,0,0) -- ({sqrt(2)/2},{-sqrt(2)/2},{0})--(0,0,0);
+
+
+\draw[red!140] plot[domain=-0.85*pi/2:1.2*pi/2,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{sqrt(2)/2}); 
+
+%\draw[red!140,very thick,opacity=0.5] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({\t},{-0.5},{sqrt(3/4-\t^2)});
+
+
+
+
+\filldraw[red!150] ({sqrt(2)/2},{-sqrt(2)/2},{sqrt(2)/2}) circle (1pt) 
+node[left]{\footnotesize$\left(x_0,y_0,z_0\right)$};
+
+\end{tikzpicture}\end{comment}
+\end{center}
+
+%%%%%%%%%%%%%%
+
+Isso sugere que podemos usar coordenadas polares para parametrizar as coordenadas \(x\) e \(y\), enquanto \(z\) permanece inalterado. Portanto, cada ponto \((x, y, z)\) no cilindro pode ser representado da seguinte forma:
+\begin{align*}
+x &= R\cos\theta \\
+y &= R\sin\theta \\
+z &= z,
+\end{align*}
+onde  \(\theta\) representa o ângulo no plano \(xy\), variando de \(0\) a \(2\pi\), e \(z\in\R\). Portanto, a parametrização completa do cilindro é definida como:
+\[
+\varphi(\theta, z) = \left(R\cos\theta, R\sin\theta, z\right), \quad (\theta, z) \in [0, 2\pi] \times \mathbb{R}.
+\]
+Essa parametrização permite descrever qualquer ponto no cilindro vertical em termos dos parâmetros \(\theta\) e \(z\), cobrindo toda a superfície do cilindro. Tais coordenadas são chamadas de \textit{coordenadas cilíndricas}\index{coordenadas!cilíndricas}. 
+
+
+\end{example}
+
+
+\begin{example}{A Esfera e as coordenadas esféricas}{}
+%Para descobrir uma parametrização para a esfera, podemos pensar que cada  ponto sobre a esfera se encontra sobre um círculo horizontal de raio  
+Queremos descobrir uma parametrização da esfera centrada na origem e de raio $R$. Ou seja, a esfera cuja equação é $x^2+y^2+z^2=R^2$. 
+Para isso observe que cada corte horizontal dessa esfera é também um círculo. Porém, a diferença do cilindro, esses círculos têm raios que variam à medida que você se move para cima ou para baixo na esfera. Mais precisamente, a interseção da esfera com um plano horizontal a uma altura $z\leq R$ é um círculo de raio $\sqrt{R^2-z^2}$. 
+Assim, faz sentido pensar em usar, novamente, coordenadas polares para parametrizar tais círculos: 
+\begin{align*}
+x &= \sqrt{R^2-z^2}\cos\theta \\
+y &= \sqrt{R^2-z^2} \sin\theta \\
+z &= z,
+\end{align*}
+onde $\theta\in[0,2\pi]$ e $z\in[-R,R]$. 
+Por outro lado, o raio desse círculo, tem uma relação com o ângulo que forma o vetor posição e a parte positiva do eixo $z$. De fato, chamando tal ângulo de $\phi$, temos 
+$$\sen \phi = \dfrac{\sqrt{R^2-z^2}}{R}, $$
+donde
+$$\sqrt{R^2-z^2}=R\sen \phi \quad \mbox{e} \quad z=R\cos \phi.$$
+
+
+\begin{center}
+    
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+\begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=3]
+%parte de trás do círculo vermelho
+
+\draw[red!140] plot[domain=-pi/2:-6*pi/4,smooth,variable=\t] ({sqrt(1-(sqrt(2)/2)^2) * cos(\t r)},{sqrt(1-(sqrt(2)/2)^2) * sin(\t r)},{sqrt(2)/2}); 
+  \pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (2,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,1.5,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+	%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({\t},0,{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+  
+  
+  
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,2) node [above] {$z$};
+
+
+\draw[green,very thick] (0,0,0)--(0.5,-0.5,{sqrt(1-2*(0.5)^2)})--(0,0,{sqrt(1-2*(0.5)^2)}) node[above, midway,rotate=10]{\footnotesize$\sqrt{R^2-z^2}$};
+
+\draw[dashed,green](0,0,0)--(1/2,-1/2,0);
+
+\tdplotdrawarc[red,thick]{(0,0,0)}{0.25}{0}{310}{anchor=south west,inner sep=1}{$\theta$};
+
+
+\draw[green!140] plot[domain=pi/3.25:pi/2,smooth,variable=\t] ({1/4*cos(\t r)},{-1/4*cos(\t r)},{1/4*sin(\t r)})node[anchor=south east,inner sep=0]{\footnotesize $\phi~~~$};
+
+
+%\tdplotdrawarc[green,thick]{(0,0,1/2)}{0.35}{0}{45}{anchor=south west,inner sep=1}{$\theta$};
+
+
+
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(1-\altura^2)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+
+
+
+
+
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+\draw[red!140] plot[domain=-pi/2:3*pi/4,smooth,variable=\t] ({sqrt(1-(sqrt(2)/2)^2) * cos(\t r)},{sqrt(1-(sqrt(2)/2)^2) * sin(\t r)},{sqrt(2)/2}); 
+
+%\draw[red!140,very thick,opacity=0.5] plot[domain=0:sqrt(3)/2,smooth,variable=\t] ({\t},{-0.5},{sqrt(3/4-\t^2)});
+
+
+
+
+\filldraw[red!150] (0.5,-0.5,{sqrt(1-2*(0.5)^2)}) circle (1pt) 
+%node[left]{\footnotesize$\left(\frac{1}{2},-\frac{1}{2}\right)$}; % o ponto real 
+node[left]{\footnotesize$\left(x_0,y_0,z_0\right)$};
+
+\end{tikzpicture}\end{comment}
+\end{center}
+Substituindo nas funções coordenadas temos
+\begin{align*}
+x &= R\sen \phi \cos\theta \\
+y &= R\sen \phi \sin\theta \\
+z &= R\cos \phi 
+\end{align*}
+com $\theta\in[0,2\pi]$ e $\phi\in[0,\pi] $. 
+Assim, temos a seguinte parametrização:
+\[
+\varphi(\theta, \phi) = \left(R\sen(\phi)\cos\theta, R\sen(\phi)\sen\theta, R\cos(\phi)\right), \  (\theta, \phi) \in [0, 2\pi] \times [0, \pi].
+\]
+
+
+Tais coordenadas são chamadas de \textit{coordenadas esféricas}\index{coordenadas!esféricas}. 
+\end{example}
+
+Agora queremos determinar a equação do plano tangente em um ponto $p_0=(x_0,y_0,z_0)$ de  superfície parametrizada. Seja 
+\[
+\varphi(u, v) = (x(u, v), y(u, v), z(u, v)),~(u,v)\in D,
+\]
+uma parametrização da superfície e $p_0=\varphi(u_0,v_0)$. 
+Trabalhando de forma análoga ao exemplo do gráfico, observemos que, para $\varepsilon$ suficientemente pequeno, 
+$$\alpha(u)=\varphi(u, v_0) = (x(u, v_0), y(u, v_0), z(u, v_0)),~ u \in (-\varepsilon,\varepsilon)$$
+e
+$$\beta(v)=\varphi(u_0, v) = (x(u_0, v), y(u_0, v), z(u_0, v)),~ v \in (-\varepsilon,\varepsilon)$$
+são curvas que estão sobre a superfície. Logo, seus vetores tangentes $\alpha'(u_0)$ e $\beta'(v_0)$ são tangentes à superfícies em $p_0$. 
+Observe também que derivar as parametrizações $\alpha$ e $\beta$ significa encontrar as derivadas parciais de cada uma das {funções coordenadas} com respeito a $u$ e $v$, isto é,
+$$\alpha'(u)= \left(\dfrac{\partial x}{\partial u}(u, v_0), \dfrac{\partial y}{\partial u}(u, v_0), \dfrac{\partial z}{\partial u}(u, v_0)\right),$$
+e
+$$\beta'(v)=  \left(\dfrac{\partial x}{\partial v}(u_0, v), \dfrac{\partial y}{\partial v}(u_0, v), \dfrac{\partial z}{\partial v}(u_0, v)\right).$$
+Usando a \textbf{notação} 
+$$\dfrac{\partial \varphi}{\partial u} (u,v)= \left(\dfrac{\partial x}{\partial u}(u, v), \dfrac{\partial y}{\partial u}(u, v), \dfrac{\partial z}{\partial u}(u, v)\right)
+$$
+e
+$$\dfrac{\partial \varphi}{\partial v} (u,v)=\left(\dfrac{\partial x}{\partial v}(u, v), \dfrac{\partial y}{\partial v}(u, v), \dfrac{\partial z}{\partial v}(u, v)\right),$$
+concluímos que 
+$\dfrac{\partial \varphi}{\partial u} (u_0,v_0)$ e $\dfrac{\partial \varphi}{\partial v} (u_0,v_0)$ são os vetores diretores do plano tangente à superfície em $p_0$ sempre que eles sejam linearmente independentes, caso em que chamamos a parametrização de  \textbf{regular}. Neste caso encontramos a \textbf{equação vetorial} do plano tangente:
+$$(x,y,z)=(x_0,y_0,z_0)+\lambda  \dfrac{\partial \varphi}{\partial u} (u_0,v_0) + \mu \dfrac{\partial \varphi}{\partial v} (u_0,v_0),~\lambda,\mu\in\R.$$
+
+Observe também que um vetor normal à superfície no ponto $p_0$ é dado por 
+$$\vec{N}=\dfrac{\partial \varphi}{\partial u} (u_0,v_0)\times \dfrac{\partial \varphi}{\partial v} (u_0,v_0),$$
+caso desejemos encontrar a equação cartesiana do plano tangente. 
+
+
+
+\begin{example}{}{}
+A representação visual do cilindro indica que o plano tangente a qualquer ponto do cilindro é um plano vertical, de fato, seu vetor normal deve ser normal ao círculo contido no cilindro. Analiticamente isto pode ser demonstrado usando a parametrização do Exemplo 6.5. Temos
+\begin{align*}
+\dfrac{\partial \varphi}{\partial \theta}(\theta,z)&=(-R\sen\theta,R\cos\theta,0)
+\quad\mbox{e}\quad
+\dfrac{\partial \varphi}{\partial z}(\theta,z)=(0,0,1),
+\end{align*}
+que são vetores linearmente independentes. 
+Logo, 
+$$\vec{N}=\dfrac{\partial \varphi}{\partial \theta}(\theta,z)\times \dfrac{\partial \varphi}{\partial z}(\theta,z)=(R\cos\theta,R\sen\theta,0).$$ 
+\end{example}
+
+Deixamos ao leitor encontrar o plano tangente à esfera usando a parametrização do Exemplo 6.6. 
+
+\begin{example}{Superfícies de revolução}{}
+    Uma \textit{superfície de revolução}\index{superfície!de revolução} é a rotação em torno do eixo $z$ de uma curva plana $C$ contida no pano $xz$. Supondo que no plano $yz$ tal curva tem uma parametrização $(y(t),z(t)),~t\in I$, então todo ponto da superfície que está na altura $z$, está sobre um círculo de raio $y$. Assim, podemos novamente pensar nas coordenadas polares para encontrar uma parametrização da superfície parametrizando os círculos horizontais. Temos então
+    $$\varphi(t,\theta)=(y(t)\cos \theta,y(t)\sen\theta,z(t)),~(t,\theta)\in I\times [0,2\pi]. $$
+
+Os vetores tangentes são dados por 
+$$
+\dfrac{\partial \varphi}{\partial t}(t,\theta)=(y'(t)\cos\theta,y'(t)\sen\theta,z'(t))
+$$
+e
+$$\dfrac{\partial \varphi}{\partial \theta}(t,\theta) = (-y(t)\sen\theta,y(t)\cos\theta,0),$$
+e o vetor normal por
+$$\vec{N}=(-y(t)z'(t)\cos \theta,-y(t)z'(t)\sen \theta,+2y(t)y'(t)).$$
+
+
+
+
+Os paraboloides são \textit{também} superfícies de revolução. Pensemos, por exemplo, no paraboloide de equação $z=x^2+y^2$. Observe que a interseção desse paraboloide com plano $yz$ é a parábola cuja equação nesse plano é $z=y^2$, portanto, sua parametrização é $(0,t,t^2),~t\in\R$. Assim, uma parametrização do paraboloide é dada por 
+$$\varphi(t,\theta)=(t\cos\theta,t\sen\theta,t^2),~(t,\theta)\in\R\times[0,2\pi]$$
+
+\begin{center}
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+    \begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=2.0]
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (1.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-0.75,0,0);
+		\draw[-latex] (0,0,0) -- (0,1.5,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+
+\draw[red] plot[domain=-0.35*pi:-3*pi/2,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+\draw[yellow,very thick]  plot[domain=-sqrt(1.5):0.1,smooth,variable=\t] ({0},{\t},{\t*\t}); 
+  
+\draw[thick, green!150] (0,0,1)--(0,1,1) node[midway,above,rotate=-10]{\footnotesize$y(t)=t$}--(0,1,0)node[midway,right]{\footnotesize$z(t)=t^2$};
+  
+		\foreach \altura in {0.0125,0.025,...,1.5}{
+			\pgfmathparse{sqrt(\altura)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,2.25) node [above] {$z$};	
+		\foreach \altura in {0.0125,0.025,...,1.5}{
+			\pgfmathparse{sqrt(\altura)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+\draw[red,thick] plot[domain=-0.35*pi:pi/2,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+\draw[yellow,very thick] plot[domain=0.1:sqrt(1.5),smooth,variable=\t] ({0},{\t},{\t*\t}); 
+
+
+
+\draw[dashed,gray] ({cos(45)},{sin(45)},1) --({cos(45)},{sin(45)},0) --(0,0,0);  
+
+
+\draw[red] plot[domain=0:pi/4,smooth,variable=\t] ({cos(\t r)/3},{sin(\t r)/3},{0}) node[midway,anchor=north]{\tiny$\theta$};
+
+
+\filldraw[red!150] ({cos(45)},{sin(45)},1) circle (1pt);
+
+\filldraw[yellow!150] (0,1,1) circle (1pt)node[right]{\footnotesize$(0,y(t),z(t))=(0,t,t^2)$};
+
+
+
+
+	\end{tikzpicture}\end{comment}
+\end{center}
+
+Os vetores tangentes são
+$$
+\dfrac{\partial \varphi}{\partial t}(t,\theta)=(\cos\theta,\sen\theta,2t)
+$$
+e
+$$\dfrac{\partial \varphi}{\partial \theta}(t,\theta) = (-t\sen\theta,t\cos\theta,0).$$
+Portanto, uma parametrização do plano tangente num ponto $\varphi(t_0,\theta_0)=(x_0,y_0,z_0)$ é dada por:
+$$P(\lambda,\mu)=(x_0,y_0,z_0)+\lambda (\cos\theta_0,\sen\theta_0,2t_0) + \mu (-t_0\sen\theta_0,t_0\cos\theta_0,0),~\lambda,\mu\in\R.$$
+Além disso, 
+$$\vec{N}=(-2t_0\cos \theta_0,-2t_0\sen \theta_0,2t_0).$$
+
+\end{example}

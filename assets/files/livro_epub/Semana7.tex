@@ -1,0 +1,249 @@
+\setcounter{chapter}{6}
+
+\chapter{Aproximação linear e diferencial total}
+
+\resumo{titulo}{
+\begin{itemize}[label=\color{chapterscolor}\textbullet]
+    \item Saber determinar a aproximação linear de uma função. 
+    \item Entender que a aproximação linear aproxima os valores da função.
+    \item Entender o conceito de diferencial total.
+    \item Saber usar a diferencial total para determinar uma variação aproximada da variação da função.
+    \item Entender a diferença entre aproximação linear de uma função e a diferencial total. 
+\end{itemize}
+}
+
+
+\section{Aproximação Linear}
+Em Cálculo I, aprendemos que quando lidamos com uma função derivável \(h:I\to\R\) em um ponto \(x_0\), a reta tangente ao gráfico dessa função se aproxima significativamente do próprio gráfico quando os pontos considerados estão muito próximos de \((x_0,h(x_0))\). 
+Esse fato decorre diretamente do Teorema de Taylor, que estabelece que qualquer função diferenciável pode ser aproximada por um polinômio de primeiro grau em um intervalo suficientemente pequeno centrado em \(x_0\):
+$$h(x)\approx h(x_0)+h'(x_0)(x-x_0).$$
+Em outras palavras, os valores de \(h(x)\) estão muito próximos dos valores da função linear \(\ell(x)= h(x_0)+h'(x_0)(x-x_0)\) nesse intervalo limitado. Essa aproximação é fundamental para compreender como as funções se comportam em escalas muito pequenas ao redor de um ponto específico.
+
+Portanto, surge uma questão natural: será que algo semelhante ocorre no caso de funções que dependem de mais de uma variável? Em outras palavras, é possível aproximar os valores de uma função por meio de uma função linear quando lidamos com múltiplas variáveis, o que poderia tornar as análises mais simples e acessíveis?
+
+
+
+Esse fato se generaliza para funções de $n$ variáveis, como consequência do Teorema de Taylor $n-$dimensional.
+\begin{theorem}{Teorema de Taylor  (grau 1)}{}
+    Seja $f:D\subset\R^n\to\R$ uma função diferenciável em uma vizinhança aberta de um ponto $\Point{x}_0=(x_1^0,x_2^0,\dots,x_n^0)$. Então para pontos $\Point{x}=(x_1,x_2,\dots,x_n)$ suficientemente próximos de $\Point{x}_0$ temos que
+    $$f(\Point{x})=f(\Point{x}_0) + \sum_{i=1}^n \dfrac{\partial f}{\partial x_i} (\Point{x}_0) (x_i-x_i^0) + R(\Point{x}),$$
+    onde 
+    $$\lim_{\Point x \rightarrow \Point{x}_0} \dfrac{R(\Point{x})}{\|\Point{x}-\Point{x}_0\|}=0. $$
+\end{theorem}
+Segue diretamente do teorema que, se definirmos a função linear 
+\begin{equation}\label{approx_linear_n}
+    L(\Point{x})=f(\Point{x}_0) + \sum_{k=0}^n \dfrac{\partial f}{\partial x_i} (\Point{x}_0) (x_i-x_i^0),
+\end{equation} 
+então $f(\Point{x})\approx L(\Point{x})%f(\Point{x}_0) + \sum_{k=0}^n \dfrac{\partial f}{\partial x_k} (\Point{x}_0) (x_k-x_k^0)
+$ 
+em uma vizinhança suficientemente pequena de $\Point{x}_0$. Além disso, essa aproximação se torna mais precisa à medida que os pontos \((x, y)\) se aproximam de \(\Point{x}_0\).
+
+
+Por razões óbvias, chamamos $L$ de \textit{Aproximação Linear}\index{aproximação linear} de $f$. 
+
+
+No caso de duas variáveis, a Aproximação Linear é a função 
+\begin{equation}\label{aprox_linear}
+    L(x,y)= f(x_0,y_0) + \dfrac{\partial f}{\partial x}(x_0,y_0) (x-x_0) + \dfrac{\partial f}{\partial y}(x_0,y_0) (y- y_0) . 
+\end{equation}
+
+
+
+
+\begin{example}{}{}
+Vamos considerar a função \(f(x, y) = x^2 + y^2\). Vamos determinar a Aproximação Linear desta função em torno de um ponto específico, digamos, \((x_0, y_0) = (1, 2)\).
+
+Vamos calcular as derivadas parciais de \(f(x, y) = x^2 + y^2\). Temos
+\begin{center}
+\(\dfrac{\partial f}{\partial x} = 2x\)
+\quad e\quad \(\dfrac{\partial f}{\partial y} = 2y\)
+\end{center}
+Logo, a aproximação linear \(L(x, y)\) em torno do ponto \((1, 2)\) é dada por
+\[L(x, y) = f(1, 2) + 2x(x - 1) + 2y(y - 2).\]
+
+Agora, podemos usar essa ``linearização'' de $f$ para estimar o valor de \(f(x, y)\) quando \(x\) e \(y\) estão próximos de \(1\) e \(2\), respectivamente.
+Por exemplo\footnote{Observe que o valor real da função nesse ponto é 5.141.}:
+\begin{align*}
+f(1.01, 2.03)\approx L(1.01, 2.03) & = f(1, 2) + 2(1.01 - 1) + 2(2.03 - 2)\\
+&= 5 + 2\cdot 0.01 +2\cdot 0.03 \\
+&= 5.08
+\end{align*}
+
+\end{example}
+
+
+
+
+\subsection{Plano tangente ao gráfico de uma função}
+
+Seja $f:D\subset \R^2\to \R$ uma função diferenciável no ponto $(x_0,y_0)$. Sabemos que a aproximação linear de $f$ ao redor de um ponto $(x_0,y_0)$ é dada por \eqref{aprox_linear}. Sendo que $L$ é uma função que é definida a partir da função $f$, é intuitivo pensar que seu gráfico tem alguma relação com o gráfico de $f$. 
+
+Sendo $L$ uma função linear, então seu gráfico é um plano, e cuja equação é 
+\begin{equation}\label{eq:plano_tang_graficos_2}
+z = f(x_0,y_0) + \dfrac{\partial f}{\partial x}(x_0,y_0) (x-x_0) + \dfrac{\partial f}{\partial y}(x_0,y_0) (y- y_0) . 
+\end{equation}
+Claramente, esse plano também passa pelo ponto $(x_0,y_0,f(x_0,y_0))\in \Gr(f)$, e, em uma pequena vizinhança dele, toca $\Gr(f)$ apenas nesse ponto (a menos que $f$ seja também uma função linear cujo gráfico é esse plano). Concluí-se que o plano tangente ao gráfico de $f$ em $(x_0,y_0,f(x_0,y_0))$ é o gráfico da Aproximação Linear de $f$ no ponto $(x_0,y_0)$, ou seja, o plano de equação \eqref{eq:plano_tang_graficos_2}.
+
+Visualmente observamos que tal plano tangente fica muito próximo do gráfico de $f$ quando os pontos desse plano estão muito próximos do ponto $(x_0,y_0,f(x_0,y_0))$. 
+
+%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\begin{example}{Equação do plano tangente ao paraboloide}{}
+Já sabemos que o paraboloide
+$\left\{(x,y,z);~z=x^2+y^2\right\}$
+é o gráfico da função $f(x,y)=x^2+y^2$. Para buscar determinar a equação do plano tangente a $\Gr(f)$ em $(x_0,y_0,x_0^2+y_0^2)$ precisamos determinar as derivadas parciais da função $f$. Temos
+$$\dfrac{\partial f}{\partial x}(x,y)=2x \quad \mbox{e} \quad \dfrac{\partial f}{\partial y}(x,y)=2y ,$$
+
+
+
+logo $\Vec{N}= (-2x_0,-2y_0,1)$
+e, portanto, da equação \eqref{eq:plano_tang_graficos} obtemos a equação do plano tangente no ponto $(x_0,y_0,z_0)$:
+$$ -2x_0x-2y_0y+z=-2x_0^2-2y_0^2+x_0^2 +y_0^2=-x_0^2-y_0^2.$$
+
+A reta normal é dada por
+$$n(t)=\left(x_0-t \cdot \dfrac{\partial f}{\partial x}(x_0,y_0),y_0- t\cdot\dfrac{\partial f}{\partial y}(x_0,y_0), x_0^2+y_0^2+t\right),~t\in\R. $$
+
+\begin{center}
+\tdplotsetmaincoords{70}{110} % Adjust the view angles (azimuth, elevation)
+    \begin{comment}\begin{tikzpicture}[tdplot_main_coords,scale=3.0]
+		\pgfmathsetmacro{\tini}{0.5*pi}
+		\pgfmathsetmacro{\tfin}{1.85*pi}
+		\pgfmathsetmacro{\tend}{2.5*pi}
+		% Node indicating the equation of the circumference
+%		\draw[white] (1.35,0,0) -- (0,1.35,0) node [red,below,midway,sloped] {$x^2 + y^2 = 1$};
+		%%% Coordinate axis
+		\draw[-latex] (0,0,0) -- (1.5,0,0) node [below left] {$x$};
+		\draw[dashed] (0,0,0) -- (-1.25,0,0);
+		\draw[-latex] (0,0,0) -- (0,1.5,0) node [right] {$y$};
+		\draw[dashed] (0,0,0) -- (0,-1.25,0);
+		% The region of integration
+		%\fill[yellow,opacity=0.35] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		%\draw[red,thick] plot[domain=0:6.2832,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{0.0});
+		% The curves slicing the surface
+%\draw[blue!140] plot[domain=-1:1,smooth,variable=\t] ({0},{\t},{\t*\t}); 
+		%\draw[blue!140,opacity=0.5] plot[domain=-1:1,smooth,variable=\t] (0,{\t},{\t*\t}); 
+		% El paraboloid (for z = constant)
+%vetor normal
+\draw[thick, green!150,-latex,shift={(1/2,-1/2,1/2)}] (0,0,0)--({-1/3},{-(-1/3)},1/3) node[above,rotate=45]{\footnotesize$(-2x_0,-2y_0,1)$};
+  
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(\altura)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tini:\tfin,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, first part)
+%		\draw[blue,opacity=0.75] plot[domain=pi:1.75*pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+		% last part of the z axis
+		\draw[-latex] (0,0,0) -- (0,0,1.75) node [above] {$z$};	
+		\foreach \altura in {0.0125,0.025,...,1.0}{
+			\pgfmathparse{sqrt(\altura)}
+			\pgfmathsetmacro{\radio}{\pgfmathresult}
+			\draw[blue!50,opacity=0.5] plot[domain=\tfin:\tend,smooth,variable=\t] ({\radio*cos(\t r)},{\radio*sin(\t r)},{\altura}); 
+		}
+		% Circunference bounding the surface (above, last part)
+%		\draw[blue,opacity=0.75] plot[domain=-0.25*pi:pi,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1.0}); 
+
+    
+\draw[dashed,gray!50] (0.5,-0.5,0) -- (0.5,-0.5,{2*(0.5)^2});
+\draw[dashed,gray!50] (0.5,0,0) -- (0.5,-0.5,0)--(0,-0.5,0);
+
+
+\draw[red!20,fill=red!20,opacity=0.5] (-1/2,-1,0) -- (1,1/2,0) -- (3,1/2,2) -- (3/2,-1,2) -- cycle;
+
+\filldraw[red!150] (0.5,-0.5,{2*(0.5)^2}) circle (1pt) node[left]{\footnotesize$\left(x_0,y_0,x_0^2+y_0^2\right)$};
+
+%parte externa da reta normal
+%\draw[yellow] plot[domain=0:2,smooth,variable=\t] ({1/2+1/2*\t},{-1/2-1/2*\t},{sqrt(2)/2+sqrt(2)/2*\t});
+
+
+
+%\node[above right] at (-1,0.5,0.75) {$x_3 = x_1^2 + x_2^2$};
+  
+	\end{tikzpicture}\end{comment}
+\end{center}
+\end{example}
+
+\section{Diferencial total}
+
+\begin{definition}{Diferencial total}{}
+    Dada uma função $f:D\subset \R^n\to\R$ diferenciável, definimos a \textit{diferencial total} de $f$ em $D$ como sendo
+    \begin{equation}\label{diferencial_total}
+df=\sum_{k=1}^n \dfrac{\partial f}{\partial x_k}(\Point{x}) d x_i, 
+ \end{equation}
+    onde $dx_i$ representam variações infinitesimais na variável $x_i$.
+\end{definition}
+
+Para entendermos qual informação nos proporciona $df$, observemos primeiramente que as variáveis independentes em \eqref{diferencial_total} são as variações infinitesimais $dx_i$ e não as variáveis $x_i$. Se avaliarmos as derivadas parciais em um ponto $\Point{x}_0$, e considerarmos que cada variável varia entre $x_i^0$ e $x_i$, então
+$$df=\sum_{k=1}^n \dfrac{\partial f}{\partial x_k}(\Point{x}_0) (x_i-x_i^0).$$
+Comparando com a aproximação linear dada por \eqref{approx_linear_n}, isto nos diz que $df=L(\Point{x})-f(\Point{x}_0)$ e, portanto, representa uma aproximação da variação $\Delta f = f(\Point{x})-f(\Point{x}_0)$. 
+
+Para termos uma ideia visual podemos pensar o caso em que $f$ é uma função de duas variáveis. Temos que $\Delta z = \Delta f= f(x,y)-f(x_0,y_0)$. Por outro lado, 
+$df=L(x,y)-f(x_0,y_0)\approx f(x,y)-f(x_0,y_0) = \Delta z$,
+ou seja, $df$ representa o quanto a altura do plano tangente varia entre $(x_0,y_0)$ e $(x,y)$ enquanto $\Delta z$ representa a variação real da função. Isto é intuitivamente obvio, já que o plano tangente está muito próximo do gráfico de $f$ quando o ponto $(x,y)$ está muito próximo de $(x_0,y_0)$. 
+
+A importância da diferencial total reside na capacidade de aproximarmos variações em funções complexas por meio de funções lineares.
+
+\begin{comment}
+\begin{example}{}{}
+Suponha que a função de demanda para um produto seja dada por:
+\[D(p, I) = 100 - 2p + 0.5I\]
+onde \(D\) é a quantidade demandada, \(p\) é o preço do produto e \(I\) é a renda dos consumidores. Podemos calcular as derivadas parciais dessa função:
+\[\frac{\partial D}{\partial p} = -2\]
+\[\frac{\partial D}{\partial I} = 0.5\]
+
+Agora, usando a diferencial total, podemos analisar como a demanda muda quando o preço e a renda mudam. Por exemplo, se o preço (\(p\)) aumentar em 1 e a renda (\(I\)) aumentar em 100, podemos calcular a variação na demanda:
+\[dD = \frac{\partial D}{\partial p} dp + \frac{\partial D}{\partial I} dI
+= (-2) \cdot 1 + (0.5) \cdot 100
+ = -2 + 50
+= 48.\]
+
+Isso significa que, de acordo com essa função de demanda, um aumento de 1 no preço e um aumento de 100 na renda levarão a um aumento de 48 unidades na quantidade demandada.
+
+%Aqui, usamos a diferencial total para quantificar como pequenas mudanças no preço e na renda afetam a demanda, o que é útil para as empresas ajustarem suas estratégias de preços e marketing com base nas condições de mercado.
+\end{example}
+\end{comment}
+
+\begin{example}{}{}
+ Seja $f(x,y)=x^2-xy+3y^2$ e $(x,y)$ varia de (1,2) a (1.05,2.1). Vamos comparar os valores de $\Delta f$ e $df$. 
+
+Primeiro, vamos calcular o valor de \(f(x, y)\) nos pontos iniciais e finais. Para \((x_0, y_0) = (1, 2)\) temos
+\[f(1, 2) = 1^2 - 1 \cdot 2 + 3 \cdot 2^2 = 1 - 2 + 12 = 11.\]
+e para \((x, y) = (1.05, 2.1)\)
+\[f(1.05, 2.1) = (1.05)^2 - (1.05)(2.1) + 3(2.1)^2 \approx 1.1025 - 2.205 + 13.293 = 12.1905.\]
+Logo, 
+\[\Delta f = f(1.05, 2.1) - f(1, 2) \approx 12.1905 - 11 = 1.1905.\]
+
+Por outro lado, a diferencial total \(df\) em $(x_0,y_0)=(1,2)$ é dada por:
+\[df = \frac{\partial f}{\partial x}(1,2)dx + \frac{\partial f}{\partial y}(1,2) dy.\]
+Vamos calcular as derivadas parciais de \(f\) em relação a \(x\) e \(y\):
+\[\frac{\partial f}{\partial x} = 2x - y \quad \text{e} \quad \frac{\partial f}{\partial y} = -x + 6y.\]
+
+Agora, vamos calcular \(dx\) e \(dy\), que são as mudanças em \(x\) e \(y\) entre os pontos iniciais e finais:
+\[dx = x-x_0= 1.05 - 1 = 0.05 \quad \text{e} \quad dy = y-y_0=2.1 - 2 = 0.1.\]
+
+Substituindo esses valores na expressão da diferencial total obtemos
+\begin{align*}
+df & =  (2x - y)dx + (-x + 6y)dy \\
+&= (2 \cdot 1 - 2) \cdot 0.05 + (-1 + 6 \cdot 2) \cdot 0.1 \\
+&= (2 - 2) \cdot 0.05 + (12 - 1) \cdot 0.1 \\
+&= 0 + 11 \cdot 0.1 \\
+&= 1.1.
+\end{align*}
+
+Agora podemos comparar \(\Delta f\) e \(df\):
+\[\Delta f \approx 1.1905 \quad \text{e} \quad df = 1.1.\]
+Observamos como a diferença entre os dois valores é pequena. 
+
+\end{example}
+
+
+No exemplo anterior, calculamos tanto a diferencial total (\(df\)) quanto a variação direta (\(\Delta f\)). No entanto, é importante destacar que em problemas do mundo real, frequentemente nos deparamos com funções altamente complexas, tornando a determinação direta de uma variação (\(\Delta f\)) uma tarefa extremamente desafiadora, senão impossível. Nesses cenários, a diferencial total (\(df\)) desempenha um papel crucial. Ela se torna uma ferramenta valiosa que nos permite estimar variações em situações em que possuímos informações limitadas sobre a função. O \(df\) fornece uma aproximação linear local das mudanças na função, tornando-se especialmente relevante em análises numéricas, problemas de otimização e sempre que precisamos entender o comportamento da função em pequenas vizinhanças de um ponto. Assim, a diferencial total é uma poderosa aliada na simplificação e compreensão de funções complexas em aplicações do mundo real.
+
+
+
+
+

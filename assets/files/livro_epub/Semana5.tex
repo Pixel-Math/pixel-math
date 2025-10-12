@@ -1,0 +1,505 @@
+\setcounter{chapter}{4}
+
+\chapter{Curvas parametrizadas}
+
+\resumo{titulo}{
+\begin{itemize}[label=\color{chapterscolor}\textbullet]
+    \item Definição de curvas parametrizadas
+    \item Limite e continuidade. 
+    \item Derivada de parametrizações e sua interpretação geométrica. 
+    \item Regras de derivação e Regra da cadeia. 
+    \item Outra interpretação do vetor gradiente
+\end{itemize}
+}
+
+
+
+
+
+%\section{Curvas parametrizadas}
+
+\begin{definition}{Curvas parametrizadas}{def:curvas parametrizadas}
+Uma \textit{curva parametrizada}\index{curva!parametrizada} em $\R^n$ é um conjunto de pontos 
+\[\{(x_1(t),x_2(t),\dots,x_n(t))\in\R^n;~t\in[a,b]\},\] 
+onde \(x(t)\), \(y(t)\) e \(z(t)\) são funções dos parâmetros \(t\) em $[a,b]$. A aplicação 
+$$\alpha(t)=(x_1(t),x_2(t),\dots,x_n(t))$$
+definida sobre $[a,b]$ é chamada de \textit{parametrização da curva}\index{parametrização!de uma curva}\index{curva!parametrização de uma}\footnotemark.
+\end{definition}
+\footnotetext{Nos textos, é comum referirem-se à aplicação $\alpha$ como uma curva parametrizada.}
+
+
+Observe que cada valor de \(t\) no intervalo \(I\) corresponde a um ponto único na curva, quando o parâmetro \(t\) varia, estamos \textit{traçando} a trajetória da curva à medida que \(t\) muda. As funções coordenadas descrevem como as coordenadas dos pontos na curva mudam à medida que \(t\) varia.
+
+\begin{examples}{Curvas parametrizadas no plano}{}
+        \textbf{A reta}
+        
+        Uma maneira de expressar uma parametrização para a reta representada pela equação $y = mx + b$ é através da aplicação $\alpha(x) = (x, mx + b)$, onde $x \in \mathbb{R}$. Nessa parametrização, o parâmetro $x$ percorre o conjunto dos números reais, e para cada valor de $x$, a função $\alpha(x)$ atribui um ponto $(x, y)$ que pertence à reta. O valor de $y$ é determinado pela equação da reta, ou seja, $y = mx + b$. 
+
+        \myrule{examplescolor}
+        \textbf{A parábola}
+
+Lembramos que a parábola é o conjunto dos pontos cujas coordenadas satisfazem a equação $y - k = a(x - h)^2$.  Nesse caso, a parametrização é dada por:
+\[ \alpha(x) = (x, a(x - h)^2 + k), \quad x \in \mathbb{R}.  \]
+
+Da mesma forma, para cada valor de $x$, a aplicação $\alpha(x)$ calcula as coordenadas $(x, y)$ de um ponto na parábola, sendo que a coordenada $x$ simplesmente corresponde ao valor do parâmetro $x$ e a coordenada $y$ é calculada usando a equação da parábola. 
+
+\myrule{examplescolor}
+\textbf{O círculo}
+        
+        O círculo de equação $(x-h)^2+(y-h)^2=r^2$ pode ser parametrizado usando a identidade trigonométrica $\cos^2t+\sen^2t=1$. De fato, reescrevendo a equação do círculo como $\left(\frac{x-h}{r}\right)^2+\left(\frac{y-h}{r}\right)^2=1$ e escolhendo
+        $$\cos t = \frac{x-h}{r} \quad \mbox{e} \quad \sen t = \frac{y-k}{r},$$
+        obtemos
+        $$x=r\cos t + h \quad \mbox{e} \quad y=r\sen t+k.$$
+        Logo, uma parametrização do círculo é  $$\alpha(t)=(r\cos t + h,r\sen t+k),~t\in[0,2\pi]. $$
+
+\myrule{examplescolor}
+
+        \textbf{A elipse}
+
+        Analogamente uma parametrização para a elipse de equação $$\frac{(x-h)^2}{a^2}+\frac{(y-h)^2}{b^2}=r^2$$ é dada por 
+        $$\alpha(t)=(a\cos t + h,b\sen t+k),~t\in[0,2\pi]. $$
+
+\myrule{examplescolor}
+
+\end{examples}
+
+
+\begin{exercise}{Lemniscata de Bernoulli}{}
+Ache uma parametrização para a curva cuja equação é $$(x^2+y^2)^2=a^2(x^2-y^2).$$
+\end{exercise}
+
+
+\begin{exercise}{Espiral logarítmica}{}
+Ache uma parametrização da Espiral logarítmica usando a figura a seguir: 
+\begin{center}
+\begin{tikzpicture}[
+  thick,>=stealth',
+  declare function = {
+    logx(\a,\b,\r) = \a*exp(-\b*\r)*cos(deg(\r));
+    logy(\a,\b,\r) = \a*exp(-\b*\r)*sin(deg(\r));
+  },
+  point/.style={draw,thick,circle,inner sep=1pt,label={#1}},
+  plot/.style={blue,smooth,samples=100}
+  ]
+  % Spiral parameters
+  \def\a{5}
+  \def\b{.2}
+  % Axes
+  \draw[->] (-4.5,0) -- (6,0) coordinate[label={below:$x$}] (A);
+  \draw[->] (0,-3) -- (0,5) node[font=\small][font=\small][left] {$y$};
+  % Spiral
+  \draw[plot] plot[domain=0:25] ({logx(\a,\b,\x)},{logy(\a,\b,\x)});
+  % Points M, O and M(t=0)
+  \coordinate[label={below right:$O$}] (B) at (0,0);
+  \node[font=\small][font=\small][point={above:$M$}] (C) at ({logx(\a,\b,.7)},{logy(\a,\b,.7)}) {};
+  \node[font=\small][font=\small][below] at ({logx(\a,\b,0)},{logy(\a,\b,0)}) {$M(t=0)$};
+  % Angle
+  \draw pic[->,draw,"$\varphi$",angle radius=1.5cm] {angle};
+  % Unit vectors
+  \draw[->] (B) -- ($(B)!1.3!(C)$)       node[font=\small][font=\small][below right] {$\vec{e}_r$};
+  \draw[->] (C) -- ($(C)!-1.5cm!90:(B)$) node[font=\small][font=\small][above right] {$\vec{e}_\theta$};
+  \draw[->] (B) -- +(1,0)                node[font=\small][font=\small][below]       {$\vec{e}_x$};
+  \draw[->] (B) -- +(0,1)                node[font=\small][font=\small][left]        {$\vec{e}_y$};
+\end{tikzpicture}
+\end{center}
+\end{exercise}
+
+
+
+\begin{examples}{Curvas parametrizadas em $\R^3$}{}
+%\begin{itemize}[label=\color{examplescolor}\textbullet]
+
+\textbf{Reta parametrizada} 
+
+De Geometria Analítica sabemos que uma reta no espaço tridimensional é dada através da equação:
+\[ \Point{r}(t) = \Point{p}_0 + t\vec{v},~t\in\R,\]
+onde
+\(\Point{p}_0\) é um ponto conhecido na reta e 
+ \(\vec{v}\) é um vetor diretor da reta, que indica a direção da reta. 
+ 
+Essa, de fato, é uma parametrização de uma reta. À medida que \(t\) varia, você percorre todos os pontos na reta. Se $\Point{p}_0=(\Point{p}_0^1,\Point{p}_0^2,\Point{p}_0^3)$ e $\vec{v}=(v_1,v_2,v_3)$, temos, então
+$$x(t)=\Point{p}_0^1+t v_1,\quad y(t)=\Point{p}_0^2+tv_2\quad \mbox{e}\quad z(t)=\Point{p}_0^3+tv_3. $$
+
+Lembre-se de que essa é apenas uma das maneiras de parametrizar uma reta, e você pode escolher diferentes pontos \(\Point{p}_0\) na reta e diferentes vetores diretores \(\vec{v}\) para representá-la de maneira equivalente.
+
+\begin{center}
+    \tdplotsetmaincoords{70}{120} % Define os ângulos de rotação
+\begin{tikzpicture}[scale=0.7,tdplot_main_coords]
+
+    % Eixos coordenados
+    \draw[-latex] (-5,0,0) -- (5,0,0) node[font=\small][font=\small][below] {$x$};
+    \draw[-latex] (0,-5,0) -- (0,5,0) node[font=\small][font=\small][right] {$y$};
+    \draw[-latex] (0,0,-5) -- (0,0,5) node[font=\small][font=\small][above] {$z$};
+    
+    \coordinate (-Q) at (2,-3,-4);
+    \coordinate (PQ) at (2,0,0);
+    \coordinate (Q) at (2,6,8);
+    \coordinate (P) at (2,3,4);
+    \coordinate (O) at (0,0,0);
+
+
+    
+    \draw[red!150] (PQ)--(P)--(Q); 
+    \draw[red!75] (-Q)--(PQ); 
+
+    \draw[blue,line width=.75pt,-latex] (P)--(2,4,4+4/3) node[font=\small][font=\small][midway,above left,inner sep=0]{$\vec{v}$};
+    
+
+
+        % Linhas guias
+    \draw[gray!50,dashed] (0,0,4)--(P) -- (2,3,0)--(O);
+    \draw[gray!50,dashed] (2,0,0) --(2,3,0)--(0,3,0);
+%    \draw (2,0,0) node[font=\small][font=\small][left]{$2$};
+%    \draw (0,3,0) node[font=\small][font=\small][above]{$2$};
+%    \draw (0,0,4) node[font=\small][font=\small][left]{$2$};
+    % Ponto em R^3
+
+    
+    % Desenho dos pontos
+    \filldraw[red!150] (P) circle (2pt);
+    \filldraw[red!150] (2,3+3/2,4+4/2) circle (2pt) node[font=\small][font=\small][right]{$\Point{r}(t)$};
+    
+    % Rótulo dos pontos
+    \node[font=\small][font=\small][red!150,right] at (P) {$\Point{p}_0$};
+    %\node[font=\small][font=\small][red!150,left] at (O) {$O$};
+
+    
+
+
+% segmento que junta os pontos
+%\draw[red!150] (O)--(Q); 
+
+
+    
+\end{tikzpicture}
+\end{center}
+
+
+\myrule{examplescolor}
+
+\textbf{Hélice}
+
+
+Uma hélice é uma curva tridimensional que se assemelha a uma mola ou a um parafuso. Ela tem a propriedade de se estender indefinidamente em três dimensões enquanto mantém uma forma regular e ordenada. 
+
+O movimento característico de uma hélice envolve uma combinação de rotação e elevação. Imagine um ponto que começa em uma posição específica e, à medida que percorre a hélice, gira em torno de um eixo central (geralmente o eixo \(z\)) e, ao mesmo tempo, sobe ou desce ao longo desse eixo. Isso cria uma espiral tridimensional que se estende indefinidamente em todas as direções.
+
+
+Para entender completamente uma hélice, é essencial usar a parametrização adequada, que permite descrever seu comportamento matematicamente: 
+
+\textbf{Parametrização das Coordenadas \(x\) e \(y\):} \(x(t)\) e \(y(t)\) são parametrizados usando funções trigonométricas seno e cosseno. Isso cria um movimento circular no plano \(xy\). Quando \(t = 0\), \(x = R\) e \(y = 0\), representando o ponto de partida da hélice no plano \(xy\). À medida que \(t\) aumenta, \(x\) e \(y\) mudam de acordo com as funções seno e cosseno, criando o movimento em espiral.
+
+\textbf{Parametrização da Coordenada \(z\):}
+   \(z(t)\) é parametrizado linearmente, onde \(h\) controla a taxa de aumento na altura conforme \(t\) aumenta. Isso faz com que a hélice suba ao longo do eixo \(z\) à medida que \(t\) aumenta.
+
+
+
+Por fim, uma parametrização para a hélice é dada por
+$$\alpha(t)=(R\cos kt, R\sen kt,ht),~t\in\R.$$
+
+
+\begin{center}
+\tdplotsetmaincoords{70}{110} % Define os ângulos de rotação
+\begin{tikzpicture}[scale=1,tdplot_main_coords]
+
+
+
+\draw (0,0,0)--(0,0,1);
+
+
+
+
+\draw[draw opacity=0.75] (0,0,-1.5)--(0,0,-2.5);
+
+
+%parte negativa da hélice
+\draw[red!50,thick] plot[domain=0:-10,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1/5*\t});
+
+\draw[draw opacity=0.75] (0,0,0)--(0,0,-1.5);
+
+
+
+
+    % Eixos coordenados
+    \draw[-latex] (-5,0,0) -- (5,0,0) node[font=\small][font=\small][below] {$x$};
+    \draw[-latex] (0,-5,0) -- (0,5,0) node[font=\small][font=\small][right] {$y$};
+
+
+
+%%parte positiva da hélice
+\draw[red,thick] plot[domain=0:10,smooth,variable=\t] ({cos(\t r)},{sin(\t r)},{1/5*\t});
+%    \draw[-latex] (0,0,-5) -- (0,0,5) node[font=\small][font=\small][above] {$z$};
+\draw[-latex] (0,0,1)--(0,0,4) node[font=\small][font=\small][left]{$z$};
+
+
+
+
+
+
+
+
+
+ \end{tikzpicture}
+\end{center}
+
+
+
+
+
+
+
+Observe que uma hélice está sobre um cilindro de raio $R$. De fato, para cada $t\in\R$ temos 
+$$(x(t))^2+(y(t))^2=(R\cos kt)^2+(R\sen kt)^2=R^2.$$
+
+
+
+\myrule{examplescolor}
+
+\end{examples}
+
+ \begin{exercise}{}{}
+ Mostre que a curva cuja parametrização é dada por 
+ $$\left(\cos(t)\sin(t), \sin(t)\sin(t), \cos(t)\right)
+$$
+ está sobre a esfera centrada na origem e de raio 1 (vide a figura a seguir). 
+ 
+\begin{center}
+\tdplotsetmaincoords{70}{150} % Define os ângulos de rotação
+ \begin{tikzpicture}[scale=0.7,tdplot_main_coords]
+    % Eixos coordenados
+    \draw[-latex] (-3,0,0) -- (3,0,0) node[font=\small][font=\small][below] {$x$};
+    \draw[-latex] (0,-3,0) -- (0,3,0) node[font=\small][font=\small][right] {$y$};
+    \draw[-latex] (0,0,-3) -- (0,0,3) node[font=\small][font=\small][above] {$z$};
+
+\draw[red,thick] plot[domain=0:10,smooth,variable=\t] ({cos(\t r)*sin(\t r)},{sin(\t r)*sin(\t r)},{cos(\t r)});
+ \end{tikzpicture}
+\end{center}
+
+ 
+ \end{exercise}
+
+Definimos também algumas operações entre curvas  parametrizadas usando as operações usuais de $\R^n$ como espaço vetorial: Sejam $\alpha:I\to\R^n$ e $\beta:I\to\R^n$ duas parametrizações, $c\in\R$ e $u:J\to I$.
+\begin{itemize}[label=\color{chapterscolor!110}\textbullet]
+    \item $(\alpha+\beta)(t)=\alpha(t)+\beta(t)$,
+    \item $(c\alpha)(t)=c\cdot \alpha(t)$,
+    \item $(f\alpha)(t)=f(t)\cdot\alpha(t)$,
+\end{itemize}
+
+
+
+
+\begin{definition}{Limite de uma curva parametrizada}{}
+Definimos o \textit{limite de uma parametrização} $\alpha(t)=(x_1(t),\dots,x_n(t))$, $t\in I$, de uma curva em $\R^n$, quando a variável $t$ tende a $a\in\R$, como sendo
+$$\lim_{t\rightarrow a} \alpha(t)=\left(\lim_{t\rightarrow a} x_1(t),\dots,\lim_{t\rightarrow a} x_n(t)\right).$$
+\end{definition}
+ Ou seja, o limite de uma curva parametrizada se refere ao comportamento dos pontos na curva à medida que o parâmetro (geralmente denotado como $t$) se aproxima de um determinado valor. 
+
+ \begin{example}{}{exem_parabola}
+ Considere a parábola cuja parametrização é dada por
+ $$\alpha(t)=(t^2,t),~t\in\R.$$
+Vejamos o limite à medida que $t$ se aproxima de \(2\):
+$$\lim_{t\rightarrow 2} \alpha(t) = \left(\lim_{t\rightarrow 2} t^2,\lim_{t\rightarrow 2} t\right)=(4,2).$$   
+ \end{example}
+
+ \begin{definition}{Continuidade de uma curva parametrizada}{}
+ Dizemos que $\alpha(t)=(x_1(t),\dots,x_n(t))$, $t\in I$, é contínua em $a\in I$ se 
+ $$\lim_{t\rightarrow a} \alpha(t)=\alpha (a).$$
+ \end{definition}
+ Ou seja, para que $\alpha$ seja contínua em $t=a$ devemos ter:  
+ \begin{itemize}[label=\color{chapterscolor}\textbullet]
+ \item existe $\lim\limits_{t\rightarrow a} \alpha(t)$,
+ \item $\alpha$ está definida em $t=a$, 
+ \item os dois valores anteriores coincidem. 
+ \end{itemize}
+
+ Todos os exemplos vistos até agora são curvas contínuas em todos os pontos, nestes casos dizemos simplesmente que a curva é \textit{contínua}. 
+
+\section{Derivada de uma curva parametrizada}
+Usando a definição de limite, podemos definir de forma análoga ao caso de funções de uma variável a derivada da parametrização de uma curva em $\R^n$. 
+
+ \begin{definition}{Derivada de uma curva parametrizada}{}
+ Dada uma parametrização $\alpha(t)=(x_1(t),\dots,x_n(t))$, $t\in I$, de uma curva em $\R^n$, definimos a \textit{derivada} como sendo o limite
+ $$\alpha'(t)=\lim_{h\rightarrow 0}\dfrac{\alpha (t+h)-\alpha (t)}{h},$$
+se este limite existir.     
+ \end{definition}
+
+Observe que pela definição de limite temos que 
+ $$\lim_{h\rightarrow 0}\dfrac{\alpha (t+h)-\alpha (t)}{h}=\left(\lim_{h\rightarrow 0}\dfrac{x_1 (t+h)-x_1 (t)}{h},\dots,\lim_{h\rightarrow 0}\dfrac{x_n (t+h)-x_n (t)}{h}\right)$$
+e, portanto, \textit{existe $\alpha'(t)$ se, e somente, se, cada função coordenada é uma função diferenciável em $t$}.
+Nesse caso, 
+$$\alpha'(t)=(x_1'(t),\dots,x_n'(t)).$$
+
+
+Lembrando o que aprendemos em Geometria Analítica, quando dizemos que duas curvas ou objetos se encontram em um ponto de tangência, estamos indicando que eles apenas se tocam, mas não se cruzam ou interceptam nesse ponto. Portanto, a reta tangente a uma curva em um ponto de tangência toca a curva apenas nesse ponto, sem atravessá-la. Isso é válido, é claro, em uma vizinhança extremamente próxima desse ponto.
+
+A partir disso podemos dar uma interpretação geométrica para a derivada de uma parametrização como sendo um vetor que está sobre a reta tangente à curva parametrizada. Como pode ser observado na figura a seguir, se consideramos $\alpha(t)$ como o vetor posição da curva, ou seja, cada ponto determina o vetor $\alpha(t)-O$, e se  
+$$\lim_{h\rightarrow 0}\dfrac{\alpha (t+h)-\alpha (t)}{h}$$
+existe, então $\alpha'(t)$ está sobre a reta tangente à curva no ponto $\alpha(t)$. 
+
+\begin{center}
+    \tdplotsetmaincoords{70}{100} % Define os ângulos de rotação
+\begin{tikzpicture}[scale=0.7,tdplot_main_coords]
+
+    % Eixos coordenados
+    \draw[-latex] (0,0,0) -- (5,0,0) node[font=\small][font=\small][below] {$x$};
+    \draw[-latex] (0,-5,0) -- (0,8,0) node[font=\small][font=\small][below ] {$y$};
+    \draw[-latex] (0,0,0) -- (0,0,5) node[font=\small][font=\small][above] {$z$};
+    
+    
+
+
+    
+
+    
+    
+
+
+
+
+
+\draw[red!150,thick] plot[domain=-1.5:1.5,smooth,variable=\t] ({(\t/2)^2+2},{3*\t+3},{4*cos(\t r)});
+
+\coordinate (O) at (0,0,0);
+\coordinate (P) at ({(0/2)^2+2},{3*0+3},{4*cos(0*180/3.14)});
+\coordinate (Q) at ({((1)/2)^2+2},{3*(1)+3},{4*cos((1)*180/3.14)});  
+
+
+\draw[-latex,orange] (P) --(2,6,4) node[font=\small][above]{$\alpha'(t)$};
+
+
+
+\draw[yellow,line width=1.5pt,-latex,shorten >= -1.5cm] (P)--(Q) node[font=\small][font=\small][rectangle, fill=white,pos=1.5,right,inner sep=0,xshift=5]{$(\alpha(t+h)-\alpha(t))\cdot(1/h)$};
+
+\draw[blue,line width=.75pt,-latex] (P)--(Q) node[font=\small][font=\small][rectangle, fill=white,midway,above right,inner sep=0]{$\alpha(t+h)-\alpha(t)$};
+
+
+\draw[-latex] (O) -- (P) node[font=\small][font=\small][circle,radius={1pt},fill=red!150,inner sep=1]{} node[font=\small][red, font=\small][above]{$\alpha(t)$};
+
+
+\draw[-latex] (O) -- (Q) node[font=\small][font=\small][circle,radius={1pt},fill=red!150,inner sep=1]{} node[font=\small][red,font=\small][right]{$\alpha(t+h)$};
+
+
+% Linhas guias
+    \draw[gray!50,dashed] (0,0,4)--(P) -- (2,3,0)--(O);
+    %\draw[gray!50,dashed] (2,0,0) --(2,3,0)--(0,3,0);
+
+    \draw[gray!50,dashed] (0,0,{4*cos((1)*180/3.14)})--(Q) -- ({((1)/2)^2+2},{3*(1)+3},0)--(O);
+    %\draw[gray!50,dashed] (2,0,0) --(2,3,0)--(0,3,0);
+    
+
+
+
+    
+\end{tikzpicture}
+\end{center}
+
+
+
+
+A continuação veremos algumas regras de derivação para curvas parametrizadas em \(\mathbb{R}^n\).  
+
+\begin{properties}{Regras de Derivação}{}
+
+
+Sejam $\alpha$ e $\beta$ duas parametrizações com $t\in I$, $c\in\R$ e $u:J\to I$. Temos 
+\begin{enumerate}[label=\color{resultscolor!140}\arabic*.]
+    \item $(\alpha+\beta)'(t)=\alpha'(t)+\beta'(t)$,
+
+    \item $(c\alpha)'(t)=c\alpha'(t)$,
+
+    \item $(u\alpha)'(t)=u'(t)\alpha (t)+u(t)\alpha'(t)$, 
+
+    \item $\dfrac{d}{dt}\escalar{\alpha(t)}{\beta(t)}=\escalar{\alpha'(t)}{\beta(t)}+\escalar{\alpha(t)}{\beta'(t)}$,
+
+    \item $\dfrac{d}{dt} (\alpha(t)\times \beta (t))=\alpha'(t)\times\beta(t)+\alpha(t)\times\beta'(t)$. 
+    
+\end{enumerate}
+
+
+\end{properties}
+
+Fica como exercício mostrar tais propriedades. 
+
+
+
+
+
+
+
+
+
+\begin{theorem}{Regra da cadeia II}{}
+Seja $f:D\subset \R^n\to\R$ uma função diferenciável e $\alpha:I\to D$ uma parametrização de uma curva contida em $D$ que é diferenciável definida por
+$$\alpha(t)=(x_1(t),\dots,x_n(t)).$$
+Então 
+\begin{equation}\label{eq:regra_cadeia}
+(f\circ\alpha)'(t)=\sum_{i=1}^n \dfrac{\partial f}{\partial x_i}(\alpha(t))\cdot x_i'(t).
+\end{equation}
+\end{theorem}
+
+A figura a seguir ilustra que estamos restringindo $f$ aos pontos que estão sobre a curva $\Img(\alpha)$. Isso nos dá uma função $h$ de uma única variável da qual queremos conhecer sua derivada, sendo que tal função está relacionada com $f$ e com $\alpha$.  
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.4pt,y=0.5pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%\draw[-latex] (-50,200)--(200,200);
+%Shape: Regular Polygon [id:dp9489737023786766] 
+\draw[dashed,gray,fill=gray!30]   (311.9,82) .. controls (327.69,72) and (334,100.5) .. (382.93,82) .. controls (431.87,63.5) and (472.91,127.5) .. (423.97,175.5) .. controls (375.04,223.5) and (277.97,191.5) .. (262.18,161.5) .. controls (246.4,131.5) and (296.12,92) .. (311.9,82) -- cycle ;
+%Straight Lines [id:da8241203491395297] 
+\draw[|-|,red!150]    (35,200) node[font=\small][left]{$I\subset\R$}-- (200,200) ;
+%Straight Lines [id:da7486983613494445] 
+\draw[gray,|-|]   (520,200) -- (670,200) node[font=\small][right]{$\Img(f)\subset \R$};
+%Curve Lines [id:da7945450178866553] 
+\draw[gray,-latex,dash pattern={on 0.84pt off 2.51pt}]    (77,200) .. controls (118,123.5) and (286,62.5) .. (334,162) ;
+%Curve Lines [id:da30190076244322817] 
+\draw[red!150]    (302,151.5) .. controls (430,207.5) and (378,105.5) .. (427,139.5) node[font=\small][above left]{$\Img(\alpha)$};
+%Curve Lines [id:da6935519015849456] 
+\draw[gray,-latex,dash pattern={on 0.84pt off 2.51pt}]     (382.93,82) .. controls (423.93,42) and (571,47.5) .. (584,200) ;
+%Curve Lines [id:da1419203697705722] 
+\draw[gray,-latex,dash pattern={on 0.84pt off 2.51pt}]    (366,169.5) .. controls (398.54,230.33) and (529.9,342.85) .. (568,250) node[font=\small][black,midway,left]{$f\circ\alpha$};
+%Straight Lines [id:da5216384640971632] 
+\draw[red!150,|-|]    (539,250) -- (608,250) node[font=\small][right]{$\Img(f\circ\alpha)\subset\Img(f)$};
+
+\draw[dashed,red!150](539,250)--(539,200);
+\draw[dashed,red!150](608,250)--(608,200);
+
+% Text node[font=\small]
+% Text node[font=\small]
+\draw (179,90.4) node[font=\small] [anchor=north west][inner sep=0.75pt]    {$\alpha $};
+% Text node[font=\small]
+\draw (346,49.4) node[font=\small] [anchor=north west][inner sep=0.75pt]    {$D$};
+% Text node[font=\small]
+\draw (489,38.4) node[font=\small] [anchor=north west][inner sep=0.75pt]    {$f$};
+% Text node[font=\small]
+% Text node[font=\small]
+
+
+\end{tikzpicture}
+
+
+
+
+
+Como consequência da regra da cadeia, podemos derivar um resultado que proporciona uma interpretação geométrica adicional significativa para o vetor gradiente.
+
+\begin{theorem}{Interpretação geométrica do vetor gradiente}{}
+    O gradiente de uma função diferenciável é ortogonal aos seus conjuntos de nível se for não nulo. 
+\end{theorem}
+\begin{proof}
+Consideremos uma função diferenciável $f:D\subset \R^n\to \R$. Suponhamos que o conjunto de nível correspondente ao valor $c$ seja não vazio, isto é,
+$$N_c=\left\{\Point{x}\in D;~f(\Point{x})=c \right\}\neq \emptyset.$$ 
+Seja $\alpha: (-\varepsilon,\varepsilon)\to N_c$ uma curva parametrizada contendo um ponto $\Point{p}\in N_c$. 
+
+Definamos $h(t)=f(\alpha(t))$, logo $h\equiv c$ para todo $t\in(-\varepsilon,\varepsilon)$. Usando a regra da deduzimos temos que 
+$$0=h'(0)=\escalar{\grad f(\alpha(0))}{\alpha'(0)}.$$
+Além disso, vimos que $\alpha'(0)$ é tangente a $N_c$ em $\Point{p}$. Como isso vale para qualquer curva em $N_c$, concluímos que $\grad f(\Point{p})$ é ortogonal a $N_c$ em $\Point{p}$. 
+\end{proof}
+
+
+
+
+
+

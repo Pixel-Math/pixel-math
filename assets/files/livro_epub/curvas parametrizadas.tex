@@ -1,0 +1,107 @@
+
+\newpage
+
+
+
+
+
+\section{Curvas parametrizadas}
+
+\begin{definition}{Curvas parametrizadas}{def:curvas parametrizadas}
+Uma \textit{curva parametrizada}\index{curva!parametrizada} em $\R^n$ é um conjunto de pontos 
+\[\{(x_1(t),x_2(t),\dots,x_n(t))\in\R^n;~t\in[a,b]\},\] 
+onde \(x(t)\), \(y(t)\) e \(z(t)\) são funções dos parâmetros \(t\) em $[a,b]$. A aplicação 
+$$\alpha(t)=(x_1(t),x_2(t),\dots,x_n(t))$$
+definida sobre $[a,b]$ é chamada de \textit{parametrização da curva}\index{parametrização!de uma curva}\index{curva!parametrização de uma}\footnotemark.
+\end{definition}
+\footnotetext{Nos textos, é comum referirem-se à aplicação $\alpha$ como uma curva parametrizada.}
+
+
+Observe que cada valor de \(t\) no intervalo \(I\) corresponde a um ponto único na curva, quando o parâmetro \(t\) varia, estamos \textit{traçando} a trajetória da curva à medida que \(t\) muda. As funções coordenadas descrevem como as coordenadas dos pontos na curva mudam à medida que \(t\) varia.
+
+\begin{example}{Curvas parametrizadas no plano}{}
+    \begin{itemize}[label=\color{examplescolor}\textbullet]
+        \item \textbf{A reta}
+        
+        Uma maneira de expressar uma parametrização para a reta representada pela equação $y = mx + b$ é através da aplicação $\alpha(x) = (x, mx + b)$, onde $x \in \mathbb{R}$. Nessa parametrização, o parâmetro $x$ percorre o conjunto dos números reais, e para cada valor de $x$, a função $\alpha(x)$ atribui um ponto $(x, y)$ que pertence à reta. O valor de $y$ é determinado pela equação da reta, ou seja, $y = mx + b$. 
+
+        \item \textbf{A parábola}
+
+Lembramos que a parábola é o conjunto dos pontos cujas coordenadas satisfazem a equação $y - k = a(x - h)^2$.  Nesse caso, a parametrização é dada por:
+\[ \alpha(x) = (x, a(x - h)^2 + k), \quad x \in \mathbb{R}.  \]
+
+Da mesma forma, para cada valor de $x$, a aplicação $\alpha(x)$ calcula as coordenadas $(x, y)$ de um ponto na parábola, sendo que a coordenada $x$ simplesmente corresponde ao valor do parâmetro $x$ e a coordenada $y$ é calculada usando a equação da parábola. 
+
+\item \textbf{O círculo}
+        
+        O círculo de equação $(x-h)^2+(y-h)^2=r^2$ pode ser parametrizado usando a identidade trigonométrica $\cos^2t+\sen^2t=1$. De fato, podemos reescrever a equação do círculo como $\left(\frac{x-h}{r}\right)^2+\left(\frac{y-h}{r}\right)^2=1$ escolhemos
+        $$\cos t = \frac{x-h}{r} \quad \mbox \quad \sen t = \frac{y-k}{r},$$
+        donde
+        $$x=r\cos t + h \quad \mbox{e} \quad y=r\sen t+k.$$
+        Logo $$\alpha(t)=(r\cos t + h,r\sen t+k),~t\in[0,2\pi]. $$
+
+        \item \textbf{A elipse}
+
+        Analogamente uma parametrização para a elipse de equação $\frac{(x-h)^2}{a^2}+{(y-h)^2}{b^2}=r^2$ é dada por 
+        $$\alpha(t)=(a\cos t + h,b\sen t+k),~t\in[0,2\pi]. $$
+
+    \end{itemize}
+\end{example}
+
+
+\begin{exercise}{Lemniscata de Bernoulli}{}
+Ache uma parametrização para a curva cuja equação é $(x^2+y^2)^2=a^2(x^2-y^2)$. 
+\end{exercise}
+
+
+\begin{example}{Curvas parametrizadas em $\R^3$}
+
+\textbf{Reta parametrizada}
+
+
+\end{example}
+
+
+
+%%%% abaixo não sei %%%%
+
+
+
+\section{Curvas parametrizadas}
+
+
+
+
+
+\begin{example}{}{}
+Suponha que estamos analisando o mercado de um determinado bem, como um produto eletrônico. Para simplificar, vamos considerar apenas duas variáveis: o preço do produto (P) e a quantidade demandada (Q) e oferecida (S) do produto. Queremos encontrar as curvas de oferta e demanda.
+
+\solution
+
+A curva de demanda pode ser representada por uma curva parametrizada da seguinte forma:
+\[\begin{cases}Q_d = f(P) \\\end{cases}\]
+Onde \(Q_d\) é a quantidade demandada e \(f(P)\) é uma função que relaciona o preço do produto com a quantidade demandada. Essa função pode ser uma equação linear, uma equação quadrática ou qualquer outra função que descreva o comportamento da demanda em relação ao preço.
+
+Da mesma forma, a curva de oferta pode ser representada por uma curva parametrizada:
+\[\begin{cases}Q_s = g(P) \\\end{cases}\]
+Onde \(Q_s\) é a quantidade oferecida e \(g(P)\) é uma função que relaciona o preço do produto com a quantidade oferecida. Assim como na demanda, essa função pode ser uma equação linear, quadrática ou outra que descreva o comportamento da oferta em relação ao preço.
+
+Com as curvas parametrizadas de oferta e demanda, podemos visualizar a interação entre essas duas forças de mercado. A interseção das curvas de oferta e demanda determina o preço de equilíbrio (\(P^*\)) e a quantidade de equilíbrio (\(Q^*\)), onde a quantidade demandada é igual à quantidade oferecida. Esse ponto de equilíbrio é essencial na análise microeconômica, pois é onde o mercado se ajusta naturalmente.
+
+Por exemplo, suponha que a curva de demanda seja dada por:
+\[\begin{cases}Q_d = 100 - 2P \\\end{cases}\]
+
+E a curva de oferta seja dada por:
+\[\begin{cases}Q_s = 2P - 20 \\\end{cases}\]
+
+Para encontrar o ponto de equilíbrio, igualamos \(Q_d\) e \(Q_s\):
+\[100 - 2P = 2P - 20\]
+Resolvendo a equação, encontramos \(P^* = 30\) e, em seguida, substituímos \(P^*\) em qualquer uma das equações para encontrar \(Q^*\). Neste caso, \(Q^* = 40\).
+
+Assim, o ponto de equilíbrio é \(P^* = 30\) e \(Q^* = 40\), o que significa que o preço de equilíbrio é R\$ 30,00 e a quantidade de equilíbrio é 40 unidades do produto eletrônico.
+
+\end{example}
+
+
+
+
