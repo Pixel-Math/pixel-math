@@ -21,7 +21,6 @@
             <a href="#Home" class="nav-link">Home</a>
             <a href="../chaptersPage/chaptersIndex.html" class="nav-link">Capítulos</a>
             <a href="#Downloads" class="nav-link">Downloads</a>
-            <a href="../assets/files/livro_epub/calculo_digital_doc.pdf" download class="nav-link">PDF</a>
           </div>
       </nav>
     </header>
@@ -52,6 +51,16 @@
 
     <section id="Chapter" class="section">
       <h2 class="section-title slide-in">Capítulos <i class="bi bi-book"></i></h2>
+      <div id="overall-progress" class="fade-in" style="max-width:1200px;margin:0 auto 20px auto;">
+        <div style="display:flex;align-items:center;gap:12px; color: var(--color-neutral-30); margin-bottom:6px;">
+          <i class="bi bi-graph-up-arrow" style="color:var(--color-secondary);"></i>
+          <span>Progresso geral</span>
+          <span id="overall-progress-text" style="margin-left:auto; font-weight:700; color: var(--color-neutral-40);">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="current-progress" id="overall-progress-bar" style="width:0%"></div>
+        </div>
+      </div>
       <div class="chapters-container slide-in"></div>
     </section>
 

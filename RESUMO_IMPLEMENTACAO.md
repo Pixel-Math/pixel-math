@@ -348,7 +348,6 @@ pixel-math/
 - [ ] Marcadores/highlights
 - [ ] Estatísticas de leitura
 - [ ] Gamificação (badges)
-- [ ] Export para PDF
 
 ---
 

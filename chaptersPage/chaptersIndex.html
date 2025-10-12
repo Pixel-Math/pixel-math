@@ -18,18 +18,69 @@
         <a href="../homePage/homeIndex.html#Home" class="nav-link">Home</a>
         <a href="../chaptersPage/chaptersIndex.html" class="nav-link">Capítulos</a>
         <a href="../homePage/homeIndex.html#Downloads" class="nav-link">Downloads</a>
-        <a href="../assets/files/livro_epub/calculo_digital_doc.pdf" download class="nav-link">PDF</a>
       </div>
     </nav>
   </header>
 
   <main class="container">
     <h2 class="section-title">Capítulos disponíveis</h2>
-    <div id="chaptersList" class="chapters-grid"></div>
+    
+    <!-- Barra de progresso geral do livro -->
+    <div id="overall-progress" class="overall-progress-section">
+      <div class="progress-header">
+        <div class="progress-info">
+          <i class="bi bi-graph-up-arrow"></i>
+          <span>Progresso geral do livro</span>
+        </div>
+        <span id="overall-progress-text" class="progress-percentage">0%</span>
+      </div>
+      <div class="progress-bar global-progress">
+        <div class="current-progress" id="overall-progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="chapters-container"></div>
+    
+    <!-- Botão voltar ao home -->
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="../homePage/homeIndex.html" class="back-home-button">
+        <i class="bi bi-house-fill"></i> Voltar para Home
+      </a>
+    </div>
   </main>
 
-  <footer class="simple-footer">© 2025 Cálculo Digital</footer>
+  <footer class="chapters-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3><i class="bi bi-book"></i> Sobre o Projeto</h3>
+        <p>Transformando conhecimento matemático em experiências digitais interativas.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3><i class="bi bi-link-45deg"></i> Links Rápidos</h3>
+        <ul>
+          <li><a href="../homePage/homeIndex.html#Home">Home</a></li>
+          <li><a href="../chaptersPage/chaptersIndex.html">Capítulos</a></li>
+          <li><a href="../homePage/homeIndex.html#Downloads">Downloads</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3><i class="bi bi-tools"></i> Ferramentas</h3>
+        <ul>
+          <li><a href="https://dlmf.nist.gov/LaTeXML/" target="_blank">LaTeXML</a></li>
+          <li><a href="https://calibre-ebook.com/" target="_blank">Calibre</a></li>
+          <li><a href="https://www.mathjax.org/" target="_blank">MathJax</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 Cálculo Digital 2: Do papel ao pixel. Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
+  <script src="../homePage/apiClient.js"></script>
   <script src="./chaptersScript.js"></script>
 </body>
 </html>

@@ -12,8 +12,8 @@ const chapterFile = urlParams.get('file') || '';
 
 document.addEventListener('DOMContentLoaded', async () => {
   updateChapterInfo();
-  await loadChapterProgress();
-  trackReadingProgress();
+  const savedProgress = await loadChapterProgress(); // Agora retorna o progresso
+  trackReadingProgress(savedProgress); // Passa o progresso inicial
   await loadTexContent();
   updateUserUI();
   // Ocultar links "Entrar" estáticos, se existirem
@@ -65,6 +65,7 @@ async function loadTexContent(){
       if(window.MathJax?.typesetPromise){
         await window.MathJax.typesetPromise([viewer]);
       }
+      renderNextChapterCta();
     }
   }catch(err){
     console.error('Erro ao carregar capítulo:', err);
@@ -128,10 +129,10 @@ function processLatexToHtml(texContent) {
   html = html.replace(/\\resumo\{[^}]*\}\{([\s\S]*?)\}/g, 
     '<div class="latex-summary"><div class="sum-header">📋 Resumo</div><div class="sum-content">$1</div></div>');
   
-  // Processar listas
-  html = html.replace(/\\begin\{itemize\}/g, '<ul class="latex-list">');
+  // Processar listas (itemize e enumerate com ou sem opções)
+  html = html.replace(/\\begin\{itemize\}(?:\[[^\]]*\])?/g, '<ul class="latex-list">');
   html = html.replace(/\\end\{itemize\}/g, '</ul>');
-  html = html.replace(/\\begin\{enumerate\}/g, '<ol class="latex-list">');
+  html = html.replace(/\\begin\{enumerate\}(?:\[[^\]]*\])?/g, '<ol class="latex-list">');
   html = html.replace(/\\end\{enumerate\}/g, '</ol>');
   html = html.replace(/\\item\s*/g, '<li>');
   
@@ -158,7 +159,7 @@ function processLatexToHtml(texContent) {
   // Restaurar matemática
   placeholders.forEach((m, i)=> { html = html.replace(new RegExp(`__MATH_${i}__`,'g'), m); });
   
-  // Processar parágrafos
+  // Processar parágrafos (melhorado para evitar espaçamento excessivo)
   const lines = html.split('\n');
   let inParagraph = false;
   let result = [];
@@ -166,6 +167,7 @@ function processLatexToHtml(texContent) {
   for(let line of lines) {
     line = line.trim();
     
+    // Linha vazia - fechar parágrafo se houver
     if(!line) {
       if(inParagraph) {
         result.push('</p>');
@@ -174,6 +176,7 @@ function processLatexToHtml(texContent) {
       continue;
     }
     
+    // Linha começa com tag HTML - não é parágrafo de texto
     if(line.startsWith('<')) {
       if(inParagraph) {
         result.push('</p>');
@@ -181,11 +184,12 @@ function processLatexToHtml(texContent) {
       }
       result.push(line);
     } else {
+      // Texto normal - adicionar ao parágrafo
       if(!inParagraph) {
         result.push('<p>');
         inParagraph = true;
       }
-      result.push(line + ' ');
+      result.push(line);
     }
   }
   
@@ -196,40 +200,89 @@ function processLatexToHtml(texContent) {
   return result.join('\n');
 }
 
+function renderNextChapterCta(){
+  try {
+    const el = document.getElementById('next-chapter');
+    if(!el) return;
+    fetch('../assets/files/livro_epub/chapters.json')
+      .then(r=>r.json())
+      .then(chaps => {
+        const idx = chaps.findIndex(c => c.key === chapterKey);
+        
+        // Container de navegação
+        let html = '<div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px; padding: 25px; background: rgba(255, 117, 24, 0.05); border-radius: 15px; border: 1px solid rgba(255, 117, 24, 0.2);">';
+        
+        // Botão próximo capítulo (se não for o último)
+        if(idx >= 0 && idx < chaps.length - 1){
+          const next = chaps[idx+1];
+          const params = new URLSearchParams({ key: next.key, title: next.title, file: next.file });
+          html += `
+            <a class="action-button next-chapter-btn" href="../chapterPage/chapterIndex.html?${params.toString()}">
+              <i class="bi bi-chevron-right"></i> Ler próximo capítulo
+            </a>`;
+        }
+        
+        // Botão ver todos os capítulos (sempre aparece)
+        html += `
+          <a class="action-button chapters-btn" href="../chaptersPage/chaptersIndex.html">
+            <i class="bi bi-grid-3x3-gap"></i> Ver todos os capítulos
+          </a>
+        `;
+        
+        html += '</div>';
+        el.innerHTML = html;
+      }).catch(()=>{});
+  } catch {}
+}
+
 async function loadChapterProgress(){
-  if(!apiClient.isAuthenticated()) return;
+  if(!apiClient.isAuthenticated()) return 0;
   try{
     const progress = await apiClient.getChapterProgress(chapterKey);
     const bar = document.querySelector('.current-progress');
     if(bar) bar.style.width = `${(progress.progress || 0)*100}%`;
-    if(progress.last_position > 0) window.scrollTo(0, progress.last_position);
-  }catch(err){ console.warn(err); }
+    
+    // Restaurar posição APENAS se houver progresso salvo e não estiver no topo
+    if(progress.last_position > 0 && window.pageYOffset === 0) {
+      window.scrollTo(0, progress.last_position);
+      console.log(`Restaurando última posição: ${progress.last_position}px`);
+    }
+    
+    return progress.progress || 0; // Retornar o progresso salvo
+  }catch(err){ 
+    console.warn('Erro ao carregar progresso:', err);
+    return 0;
+  }
 }
 
-function trackReadingProgress(){
-  let lastProgress = 0;
+function trackReadingProgress(initialProgress = 0){
+  let maxProgress = initialProgress; // Inicializar com o progresso salvo
   let scrollTimeout;
   
   const updateProgress = async () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const progress = scrollHeight > 0 ? Math.min(scrollTop / scrollHeight, 1) : 0;
+    const currentProgress = scrollHeight > 0 ? Math.min(scrollTop / scrollHeight, 1) : 0;
     
-    // Atualizar barra de progresso visualmente
+    // Atualizar o máximo progresso alcançado
+    if(currentProgress > maxProgress) {
+      maxProgress = currentProgress;
+    }
+    
+    // Atualizar barra de progresso visualmente com o progresso ATUAL
     const progressBar = document.querySelector('.current-progress');
     if(progressBar) {
-      progressBar.style.width = `${progress * 100}%`;
+      progressBar.style.width = `${currentProgress * 100}%`;
     }
     
     if(!apiClient.isAuthenticated()) return;
     
-    // Só salvar se mudou significativamente (>1%)
-    if(Math.abs(progress - lastProgress) > 0.01){
-      lastProgress = progress;
+    // Salvar o MÁXIMO progresso alcançado (não o atual)
+    if(maxProgress > 0.01){
       try{
-        const completed = progress >= 0.95;
-        await apiClient.saveProgress(chapterKey, progress, scrollTop, completed);
-        console.log(`Progresso salvo: ${(progress * 100).toFixed(1)}%`);
+        const completed = maxProgress >= 0.95;
+        await apiClient.saveProgress(chapterKey, maxProgress, scrollTop, completed);
+        console.log(`Progresso máximo salvo: ${(maxProgress * 100).toFixed(1)}% (atual: ${(currentProgress * 100).toFixed(1)}%)`);
       }catch(err){ 
         console.warn('Erro ao salvar progresso:', err); 
       }
@@ -244,6 +297,12 @@ function trackReadingProgress(){
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const progress = scrollHeight > 0 ? Math.min(scrollTop / scrollHeight, 1) : 0;
+    
+    // Atualizar máximo
+    if(progress > maxProgress) {
+      maxProgress = progress;
+    }
+    
     const progressBar = document.querySelector('.current-progress');
     if(progressBar) {
       progressBar.style.width = `${progress * 100}%`;

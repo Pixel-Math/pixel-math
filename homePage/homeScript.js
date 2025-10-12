@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await loadChapters();
   const progressMap = await loadUserProgress();
   await renderChapters(progressMap);
+  renderOverallProgress(progressMap);
   
   const observer = new IntersectionObserver(
     (entries) => {
@@ -95,6 +96,26 @@ document.addEventListener("DOMContentLoaded", async function () {
   
   // Mostrar informações do usuário se autenticado
   updateUserUI();
+});
+
+// Atualizar progresso quando a página fica visível (usuário volta de outro capítulo)
+document.addEventListener('visibilitychange', async () => {
+  if (!document.hidden && apiClient.isAuthenticated()) {
+    console.log('Página visível - atualizando progresso...');
+    const progressMap = await loadUserProgress();
+    await renderChapters(progressMap);
+    renderOverallProgress(progressMap);
+  }
+});
+
+// Também atualizar quando a janela recebe foco
+window.addEventListener('focus', async () => {
+  if (apiClient.isAuthenticated()) {
+    console.log('Janela em foco - atualizando progresso...');
+    const progressMap = await loadUserProgress();
+    await renderChapters(progressMap);
+    renderOverallProgress(progressMap);
+  }
 });
 
 /**
@@ -158,6 +179,16 @@ async function renderChapters(progressMap = {}) {
       window.location.href = `../chapterPage/chapterIndex.html?${params.toString()}`;
     });
   });
+}
+function renderOverallProgress(progressMap = {}){
+  const bar = document.getElementById('overall-progress-bar');
+  const text = document.getElementById('overall-progress-text');
+  if(!bar || !text || !chapters || chapters.length === 0) return;
+  // média simples dos progressos conhecidos, 0 quando ausente
+  const values = chapters.map(c => progressMap[c.key] || 0);
+  const avg = values.length ? values.reduce((a,b)=>a+b,0) / values.length : 0;
+  bar.style.width = `${(avg*100).toFixed(2)}%`;
+  text.textContent = `${(avg*100).toFixed(0)}%`;
 }
 
 // ==================== UI DE AUTENTICAÇÃO ====================

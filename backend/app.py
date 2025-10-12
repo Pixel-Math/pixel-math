@@ -132,7 +132,7 @@ def get_chapter_progress(chapter_key):
 @app.route('/api/progress/<chapter_key>', methods=['POST'])
 @jwt_required()
 def save_progress(chapter_key):
-    """Salva ou atualiza o progresso de leitura de um capítulo"""
+    """Salva ou atualiza o progresso de leitura de um capítulo - sempre mantém o MÁXIMO"""
     user_id = get_jwt_identity()
     data = request.get_json()
     
@@ -146,22 +146,27 @@ def save_progress(chapter_key):
     ).first()
     
     try:
+        new_progress_value = min(max(float(data.get('progress', 0.0)), 0.0), 1.0)
+        new_position = int(data.get('last_position', 0))
+        new_completed = bool(data.get('completed', False))
+        
         if progress:
-            # Atualizar progresso existente
-            if 'progress' in data:
-                progress.progress = min(max(float(data['progress']), 0.0), 1.0)
-            if 'last_position' in data:
-                progress.last_position = int(data['last_position'])
-            if 'completed' in data:
-                progress.completed = bool(data['completed'])
+            # Atualizar progresso existente APENAS se for MAIOR
+            if new_progress_value > progress.progress:
+                progress.progress = new_progress_value
+                progress.last_position = new_position
+                progress.completed = new_completed or progress.completed
+            # Se o progresso for menor, mantém o existente mas atualiza a posição se for maior
+            elif new_position > progress.last_position:
+                progress.last_position = new_position
         else:
             # Criar novo progresso
             progress = ReadingProgress(
                 user_id=user_id,
                 chapter_key=chapter_key,
-                progress=min(max(float(data.get('progress', 0.0)), 0.0), 1.0),
-                last_position=int(data.get('last_position', 0)),
-                completed=bool(data.get('completed', False))
+                progress=new_progress_value,
+                last_position=new_position,
+                completed=new_completed
             )
             db.session.add(progress)
         

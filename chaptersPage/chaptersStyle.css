@@ -1,8 +1,121 @@
 /* Lista de capítulos */
-:root{ --primary: #ff7518; }
+:root{ --primary: #ff7518; --color-secondary: #ff7518; }
 body{ background:#0a0a0a; color:#fff }
 .container{ max-width: 1100px; margin: 0 auto; padding: 24px }
 .section-title{ font-size: 1.6rem; margin: 16px 0 20px; color:#ddd }
+
+/* Barra de progresso geral */
+.overall-progress-section {
+  background: rgba(255, 117, 24, 0.05);
+  border: 1px solid rgba(255, 117, 24, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0 30px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-neutral-40, #ddd);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.progress-info i {
+  color: var(--color-secondary);
+  font-size: 1.3rem;
+}
+
+.progress-percentage {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-secondary);
+}
+
+.progress-bar.global-progress {
+  background: rgba(255, 255, 255, 0.1);
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar.global-progress .current-progress {
+  background: linear-gradient(90deg, var(--color-secondary), #ff9248);
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.6s ease-in-out;
+  position: relative;
+}
+
+.progress-bar.global-progress .current-progress::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Container de capítulos */
+.chapters-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.chapter {
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(255, 117, 24, 0.2);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chapter:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 117, 24, 0.5);
+  box-shadow: 0 8px 20px rgba(255, 117, 24, 0.3);
+}
+
+.chapter h4 {
+  color: #fff;
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.chapter p {
+  color: #aaa;
+  font-size: 0.95rem;
+  margin: 8px 0;
+}
+
+.chapter .progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  height: 6px;
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.chapter .current-progress {
+  background: linear-gradient(90deg, var(--color-secondary), #ff9248);
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.4s ease;
+}
 
 .chapters-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px }
 .card{ background:#121212; border:1px solid #222; border-radius: 14px; padding: 16px; display:flex; flex-direction:column; gap:8px }
@@ -11,3 +124,134 @@ body{ background:#0a0a0a; color:#fff }
 .card .meta{ display:flex; justify-content: space-between; align-items:center; margin-top: 8px }
 .card .open{ background: var(--primary); border:none; color:#111; font-weight:700; padding:10px 14px; border-radius:10px; cursor:pointer }
 .card .badge{ color:#ffb98a; font-weight: 600 }
+
+/* Botão voltar ao home - LARANJA */
+.back-home-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 35px;
+  background: linear-gradient(135deg, var(--color-secondary) 0%, #ff9248 50%, #ffb366 100%);
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(255, 117, 24, 0.4),
+              inset 0 1px 0 rgba(255,255,255,0.4),
+              0 0 20px rgba(255, 117, 24, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.back-home-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.back-home-button:hover::before {
+  left: 100%;
+}
+
+.back-home-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(255, 117, 24, 0.6),
+              inset 0 1px 0 rgba(255,255,255,0.5),
+              0 0 30px rgba(255, 117, 24, 0.4);
+  filter: brightness(1.1);
+}
+
+.back-home-button i {
+  font-size: 1.2rem;
+}
+
+/* Footer melhorado */
+.chapters-footer {
+  background: linear-gradient(to bottom, #0a0a0a, #121212);
+  color: #ddd;
+  padding: 50px 20px 20px;
+  margin-top: 60px;
+  border-top: 2px solid rgba(255, 117, 24, 0.3);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.footer-section h3 {
+  color: var(--color-secondary, #ff7518);
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-section p {
+  color: #aaa;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #bbb;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-section ul li a::before {
+  content: "▸";
+  color: var(--color-secondary, #ff7518);
+  font-size: 0.9rem;
+}
+
+.footer-section ul li a:hover {
+  color: var(--color-secondary, #ff7518);
+  padding-left: 5px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #888;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .back-home-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
