@@ -202,6 +202,57 @@ def delete_progress(chapter_key):
 
 # ==================== ROTAS AUXILIARES ====================
 
+@app.route('/api/chapters', methods=['GET'])
+def get_chapters():
+    """Retorna a lista de capítulos disponíveis"""
+    import json
+    import os
+    
+    chapters_file = os.path.join(os.path.dirname(__file__), '..', 'assets', 'files', 'livro_epub', 'chapters.json')
+    
+    try:
+        with open(chapters_file, 'r', encoding='utf-8') as f:
+            chapters = json.load(f)
+        return jsonify({'chapters': chapters}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/chapters/<chapter_key>/content', methods=['GET'])
+def get_chapter_content(chapter_key):
+    """Retorna o conteúdo de um capítulo específico"""
+    import json
+    import os
+    
+    chapters_file = os.path.join(os.path.dirname(__file__), '..', 'assets', 'files', 'livro_epub', 'chapters.json')
+    
+    try:
+        with open(chapters_file, 'r', encoding='utf-8') as f:
+            chapters = json.load(f)
+        
+        # Encontrar o capítulo
+        chapter = next((c for c in chapters if c['key'] == chapter_key), None)
+        
+        if not chapter:
+            return jsonify({'error': 'Capítulo não encontrado'}), 404
+        
+        # Ler o arquivo .tex
+        tex_file = os.path.join(os.path.dirname(__file__), '..', chapter['file'])
+        
+        with open(tex_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'chapter': chapter,
+            'content': content
+        }), 200
+        
+    except FileNotFoundError:
+        return jsonify({'error': 'Arquivo do capítulo não encontrado'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Verifica se a API está funcionando"""

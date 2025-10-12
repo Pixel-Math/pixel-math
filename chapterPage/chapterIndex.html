@@ -25,27 +25,30 @@
             <a href="../homePage/homeIndex.html#Home" class="nav-link">Home</a>
             <a href="../homePage/homeIndex.html#Chapter" class="nav-link">Capítulos</a>
             <a href="../homePage/homeIndex.html#Downloads" class="nav-link">Downloads</a>
+            <a href="../assets/files/livro_epub/calculo_digital_doc.pdf" download class="nav-link">PDF</a>
           </div>
       </nav>
     </header>
 
     <div class="container">
-      <a href="../homePage/homeIndex.html#Capitulos" class="nav-link backButton"
+      <a href="../homePage/homeIndex.html#Chapter" class="nav-link backButton"
         ><i class="bi bi-chevron-left"></i> Capítulo anterior</a
       >
 
       <h2 class="chapter">Capítulo ?</h2>
       <h1 class="titulo">Título</h1>
-      <div class="progress-bar">
-        <div class="current-progress" style="width: 50%"></div>
+      <div class="progress-bar" style="margin: 16px 0;">
+        <div class="current-progress" style="width: 0%"></div>
       </div>
+
+      <div id="tex-viewer" class="tex-viewer" style="white-space: pre-wrap; line-height: 1.6; font-size: 1.05rem; color: #e5e5e5;"></div>
 
       <div class="conteudo">
         <h3>3.1 Introdução aos Limites</h3>
         <p>O conceito de limite é fundamental para o cálculo diferencial.</p>
       </div>
-      <a href="/" class="nav-link backButton"
-        ><i class="bi bi-chevron-left"></i> Capítulo anterior</a
+      <a href="../chaptersPage/chaptersIndex.html" class="nav-link backButton" style="margin-top: 24px; display:inline-block;"
+        ><i class="bi bi-chevron-left"></i> Voltar para capítulos</a
       >
     </div>
 
@@ -66,8 +69,8 @@
                 <h3>Recursos</h3>
             </li>
             <li><a href="https://dlmf.nist.gov/LaTeXML/" class="footer-link">LaTeXML</a></li>
-            <li><a href="https://calibre-ebook.com/" class="footer-link">Calibre</a></li>
-            <li><a href="../assets/files/calculo_digital_doc.pdf" download class="footer-link">Documentação</a></li>
+      <li><a href="https://calibre-ebook.com/" class="footer-link">Calibre</a></li>
+      <li><a href="../assets/files/livro_epub/calculo_digital_doc.pdf" download class="footer-link">Documentação</a></li>
             </ul>
         </div>
 
@@ -77,7 +80,33 @@
         </p>
       </div>
     </footer>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$','$$'], ['\\[','\\]']],
+          processEscapes: true,
+          packages: {'[+]': ['noerrors','ams']},
+          macros: {
+            R: "\\mathbb{R}",
+            grad: "\\vec{\\nabla}",
+            norm: ["{\\left\\|#1\\right\\|}", 1],
+            escalar: ["{\\left\\langle #1,#2 \\right\\rangle}", 2],
+            sen: "\\operatorname{sen}",
+            Dom: "\\operatorname{Dom}",
+            Img: "\\operatorname{Img}",
+            Hess: "\\operatorname{Hess}",
+            dist: "\\operatorname{dist}",
+            red: ["{\\color{red}{#1}}", 1]
+          }
+        },
+        options: {
+          skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="../homePage/apiClient.js"></script>
-    <script src="./chapterScript.js"></script>
+    <script src="./viewerScript.js"></script>
   </body>
 </html>

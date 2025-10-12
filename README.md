@@ -17,17 +17,28 @@ O projeto agora inclui um **back-end completo** com Flask e PostgreSQL para rast
 - ✅ Sincronização em tempo real
 - ✅ Retomada automática da última posição lida
 - ✅ Barra de progresso visual
+- ✅ Visualização de capítulos a partir de arquivos .tex
+- ✅ Renderização matemática com MathJax
+
+### 🚀 Como Usar
+
+**Leia o guia completo:** [📖 COMO_USAR.md](COMO_USAR.md)
+
+**Início rápido do backend:** [⚡ backend/INICIO_RAPIDO.md](backend/INICIO_RAPIDO.md)
 
 ---
 
 ## 📖 Documentação
 
+> **[📚 ÍNDICE COMPLETO](INDICE.md)** - Veja todos os documentos disponíveis
+
 ### 🎯 Para Iniciantes
 - **[🎬 PASSO A PASSO VISUAL](PASSO_A_PASSO.md)** - Tutorial visual para iniciantes (COMECE AQUI!)
 - **[⚡ INÍCIO RÁPIDO](INICIO_RAPIDO.md)** - Comandos essenciais resumidos
+- **[❓ FAQ](FAQ.md)** - Perguntas frequentes e soluções
 
 ### 📚 Para Usuários
-- **[� TUTORIAL COMPLETO](TUTORIAL_INSTALACAO.md)** - Guia detalhado de instalação
+- **[📘 TUTORIAL COMPLETO](TUTORIAL_INSTALACAO.md)** - Guia detalhado de instalação
 - **[📝 COMANDOS](COMANDOS.md)** - Referência de comandos úteis
 
 ### 🔧 Para Desenvolvedores

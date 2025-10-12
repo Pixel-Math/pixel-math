@@ -85,3 +85,238 @@ header {
 .bi {
   color: var(--color-secondary);
 }
+
+/* Estilos para o visualizador de conteúdo .tex */
+.tex-viewer {
+  background: rgba(18, 18, 18, 0.6);
+  border: 1px solid rgba(255, 117, 24, 0.2);
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #e5e5e5;
+}
+
+.tex-viewer h2,
+.tex-viewer .section-title {
+  color: var(--color-secondary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(255, 117, 24, 0.3);
+}
+
+.tex-viewer h3,
+.tex-viewer .subsection-title {
+  color: #ffaa66;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tex-viewer h4,
+.tex-viewer .subsubsection-title {
+  color: #ffcc88;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.tex-viewer p {
+  margin: 0.75rem 0 1rem;
+  text-align: justify;
+}
+
+.tex-viewer ul,
+.tex-viewer ol {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.6rem;
+}
+
+.tex-viewer li {
+  margin-bottom: 0.5rem;
+  color: #d5d5d5;
+}
+
+.tex-viewer strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+.tex-viewer em {
+  color: #ffddaa;
+  font-style: italic;
+}
+
+.tex-viewer code,
+.tex-viewer pre {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-family: 'Courier New', monospace;
+  color: #a8dadc;
+}
+
+.tex-viewer pre {
+  padding: 15px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+/* Fórmulas matemáticas (MathJax) */
+.tex-viewer .MathJax {
+  color: #fff !important;
+}
+
+.tex-viewer mjx-container {
+  margin: 1rem 0;
+  line-height: 1.2;
+}
+
+/* Melhorar legibilidade em telas pequenas */
+@media screen and (max-width: 768px) {
+  .tex-viewer {
+    padding: 20px;
+    font-size: 1rem;
+  }
+  
+  .tex-viewer h2 {
+    font-size: 1.5rem;
+  }
+  
+  .tex-viewer h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Estilos para ambientes LaTeX especiais */
+.latex-definition,
+.latex-example,
+.latex-theorem,
+.latex-remark,
+.latex-summary {
+  margin: 1.5rem 0;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.latex-definition {
+  border-left-color: #53d3c4;
+  background: rgba(83, 211, 196, 0.05);
+}
+
+.latex-example {
+  border-left-color: #a6d883;
+  background: rgba(166, 216, 131, 0.05);
+}
+
+.latex-theorem {
+  border-left-color: #ffd978;
+  background: rgba(255, 217, 120, 0.05);
+}
+
+.latex-remark {
+  border-left-color: #ff7976;
+  background: rgba(255, 121, 118, 0.05);
+}
+
+.latex-summary {
+  border-left-color: var(--color-secondary);
+  background: rgba(255, 117, 24, 0.05);
+}
+
+.latex-proof {
+  margin: 1.5rem 0;
+  padding: 20px;
+  border-left: 4px solid #7aa2f7;
+  background: rgba(122, 162, 247, 0.05);
+  border-radius: 10px;
+}
+.pf-header {
+  color: #7aa2f7;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.pf-content { line-height: 1.7; }
+
+.def-header,
+.ex-header,
+.thm-header,
+.rem-header,
+.sum-header {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.def-header { color: #53d3c4; }
+.ex-header { color: #a6d883; }
+.thm-header { color: #ffd978; }
+.rem-header { color: #ff7976; }
+.sum-header { color: var(--color-secondary); }
+
+.def-content,
+.ex-content,
+.thm-content,
+.rem-content,
+.sum-content {
+  color: #e5e5e5;
+  line-height: 1.7;
+}
+
+/* Listas LaTeX */
+.latex-list {
+  list-style-position: inside;
+  margin: 1rem 0;
+}
+
+.latex-list li {
+  margin-bottom: 0.75rem;
+  padding-left: 1rem;
+}
+
+/* Page break */
+.page-break {
+  margin: 3rem 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255, 117, 24, 0.3), transparent);
+}
+
+/* Footnotes */
+.footnote {
+  color: var(--color-secondary);
+  font-size: 0.8em;
+  cursor: help;
+}
+
+.footnote-text {
+  font-size: 0.9em;
+  color: #aaa;
+  font-style: italic;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 117, 24, 0.3);
+}
+
+/* Chapter title */
+.chapter-title {
+  color: var(--color-secondary);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 2rem 0 1.5rem 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

@@ -1,0 +1,16 @@
+[
+  {"key": "semana1", "title": "Capítulo 1 — Noções sobre conjuntos no espaço euclidiano", "file": "assets/files/livro_epub/Semana1.tex"},
+  {"key": "semana2", "title": "Capítulo 2 — Funções de várias variáveis", "file": "assets/files/livro_epub/Semana2.tex"},
+  {"key": "semana3", "title": "Capítulo 3 — Limite e continuidade", "file": "assets/files/livro_epub/Semana3.tex"},
+  {"key": "semana4", "title": "Capítulo 4 — Derivadas parciais", "file": "assets/files/livro_epub/Semana4.tex"},
+  {"key": "semana5", "title": "Capítulo 5 — Curvas parametrizadas", "file": "assets/files/livro_epub/Semana5.tex"},
+  {"key": "semana6", "title": "Capítulo 6 — Plano tangente e reta normal a superfícies em R^3", "file": "assets/files/livro_epub/Semana6.tex"},
+  {"key": "semana7", "title": "Capítulo 7 — Aproximação linear e diferencial total", "file": "assets/files/livro_epub/Semana7.tex"},
+  {"key": "semana8", "title": "Capítulo 8 — Derivadas de segunda ordem e aproximação quadrática", "file": "assets/files/livro_epub/Semana8.tex"},
+  {"key": "semana11", "title": "Capítulo 11 — Máximos e mínimos", "file": "assets/files/livro_epub/Semana 11.tex"},
+  {"key": "derivada_total", "title": "Derivada Total (apêndice)", "file": "assets/files/livro_epub/DerivadaTotal.tex"},
+  {"key": "curvas_parametrizadas", "title": "Curvas parametrizadas (apêndice)", "file": "assets/files/livro_epub/curvas parametrizadas.tex"},
+  {"key": "plano_tangente", "title": "Plano tangente (trecho)", "file": "assets/files/livro_epub/plano tangente.tex"},
+  {"key": "dominio", "title": "Domínio (rascunho)", "file": "assets/files/livro_epub/dominio.tex"},
+  {"key": "elipse", "title": "Conjunto delimitado por uma elipse", "file": "assets/files/livro_epub/elipse.tex"}
+]

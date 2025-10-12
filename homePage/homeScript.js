@@ -1,54 +1,21 @@
-const chapters = {
-  "Capítulo 1": {
-    titulo: "Noções sobre conjuntos no espaço euclidiano",
-    descricao:
-      "Fundamentos de conjuntos no espaço euclidiano e suas propriedades topológicas.",
-    progresso: 0.5,
-  },
-  "Capítulo 2": {
-    titulo: "Funções de várias variáveis",
-    descricao:
-      "Estudo de funções com múltiplas variáveis e suas propriedades analíticas.",
-    progresso: 0.3,
-  },
-  "Capítulo 3": {
-    titulo: "Limite e Continuidade",
-    descricao:
-      "Análise do comportamento de funções próximo a pontos específicos e sua variação contínua.",
-    progresso: 0.7,
-  },
-  "Capítulo 4": {
-    titulo: "Derivadas Parciais",
-    descricao: "Taxas de variação de funções em direções específicas.",
-    progresso: 0.2,
-  },
-  "Capítulo 5": {
-    titulo: "Curvas Parametrizadas",
-    descricao: "Representação matemática de trajetórias no espaço",
-    progresso: 0.4,
-  },
-  "Capítulo 6": {
-    titulo: "Plano Tangente e reta normal a superfícies em ℝ³",
-    descricao: "Geometria local de superfícies tridimensionais",
-    progresso: 0.6,
-  },
-  "Capítulo 7": {
-    titulo: "Aproximação linear e diferencial total",
-    descricao: "Métodos para linearizar funções de múltiplas variáveis.",
-    progresso: 0.6,
-  },
-  "Capítulo 8": {
-    titulo: "Derivadas de segunda ordem e aproximação quadrática",
-    descricao: "Análise do comportamento curvado de funções multivariáveis.",
-    progresso: 0.6,
-  },
-  "Capítulo 9": {
-    titulo: "Máximos e Mínimos",
-    descricao:
-      "Técnicas para identificar pontos extremos de funções multivariáveis.",
-    progresso: 0.6,
-  },
-};
+// Capítulos serão carregados do chapters.json
+let chapters = [];
+
+/**
+ * Carrega lista de capítulos do arquivo JSON
+ */
+async function loadChapters() {
+  try {
+    const response = await fetch('../assets/files/livro_epub/chapters.json');
+    const data = await response.json();
+    chapters = data;
+    console.log('Capítulos carregados:', chapters);
+    return chapters;
+  } catch (error) {
+    console.error('Erro ao carregar capítulos:', error);
+    return [];
+  }
+}
 
 // ==================== INTEGRAÇÃO COM API ====================
 
@@ -58,22 +25,23 @@ const chapters = {
 async function loadUserProgress() {
   if (!apiClient.isAuthenticated()) {
     console.log('Usuário não autenticado. Usando progresso local.');
-    return;
+    return {};
   }
 
   try {
     const progressList = await apiClient.getAllProgress();
     
-    // Atualizar progresso dos capítulos com dados da API
+    // Criar mapa de progresso por chapter_key
+    const progressMap = {};
     progressList.forEach(progress => {
-      if (chapters[progress.chapter_key]) {
-        chapters[progress.chapter_key].progresso = progress.progress;
-      }
+      progressMap[progress.chapter_key] = progress.progress;
     });
     
-    console.log('Progresso carregado da API:', progressList);
+    console.log('Progresso carregado da API:', progressMap);
+    return progressMap;
   } catch (error) {
     console.error('Erro ao carregar progresso:', error);
+    return {};
   }
 }
 
@@ -96,8 +64,10 @@ async function saveChapterProgress(chapterKey, progress) {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  // Carregar progresso do usuário da API
-  await loadUserProgress();
+  // Carregar capítulos e progresso
+  await loadChapters();
+  const progressMap = await loadUserProgress();
+  await renderChapters(progressMap);
   
   const observer = new IntersectionObserver(
     (entries) => {
@@ -127,10 +97,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   updateUserUI();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+/**
+ * Renderiza os capítulos na página
+ */
+async function renderChapters(progressMap = {}) {
   const container = document.querySelector(".chapters-container");
+  if (!container) return;
+  
+  container.innerHTML = ''; // Limpar container
 
-  Object.entries(chapters).forEach(([chapter, info]) => {
+  chapters.forEach((chapter, index) => {
     const capDiv = document.createElement("div");
     capDiv.classList.add("chapter");
 
@@ -140,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     header.style.color = "#ff7518";
 
     const titleP = document.createElement("p");
-    titleP.textContent = chapter;
+    titleP.textContent = chapter.title.split('—')[0].trim(); // Pegar só "Capítulo X"
     const icon = document.createElement("i");
     icon.classList.add("bi", "bi-chevron-right");
 
@@ -148,16 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
     header.appendChild(icon);
 
     const h4 = document.createElement("h4");
-    h4.textContent = info.titulo;
+    h4.textContent = chapter.title.split('—')[1]?.trim() || chapter.title;
 
     const descP = document.createElement("p");
-    descP.textContent = info.descricao;
+    // Descrição genérica ou pode ser adicionada ao JSON
+    descP.textContent = `Explore os conceitos e aplicações deste capítulo.`;
 
     const progressBar = document.createElement("div");
     progressBar.classList.add("progress-bar");
     const current = document.createElement("div");
     current.classList.add("current-progress");
-    current.style.width = `${info.progresso * 100}%`;
+    
+    // Usar progresso da API ou 0
+    const progress = progressMap[chapter.key] || 0;
+    current.style.width = `${progress * 100}%`;
 
     progressBar.appendChild(current);
 
@@ -169,12 +149,16 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(capDiv);
 
     capDiv.addEventListener("click", () => {
-      // Salvar informação do capítulo clicado
-      localStorage.setItem('currentChapter', chapter);
-      window.location.href = "../chapterPage/chapterIndex.html";
+      // Redirecionar para a página do capítulo com parâmetros
+      const params = new URLSearchParams({
+        key: chapter.key,
+        title: chapter.title,
+        file: chapter.file
+      });
+      window.location.href = `../chapterPage/chapterIndex.html?${params.toString()}`;
     });
   });
-});
+}
 
 // ==================== UI DE AUTENTICAÇÃO ====================
 
@@ -183,38 +167,89 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 function updateUserUI() {
   const navMenu = document.querySelector('.nav-menu');
+  if (!navMenu) return;
+  // Remover link "Entrar" estático se existir
+  [...navMenu.querySelectorAll('a.nav-link')]
+    .filter(a => a.textContent.trim().toLowerCase() === 'entrar')
+    .forEach(a => a.remove());
+  
+  // Limpar conteúdo anterior
+  const existingUserInfo = navMenu.querySelector('.user-info');
+  const existingAuthButtons = navMenu.querySelector('.auth-buttons');
+  if (existingUserInfo) existingUserInfo.remove();
+  if (existingAuthButtons) existingAuthButtons.remove();
   
   if (apiClient.isAuthenticated() && apiClient.user) {
-    // Adicionar informações do usuário
+    // Usuário logado - mostrar info e esconder botão "Entrar"
     const userInfo = document.createElement('div');
     userInfo.className = 'user-info';
-    userInfo.style.display = 'flex';
-    userInfo.style.alignItems = 'center';
-    userInfo.style.gap = '15px';
+    userInfo.style.cssText = `
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 8px 15px;
+      background: rgba(255, 117, 24, 0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 117, 24, 0.3);
+    `;
     
     userInfo.innerHTML = `
-      <span style="color: var(--color-neutral-40);">
-        <i class="bi bi-person-circle"></i> ${apiClient.user.username}
+      <span style="color: var(--color-secondary); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+        <i class="bi bi-person-circle" style="font-size: 1.3rem;"></i> 
+        ${apiClient.user.username}
       </span>
-      <button onclick="handleLogout()" class="button" style="padding: 8px 15px; font-size: 0.9rem;">
-        Sair
+      <button onclick="handleLogout()" class="logout-btn" style="
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        background: transparent;
+        border: 1px solid var(--color-secondary);
+        color: var(--color-secondary);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      " onmouseover="this.style.background='var(--color-secondary)'; this.style.color='#000';" 
+         onmouseout="this.style.background='transparent'; this.style.color='var(--color-secondary)';">
+        <i class="bi bi-box-arrow-right"></i> Sair
       </button>
     `;
     
     navMenu.appendChild(userInfo);
   } else {
-    // Adicionar botão de login
+    // Usuário NÃO logado - mostrar botões de autenticação
     const authButtons = document.createElement('div');
     authButtons.className = 'auth-buttons';
-    authButtons.style.display = 'flex';
-    authButtons.style.gap = '10px';
+    authButtons.style.cssText = 'display: flex; gap: 10px; align-items: center;';
     
     authButtons.innerHTML = `
-      <button onclick="showLoginModal()" class="button" style="padding: 8px 15px; font-size: 0.9rem;">
-        Entrar
+      <button onclick="showLoginModal()" class="auth-btn login-btn" style="
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        background: var(--color-secondary);
+        border: none;
+        color: #000;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(255, 117, 24, 0.3);
+      " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(255, 117, 24, 0.5)';" 
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(255, 117, 24, 0.3)';">
+        <i class="bi bi-box-arrow-in-right"></i> Entrar
       </button>
-      <button onclick="showRegisterModal()" class="button" style="padding: 8px 15px; font-size: 0.9rem; background: transparent; border: 2px solid var(--color-secondary);">
-        Cadastrar
+      <button onclick="showRegisterModal()" class="auth-btn register-btn" style="
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        background: transparent;
+        border: 2px solid var(--color-secondary);
+        color: var(--color-secondary);
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: all 0.3s ease;
+      " onmouseover="this.style.background='rgba(255, 117, 24, 0.1)';" 
+         onmouseout="this.style.background='transparent';">
+        <i class="bi bi-person-plus"></i> Cadastrar
       </button>
     `;
     
@@ -232,40 +267,15 @@ function handleLogout() {
 }
 
 /**
- * Mostra modal de login (implementação básica)
+ * Mostra modal de login - redireciona para página de autenticação
  */
 function showLoginModal() {
-  const username = prompt('Username:');
-  const password = prompt('Password:');
-  
-  if (username && password) {
-    apiClient.login(username, password)
-      .then(() => {
-        alert('Login realizado com sucesso!');
-        window.location.reload();
-      })
-      .catch(error => {
-        alert('Erro ao fazer login: ' + error.message);
-      });
-  }
+  window.location.href = '../authPage/authIndex.html';
 }
 
 /**
- * Mostra modal de registro (implementação básica)
+ * Mostra modal de registro - redireciona para página de autenticação
  */
 function showRegisterModal() {
-  const username = prompt('Username:');
-  const email = prompt('Email:');
-  const password = prompt('Password:');
-  
-  if (username && email && password) {
-    apiClient.register(username, email, password)
-      .then(() => {
-        alert('Cadastro realizado com sucesso!');
-        window.location.reload();
-      })
-      .catch(error => {
-        alert('Erro ao cadastrar: ' + error.message);
-      });
-  }
+  window.location.href = '../authPage/authIndex.html';
 }
