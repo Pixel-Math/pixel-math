@@ -125,6 +125,23 @@ function renderOverallProgress(progressMap = {}){
   text.textContent = `${(avg*100).toFixed(0)}%`;
 }
 
+async function renderOverallProgressWithBackend(progressMap = {}){
+  const bar = document.getElementById('overall-progress-bar');
+  const text = document.getElementById('overall-progress-text');
+  if(!bar || !text) return;
+  const fallback = () => renderOverallProgress(progressMap);
+  if(!apiClient.isAuthenticated()) return fallback();
+  try{
+    const overall = await apiClient.getOverallProgress();
+    const value = Math.max(0, Math.min(1, overall?.overall_progress ?? 0));
+    bar.style.width = `${(value*100).toFixed(2)}%`;
+    text.textContent = `${(value*100).toFixed(0)}%`;
+  }catch(err){
+    console.warn('Falha ao obter progresso geral do backend. Usando fallback.', err);
+    fallback();
+  }
+}
+
 /**
  * Atualiza UI com informações do usuário
  */
@@ -193,7 +210,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   await loadChapters();
   const progressMap = await loadUserProgress();
   await renderChapters(progressMap);
-  renderOverallProgress(progressMap);
+  await renderOverallProgressWithBackend(progressMap);
   updateUserUI();
 });
 
@@ -203,7 +220,7 @@ document.addEventListener('visibilitychange', async () => {
     console.log('Página visível - atualizando progresso...');
     const progressMap = await loadUserProgress();
     await renderChapters(progressMap);
-    renderOverallProgress(progressMap);
+    await renderOverallProgressWithBackend(progressMap);
   }
 });
 
@@ -213,6 +230,6 @@ window.addEventListener('focus', async () => {
     console.log('Janela em foco - atualizando progresso...');
     const progressMap = await loadUserProgress();
     await renderChapters(progressMap);
-    renderOverallProgress(progressMap);
+    await renderOverallProgressWithBackend(progressMap);
   }
 });

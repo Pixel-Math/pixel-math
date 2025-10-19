@@ -226,12 +226,16 @@
   white-space: nowrap;
   margin-top: auto;
   align-self: flex-end;
-  font-size: 1rem;
-  padding: 12px 22px;
+  font-size: 0.4rem;
+  padding: 48px 76px;
+  /* largura maior do botão no desktop */
+  min-width: 420px;
+  width: 100%;
+  max-width: 560px;
   border-radius: 12px;
   background: linear-gradient(135deg, var(--color-secondary) 0%, #ff9248 50%, #ffb366 100%);
   color: #000;
-  font-weight: 800;
+  font-weight: 500;
   text-decoration: none;
   border: 0;
   box-shadow: 0 6px 14px rgba(255, 117, 24, 0.4), 
@@ -240,6 +244,7 @@
   transition: transform .2s ease, box-shadow .3s ease, filter .2s ease;
   position: relative;
   overflow: hidden;
+  justify-content: center;
 }
 
 .download-button::before {
@@ -271,7 +276,7 @@
 }
 
 .download-button i {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   animation: bounce 2s infinite;
 }
 
@@ -332,6 +337,10 @@
     width: 100%;
     justify-content: center;
     margin-top: 15px;
+    min-width: auto; /* evita overflow em telas estreitas */
+    font-size: 1.1rem;
+    padding: 16px 28px;
+    max-width: none;
   }
 }
 

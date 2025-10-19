@@ -162,6 +162,16 @@ class ApiClient {
     const data = await this.request('/health');
     return data;
   }
+
+  // ==================== PROGRESSO GERAL ====================
+
+  /**
+   * Obtém progresso geral persistido do usuário
+   */
+  async getOverallProgress() {
+    const data = await this.request('/progress/overall');
+    return data.overall;
+  }
 }
 
 // Exportar instância única

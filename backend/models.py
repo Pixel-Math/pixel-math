@@ -71,3 +71,25 @@ class ReadingProgress(db.Model):
     
     def __repr__(self):
         return f'<ReadingProgress user={self.user_id} chapter={self.chapter_key} progress={self.progress}>'
+
+
+class OverallProgress(db.Model):
+    """Progresso geral do usuário (persistido)"""
+    __tablename__ = 'overall_progress'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, unique=True, index=True)
+    overall_progress = db.Column(db.Float, default=0.0)  # 0.0 a 1.0 (média dos capítulos)
+    chapters_completed = db.Column(db.Integer, default=0)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            'user_id': self.user_id,
+            'overall_progress': self.overall_progress,
+            'chapters_completed': self.chapters_completed,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
+
+    def __repr__(self):
+        return f'<OverallProgress user={self.user_id} overall={self.overall_progress}>'

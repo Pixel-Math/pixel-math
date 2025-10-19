@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from config import Config
-from models import db, User, ReadingProgress
+from models import db, User, ReadingProgress, OverallProgress
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -157,8 +157,12 @@ def save_progress(chapter_key):
                 progress.last_position = new_position
                 progress.completed = new_completed or progress.completed
             # Se o progresso for menor, mantém o existente mas atualiza a posição se for maior
-            elif new_position > progress.last_position:
-                progress.last_position = new_position
+            else:
+                if new_position > progress.last_position:
+                    progress.last_position = new_position
+                # Mesmo sem aumentar progresso, se vier completed=True, persiste
+                if new_completed:
+                    progress.completed = True
         else:
             # Criar novo progresso
             progress = ReadingProgress(
@@ -170,6 +174,9 @@ def save_progress(chapter_key):
             )
             db.session.add(progress)
         
+        # Após salvar o progresso do capítulo, recalcular e persistir o progresso geral
+        recalc_and_persist_overall_progress(user_id)
+
         db.session.commit()
         
         return jsonify({
@@ -179,6 +186,58 @@ def save_progress(chapter_key):
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': f'Erro ao salvar progresso: {str(e)}'}), 500
+
+
+def recalc_and_persist_overall_progress(user_id: int):
+    """Recalcula a média de progresso do usuário considerando todos os capítulos
+    do arquivo chapters.json e persiste na tabela OverallProgress.
+    Capítulos sem registro contam como 0.0.
+    """
+    import json, os
+
+    chapters_file = os.path.join(os.path.dirname(__file__), '..', 'assets', 'files', 'livro_epub', 'chapters.json')
+    try:
+        with open(chapters_file, 'r', encoding='utf-8') as f:
+            chapters = json.load(f)
+    except Exception:
+        chapters = []
+
+    total = len(chapters)
+    if total == 0:
+        overall = 0.0
+        completed_count = 0
+    else:
+        # Mapa dos progressos existentes
+        progresses = ReadingProgress.query.filter_by(user_id=user_id).all()
+        prog_map = {p.chapter_key: float(p.progress or 0.0) for p in progresses}
+        values = [prog_map.get(c['key'], 0.0) for c in chapters]
+        overall = sum(values) / total
+        completed_count = sum(1 for v in values if v >= 0.999)
+
+    record = OverallProgress.query.filter_by(user_id=user_id).first()
+    if not record:
+        record = OverallProgress(user_id=user_id, overall_progress=overall, chapters_completed=completed_count)
+        db.session.add(record)
+    else:
+        record.overall_progress = overall
+        record.chapters_completed = completed_count
+
+
+@app.route('/api/progress/overall', methods=['GET'])
+@jwt_required()
+def get_overall_progress():
+    """Retorna o progresso geral persistido; se ausente, calcula e cria."""
+    user_id = get_jwt_identity()
+    record = OverallProgress.query.filter_by(user_id=user_id).first()
+    if not record:
+        recalc_and_persist_overall_progress(user_id)
+        record = OverallProgress.query.filter_by(user_id=user_id).first()
+    return jsonify({'overall': record.to_dict() if record else {
+        'user_id': user_id,
+        'overall_progress': 0.0,
+        'chapters_completed': 0,
+        'updated_at': None
+    }}), 200
 
 
 @app.route('/api/progress/<chapter_key>', methods=['DELETE'])
@@ -197,6 +256,10 @@ def delete_progress(chapter_key):
     
     try:
         db.session.delete(progress)
+        # Garante que a exclusão seja considerada nos cálculos seguintes
+        db.session.flush()
+        # Recalcula o progresso geral após exclusão
+        recalc_and_persist_overall_progress(user_id)
         db.session.commit()
         
         return jsonify({'message': 'Progresso removido com sucesso'}), 200
